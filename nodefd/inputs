@@ -17,7 +17,11 @@ nosync          = 1         # MLMG::setNoGpuSync
 verbose         = 1         # WarpX uses 2; 1 keeps output readable over many solves
 bottom_verbose  = 0
 max_iter        = 200       # WarpX self_fields_max_iters
-fixed_iter      = 0         # >0 -> setFixedIter: deterministic work, no convergence abort
+# >0 -> MLMG::setFixedIter.  This caps the iteration count and disables the
+# "MLMG failed." abort, but MLMG still breaks out early once it converges
+# (AMReX_MLMG.H:883,921).  For exactly N V-cycles of identical work every
+# solve, pair it with reltol=0.0:   fixed_iter=12 reltol=0.0
+fixed_iter      = 0
 reltol          = 1.e-11    # WarpX self_fields_required_precision
 abstol          = 0.0       # WarpX self_fields_absolute_tolerance
 # The all-periodic operator is singular but MLEBNodeFDLaplacian reports
