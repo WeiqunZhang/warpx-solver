@@ -1,0 +1,52 @@
+# Defaults are spelled out so this file documents every knob.
+
+# ---- problem size / decomposition -------------------------------------
+n_cell          = 128       # domain is n_cell^3, fully periodic, no EB
+nboxes          = -1        # <=0 -> ParallelDescriptor::NProcs(); 2nd arg to amrex::decompose
+
+# ---- benchmark loop ---------------------------------------------------
+nwarmup         = 1         # untimed solves first
+nsolves         = 5         # timed solves
+recreate_linop  = 1         # 1: rebuild linop every solve (what WarpX does)
+                            # 0: build once, reuse -- isolates the V-cycle cost
+
+# ---- the flag under study ---------------------------------------------
+nosync          = 1         # MLMG::setNoGpuSync
+
+# ---- MLMG -------------------------------------------------------------
+verbose         = 1         # WarpX uses 2; 1 keeps output readable over many solves
+bottom_verbose  = 0
+max_iter        = 200       # WarpX self_fields_max_iters
+fixed_iter      = 0         # >0 -> setFixedIter: deterministic work, no convergence abort
+reltol          = 1.e-11    # WarpX self_fields_required_precision
+abstol          = 0.0       # WarpX self_fields_absolute_tolerance
+# The all-periodic operator is singular but MLEBNodeFDLaplacian reports
+# isSingular()==false, so MLMG never projects out the constant mode.  A Krylov
+# bottom solve then diverges (bicgstab/cg reach resid/bnorm ~1e20 in ~13
+# V-cycles).  "smoother" is stable: 9 iterations to 8e-13.
+bottom_solver   = smoother  # default(bicgstab) / bicgstab / cg / bicgcg / cgbicg / smoother
+pre_smooth      = 2
+post_smooth     = 2
+final_smooth    = 8
+bottom_smooth   = 0
+
+# ---- LPInfo (AMReX defaults; WarpX sets none of these) ----------------
+max_coarsening_level = 30
+agglomeration        = 1
+consolidation        = 1
+agg_grid_size        = -1
+con_grid_size        = -1
+semicoarsening       = 0
+
+# ---- operator ---------------------------------------------------------
+sigma           = 1.0       # WarpX lab frame: 1 - beta^2 = 1
+
+# ---- profiling --------------------------------------------------------
+# Keep this OFF when measuring nosync.  It makes TinyProfiler call
+# Gpu::streamSynchronize() at every start/stop (AMReX_TinyProfiler.cpp:151,205),
+# and explicit syncs still fire inside a NoSync region -- so it puts back
+# exactly the syncs nosync=1 removes and makes the flag look worthless.
+# The driver does its own sync around each timed solve, so the reported
+# per-solve wall times are correct either way.
+# Turn it ON (=1) only to attribute cost per kernel within one fixed config.
+tiny_profiler.device_synchronize_around_region = 0
