@@ -152,10 +152,10 @@ of that win comes from reusing **MLMG**, not the linop.
   | 0–5 | 1–6 | converges, 8–9 iterations |
   | 6, 30 | 7 | **diverges** |
 
-  **Better configuration for future runs:** `max_coarsening_level=4` avoids the
-  degenerate level entirely, so the AMReX/WarpX default `bicgstab` works — and it
-  is independently the performance optimum (see below). Use that instead of the
-  `smoother` workaround.
+  **Resolved for future runs** by the `mg_domain_min_width = 4` change to the
+  local AMReX checkout (see "AMReX: deferred fix and interim local change"),
+  which removes the degenerate level so the stock `bicgstab` works. The
+  `smoother` workaround applies to run-000 only.
 
 - **Did the `smoother` workaround distort the headline result?** Only slightly.
   At `max_coarsening_level=4` on a local GPU, the nosync gain is 1.27× with
@@ -189,10 +189,32 @@ The two deepest levels are worth **3.3%** on a single GPU — real, reproducible
 and free (iteration count unchanged at 9). Below 5 levels the coarse-grid
 correction degrades and iteration count rises sharply, so 5 is the floor.
 
-`max_coarsening_level=4` is therefore doubly attractive: it is both the
-performance optimum **and** the setting that removes the degenerate 2-cell level
-that breaks `bicgstab` (see Caveats). It should be the default for run-001,
-together with the stock `bicgstab` bottom solver.
+Repeating with the stock `bicgstab` bottom solver, which the truncation makes
+usable again (local GPU, 1 rank; mcl=30 row still uses `smoother` because
+`bicgstab` diverges at 7 levels):
+
+| MCL | MG levels | nosync=0 (ms) | nosync=1 (ms) | nosync gain |
+|---|---|---|---|---|
+| **4** | 5 | **29.75** | **24.16** | 1.23× |
+| 5 | 6 | 31.52 | 24.70 | 1.28× |
+| 30 | 7 | 34.19 | 25.12 | 1.36× |
+
+Two of these three points are now handled by the `mg_domain_min_width = 4` patch
+described below, which makes **6 levels** the default and restores `bicgstab`.
+Relative to that new baseline, setting `max_coarsening_level=4` explicitly buys
+one further level of truncation — another ~2.2% on GPU (24.70 → 24.16 ms at
+`nosync=1`) at unchanged iteration count, with two coarsening steps of margin
+from the degenerate level instead of one. Worth carrying as a variant in
+run-001 rather than assuming it: the deep levels are also where agglomeration
+lives, so at 4 GPUs its value may be much larger than the 1-GPU number suggests.
+
+**`nosync` and hierarchy truncation are not additive.** The nosync gain falls
+from 1.36× at 7 levels to 1.23× at 5, because both attack the same cost —
+per-level launch and sync overhead on tiny coarse grids. With `nosync=0`,
+truncating 7→5 levels is worth 13%; with `nosync=1` (what WarpX does) it is
+worth only 3.8%. Expect the same non-additivity between `max_coarsening_level`
+and the agglomeration knobs at 4 GPUs, since removing deep levels is exactly
+what removes the agglomerated ones.
 
 This is a modest win on its own, but it is the most promising lever at 4 GPUs:
 those same deep levels are where agglomeration happens, so truncating there may
@@ -200,6 +222,49 @@ remove the 34% `ParallelCopy` entirely rather than just saving launches.
 **That is the experiment to run next.** It cannot be answered locally — the
 machine has one GPU, and the CPU build cannot stand in because its
 `agg_grid_size` default (8 vs 32) builds a different hierarchy.
+
+## AMReX: deferred fix and interim local change
+
+### Deferred — `MLEBNodeFDLaplacian` is wrong for singular problems
+
+`MLEBNodeFDLaplacian` hard-codes both `isSingular()` and `isBottomSingular()` to
+`false` as `final` overrides (`AMReX_MLEBNodeFDLaplacian.H:171-172`). This
+shadows `MLNodeLinOp::buildMasks`, which *does* correctly compute
+`m_is_bottom_singular = true` for an all-periodic covered domain
+(`AMReX_MLNodeLinOp.cpp:295-301`). Consequences:
+
+- MLMG never calls `makeSolvable()`, so the constant mode is never projected out
+  at any level or in the bottom solve.
+- `AMREX_ASSERT(!isBottomSingular())` at `AMReX_MLEBNodeFDLaplacian.cpp:306` is
+  vacuous — it calls the `final` override, not the base member it was evidently
+  meant to check.
+
+The proper fix is to let the base-class computation through so `makeSolvable`
+runs. **Deferred** — it is a real AMReX bug but not blocking this investigation,
+which works around it as described below.
+
+### Interim — `mg_domain_min_width = 4` in the local AMReX checkout
+
+From run-001 onward, `mg_domain_min_width` is changed from 2 to 4 in the AMReX
+source used for these runs (`AMReX_MLLinOp.H:859`, with the existing EB-triggered
+bump to 4 at `:1105` as precedent). Rationale and measurements are in the
+follow-up experiment above; briefly:
+
+- It removes the degenerate 2-cell coarsest level, where a periodic nodal
+  stencil collapses because a node's two neighbours are the same node. That
+  level is what breaks `bicgstab` — on CPU as well as GPU.
+- With it, the stock AMReX/WarpX default `bicgstab` bottom solver works, so the
+  `bottom_solver=smoother` workaround used in run-000 is no longer needed.
+- On GPU it is worth ~1.7% with `nosync=1` and ~7.8% with `nosync=0`. On CPU it
+  is a wash (<0.5%, within noise), which is why a GPU-scoped default was the
+  original proposal — though the robustness argument applies to both.
+
+**Provenance warning when comparing runs.** run-000 was taken with **stock**
+AMReX `26.08-22-g189d80c7d704`: `mg_domain_min_width = 2`, **7 MG levels** at
+128³, and `bottom_solver=smoother`. Runs from run-001 on will default to **6 MG
+levels** and `bicgstab`. Do not compare timings across that boundary without
+accounting for both changes — from the table above, the level count alone moves
+GPU solve time by 1.7-7.8% depending on `nosync`.
 
 ## Next steps
 
