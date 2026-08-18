@@ -40,22 +40,25 @@ struct TestParams
     int nboxes = -1;          // -1 -> ParallelDescriptor::NProcs()
     int nsolves = 5;
     int nwarmup = 1;
-    int nosync = 1;           // MLMG::setNoGpuSync -- the flag under study
-    int recreate_linop = 1;   // rebuild the linop inside the timed loop (WarpX-like)
+    int nosync = 1;           // MLMG::setNoGpuSync -- established as a win, kept on
+    int recreate_linop = 0;   // reuse linop+MLMG; isolates the V-cycle from setup
 
     int verbose = 1;
+    int linop_verbose = 0;  // >=2 prints the agglomeration/consolidation report
     int bottom_verbose = 0;
     int max_iter = 200;
     int fixed_iter = 0;
     Real reltol = Real(1.e-11);
     Real abstol = Real(0.0);
-    // NOT the AMReX/WarpX default (bicgstab).  On this all-periodic problem the
-    // operator is singular, but MLEBNodeFDLaplacian hard-codes isSingular() to
-    // false, so MLMG never projects the constant mode out of the bottom solve.
-    // BiCGStab and CG then blow up (resid/bnorm -> 1e20 within ~13 V-cycles);
-    // the smoother bottom solve is stable and converges in ~9 iterations.
-    // The bottom solve is well under 1% of the total, so this barely perturbs
-    // what we are actually measuring.
+    // Built-in default is the safe-everywhere choice.  This all-periodic operator
+    // is singular (MLEBNodeFDLaplacian hard-codes isSingular()==false, so MLMG
+    // never projects out the constant mode), and a Krylov bottom solve diverges
+    // IF the hierarchy reaches the degenerate 2-cell level where a node's two
+    // periodic neighbours are the same node.
+    // The local AMReX patch (mg_domain_min_width/mg_box_min_width = 4) removes
+    // that level -- but it is #ifdef AMREX_USE_GPU, so CPU builds still need
+    // "smoother" at 128^3.  The inputs file selects the stock "bicgstab" for
+    // GPU runs, which is what WarpX actually uses.
     std::string bottom_solver{"smoother"};
 
     int max_coarsening_level = 30;
@@ -63,6 +66,8 @@ struct TestParams
     int consolidation = 1;
     int agg_grid_size = -1;
     int con_grid_size = -1;
+    int con_ratio = 2;      // rank-count reduction per consolidation step
+    int con_strategy = 3;   // 1: by rank index, 2: modulo, 3: SFC reorder then index
     int semicoarsening = 0;
 
     int pre_smooth = 2;
@@ -83,6 +88,7 @@ struct TestParams
         pp.query("recreate_linop", recreate_linop);
 
         pp.query("verbose", verbose);
+        pp.query("linop_verbose", linop_verbose);
         pp.query("bottom_verbose", bottom_verbose);
         pp.query("max_iter", max_iter);
         pp.query("fixed_iter", fixed_iter);
@@ -95,6 +101,8 @@ struct TestParams
         pp.query("consolidation", consolidation);
         pp.query("agg_grid_size", agg_grid_size);
         pp.query("con_grid_size", con_grid_size);
+        pp.query("con_ratio", con_ratio);
+        pp.query("con_strategy", con_strategy);
         pp.query("semicoarsening", semicoarsening);
 
         pp.query("pre_smooth", pre_smooth);
@@ -228,9 +236,13 @@ main_main ()
         info.setSemicoarsening(p.semicoarsening);
         if (p.agg_grid_size > 0) { info.setAgglomerationGridSize(p.agg_grid_size); }
         if (p.con_grid_size > 0) { info.setConsolidationGridSize(p.con_grid_size); }
+        info.setConsolidationRatio(p.con_ratio);
+        info.setConsolidationStrategy(p.con_strategy);
 
         mlmg.reset();  // MLMG holds a reference to the linop; destroy it first
         linop = std::make_unique<MLEBNodeFDLaplacian>();
+        linop->setVerbose(p.linop_verbose);  // must precede define() to see the
+                                             // agglomeration report (MLLinOp.H:1438)
         linop->define({geom}, {ba}, {dm}, info);
         linop->setSigma({AMREX_D_DECL(p.sigma,p.sigma,p.sigma)});
         linop->setDomainBC(lobc, hibc);

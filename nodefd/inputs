@@ -7,14 +7,15 @@ nboxes          = -1        # <=0 -> ParallelDescriptor::NProcs(); 2nd arg to am
 # ---- benchmark loop ---------------------------------------------------
 nwarmup         = 1         # untimed solves first
 nsolves         = 5         # timed solves
-recreate_linop  = 1         # 1: rebuild linop every solve (what WarpX does)
-                            # 0: build once, reuse -- isolates the V-cycle cost
+recreate_linop  = 0         # 0: build once, reuse -- isolates the V-cycle cost (standing default)
+                            # 1: rebuild linop every solve (what WarpX does; costs 3-6%)
 
 # ---- the flag under study ---------------------------------------------
-nosync          = 1         # MLMG::setNoGpuSync
+nosync          = 1         # MLMG::setNoGpuSync -- established a win, kept on
 
 # ---- MLMG -------------------------------------------------------------
 verbose         = 1         # WarpX uses 2; 1 keeps output readable over many solves
+linop_verbose   = 2         # >=2 records 'agglomerated ... starting at MG level N of M'
 bottom_verbose  = 0
 max_iter        = 200       # WarpX self_fields_max_iters
 # >0 -> MLMG::setFixedIter.  This caps the iteration count and disables the
@@ -26,9 +27,13 @@ reltol          = 1.e-11    # WarpX self_fields_required_precision
 abstol          = 0.0       # WarpX self_fields_absolute_tolerance
 # The all-periodic operator is singular but MLEBNodeFDLaplacian reports
 # isSingular()==false, so MLMG never projects out the constant mode.  A Krylov
-# bottom solve then diverges (bicgstab/cg reach resid/bnorm ~1e20 in ~13
-# V-cycles).  "smoother" is stable: 9 iterations to 8e-13.
-bottom_solver   = smoother  # default(bicgstab) / bicgstab / cg / bicgcg / cgbicg / smoother
+# bottom solve diverges IF the hierarchy reaches the degenerate 2-cell level.
+# The local AMReX patch (mg_domain_min_width/mg_box_min_width = 4, GPU only)
+# removes that level, so on GPU the stock bicgstab works and is used here.
+# WARNING: that patch is #ifdef AMREX_USE_GPU.  A *CPU* build at 128^3 still
+# coarsens to 2 cells and WILL diverge with bicgstab -- use bottom_solver=smoother
+# for CPU runs.
+bottom_solver   = bicgstab  # default(bicgstab) / bicgstab / cg / bicgcg / cgbicg / smoother
 pre_smooth      = 2
 post_smooth     = 2
 final_smooth    = 8
@@ -38,8 +43,13 @@ bottom_smooth   = 0
 max_coarsening_level = 30
 agglomeration        = 1
 consolidation        = 1
-agg_grid_size        = -1
+agg_grid_size        = -1   # -1 -> 32 on GPU. Controls WHERE agglomeration starts:
+                            #   8 -> lvl 4, 16 -> lvl 3, 32 -> lvl 2, 64+ -> lvl 1 (of 6)
 con_grid_size        = -1
+# con_* are INACTIVE while agglomeration=1 (a covered domain takes the
+# agglomeration branch).  They only bite with agglomeration=0.
+con_ratio            = 2    # rank-count reduction per consolidation step
+con_strategy         = 3    # 1: by rank index, 2: modulo, 3: SFC reorder then index
 semicoarsening       = 0
 
 # ---- operator ---------------------------------------------------------
