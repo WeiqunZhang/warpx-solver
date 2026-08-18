@@ -8,6 +8,7 @@
 #SBATCH --time=00:30:00
 #SBATCH --constraint=gpu&hbm40g
 #SBATCH --qos=debug
+#SBATCH --reservation=hackathon_day1
 
 export MPICH_GPU_SUPPORT_ENABLED=1 
 export SLURM_CPU_BIND="cores"
