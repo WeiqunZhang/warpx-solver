@@ -44,9 +44,15 @@ Two findings:
    locally on an RTX 5070 at the same size.
 
 2. **Strong scaling is negative.** Four A100s solve this problem **1.52× slower**
-   than one (1.25× slower with `nosync=0`). This is not a configuration error —
-   128³ is far too small to occupy even one A100, so extra ranks add
-   communication and shrink kernels without removing enough work.
+   than one (1.25× slower with `nosync=0`). 128³ does not come close to
+   occupying even one A100, so extra ranks add communication and shrink kernels
+   without removing enough work.
+
+   **128³ is a common production size for WarpX users, so this is a user-facing
+   result, not a benchmark artifact.** At this size the honest advice is that
+   extra GPUs buy capacity, not speed — and the optimization target is launch
+   and communication overhead at fixed size, not kernel throughput. This
+   investigation is scoped to 128³ for that reason.
 
 ## Where the time goes
 
@@ -119,30 +125,99 @@ of that win comes from reusing **MLMG**, not the linop.
 - **`bottom_solver=smoother`, not the AMReX/WarpX default (`bicgstab`).** This
   all-periodic operator is singular, but `MLEBNodeFDLaplacian` hard-codes
   `isSingular()`/`isBottomSingular()` to `false`, so MLMG never projects the
-  constant mode out of the bottom solve. BiCGStab and CG diverge to
-  resid/bnorm ≈ 1e20 within ~13 V-cycles. The bottom solve is <1% of total, so
-  this barely perturbs what is being measured. Possible upstream AMReX issue:
+  constant mode out. BiCGStab and CG diverge to resid/bnorm ≈ 1e20 within ~13
+  V-cycles; `smoother` is stable. Possible upstream AMReX issue:
   `MLNodeLinOp::buildMasks` *does* correctly compute `m_is_bottom_singular=true`
   here, and the `final` override shadows it — which also makes the
   `AMREX_ASSERT(!isBottomSingular())` at `AMReX_MLEBNodeFDLaplacian.cpp:306`
   vacuous.
+
+  **Mechanism (corrected — an earlier note here blamed the Krylov bottom solve
+  breaking down; that is wrong).** With `bottom_verbose=1`, BiCGStab is seen to
+  *succeed*, meeting its 1e-4 tolerance, for the first eight V-cycles. What
+  diverges is its input: the bottom-level initial error grows geometrically
+  across V-cycles (8.55e-19 → 3.58e-14 → 1.91e-10 → 6.91e-06 → 1.11e-04 → 9.34 →
+  … → 3.0e+15). `MLMG: Bottom solve failed.` (`AMReX_MLMG.H:2066`) appears only
+  at V-cycle 9, long after the run is unrecoverable — it is a **symptom, not the
+  trigger**.
+
+  The trigger is the **7th MG level specifically**: 128³ coarsens
+  128→64→32→16→8→4→**2**, and on a 2-cell periodic nodal grid the FD Laplacian is
+  almost entirely nullspace, so the Krylov solve returns an arbitrarily scaled
+  constant that is then amplified by each successive V-cycle. Measured
+  threshold, `bottom_solver=bicgstab`, 4 ranks:
+
+  | `max_coarsening_level` | MG levels | result |
+  |---|---|---|
+  | 0–5 | 1–6 | converges, 8–9 iterations |
+  | 6, 30 | 7 | **diverges** |
+
+  **Better configuration for future runs:** `max_coarsening_level=4` avoids the
+  degenerate level entirely, so the AMReX/WarpX default `bicgstab` works — and it
+  is independently the performance optimum (see below). Use that instead of the
+  `smoother` workaround.
+
+- **Did the `smoother` workaround distort the headline result?** Only slightly.
+  At `max_coarsening_level=4` on a local GPU, the nosync gain is 1.27× with
+  `smoother` (30.93 → 24.26 ms) versus 1.23× with `bicgstab` (29.81 → 24.15 ms),
+  both at 9 iterations. This was worth checking because BiCGStab's dot products
+  are device→host reductions, i.e. exactly the syncs under study — but they are
+  too small a share of the total to move the conclusion.
 
 - **`agg_grid_size` defaults differ between CPU and GPU builds** (8 vs 32),
   producing structurally different MG hierarchies. The local CPU check above saw
   270 `ParallelCopy` calls where the GPU run had 450. Pin it explicitly before
   comparing CPU and GPU profiles.
 
+## Follow-up experiment: truncating the MG hierarchy
+
+At 128³ every MG level costs a roughly fixed number of kernel launches no matter
+how small its grid is, so the deepest levels may be pure overhead. Swept
+`max_coarsening_level` on a local RTX 5070, 1 GPU, `nosync=1`,
+`recreate_linop=0`, 3 repeats (run-to-run spread <0.1 ms):
+
+| `max_coarsening_level` | MG levels | solve (ms) | iterations |
+|---|---|---|---|
+| 30 (default) | 7 | 25.15 | 9 |
+| 5 | 6 | 24.73 | 9 |
+| **4** | **5** | **24.32** | **9** |
+| 3 | 4 | 31.62 | 12 |
+| 2 | 3 | 120.5 | 47 |
+| 1 | 2 | 495.9 | 191 |
+
+The two deepest levels are worth **3.3%** on a single GPU — real, reproducible,
+and free (iteration count unchanged at 9). Below 5 levels the coarse-grid
+correction degrades and iteration count rises sharply, so 5 is the floor.
+
+`max_coarsening_level=4` is therefore doubly attractive: it is both the
+performance optimum **and** the setting that removes the degenerate 2-cell level
+that breaks `bicgstab` (see Caveats). It should be the default for run-001,
+together with the stock `bicgstab` bottom solver.
+
+This is a modest win on its own, but it is the most promising lever at 4 GPUs:
+those same deep levels are where agglomeration happens, so truncating there may
+remove the 34% `ParallelCopy` entirely rather than just saving launches.
+**That is the experiment to run next.** It cannot be answered locally — the
+machine has one GPU, and the CPU build cannot stand in because its
+`agg_grid_size` default (8 vs 32) builds a different hierarchy.
+
 ## Next steps
 
-1. **`n_cell=256` and `512`.** 128³ measures overhead, not the solver. 512³ puts
-   ~4.3 GB/rank on 4 GPUs and would actually reach the bandwidth-bound regime —
-   the test of whether `nosync` still pays and whether scaling turns positive.
-2. **Agglomeration knobs at 4 GPUs.** With `ParallelCopy` at 34% and badly
-   imbalanced, `agglomeration=0` or tuned `agg_grid_size`/`con_grid_size` is the
-   obvious lever. Verified locally that `agglomeration=0` runs correctly.
+All at fixed 128³.
+
+1. **`max_coarsening_level` sweep at 2 and 4 GPUs** — values 30/5/4/3, crossed
+   with `nosync=0/1`. Hypothesis: truncation removes the agglomerated levels and
+   with them the 34% `ParallelCopy`, so the win should be much larger than the
+   3.3% seen at 1 GPU. Watch iteration count, which must stay at 9.
+2. **Agglomeration knobs at 4 GPUs** — `agglomeration=0`, and tuned
+   `agg_grid_size`/`con_grid_size`. Verified locally that `agglomeration=0` runs
+   correctly (MG 7→6, still 9 iterations). Attacks the same 34% by a different
+   route; worth having both numbers to see which mechanism actually pays.
 3. **Reduce launch count per V-cycle.** At 1 GPU, ~103 `FillBoundary` launches
-   per V-cycle against ~32 `Fsmooth` is the real target; fusing or eliminating
-   coarse-level halo exchanges would attack the dominant cost directly.
+   per V-cycle against ~32 `Fsmooth`, with *zero* real communication, is the
+   floor on what tuning can achieve — getting past it means fusing or
+   eliminating coarse-level halo exchanges in AMReX itself. This is the
+   structural fix behind findings 1 and 2.
 
 ## Raw data
 
