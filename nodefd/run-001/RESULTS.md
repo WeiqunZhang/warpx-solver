@@ -1,5 +1,15 @@
 # run-001 — agglomeration sweep at 128³
 
+> **SUPERSEDED by run-002.** The headline conclusion below — that
+> `agglomeration=0` + consolidation beats agglomeration by 21–31% — is an
+> artefact of an uncontrolled variable: the two arms had different MG level
+> counts (5 vs 6). run-002 repeated the comparison at matched level count and
+> found the opposite sign: **agglomeration wins by 2.6% (2 GPU) and 9.3%
+> (4 GPU)**. The level count, not the mechanism, was doing all the work.
+> The recommendation to disable agglomeration is **withdrawn**; see
+> `../run-002/RESULTS.md`. The hierarchy analysis and the `nosync` timer
+> caveat below remain valid.
+
 19 runs, Perlmutter, 1 node. Fixed: `nosync=1`, `recreate_linop=0`,
 `bottom_solver=bicgstab`, `max_coarsening_level` default.
 
@@ -16,8 +26,10 @@ not the version string, is the provenance signal.
 ## ⚠️ The `Bottom` timer is meaningless under `nosync=1`
 
 `MLMG: Timers: ... Bottom = X` reports 6–8 ms in these logs. That is **not** the
-bottom-solve cost. Measured on one GPU with `nosync=0`, where timers are
-meaningful:
+bottom-solve cost. The table below is from the **local single-GPU dev machine
+and is not valid performance data** — it is retained because the *qualitative*
+conclusion (the timer is a pipeline-drain artefact) was independently confirmed
+on Perlmutter by run-002's `Dot()` call counts. Do not use these numbers:
 
 | | Solve (ms) | Bottom (ms) |
 |---|---|---|
@@ -215,8 +227,11 @@ identical hierarchies at 2 ranks, which is why their timings match.)
 
 Only two things differ within the matched pair: **boxes on the owning rank**
 (1 vs N) and agg's **one extra level**. The extra level can be bounded: the
-`max_coarsening_level` sweep put 6-vs-5 levels at 0.54 ms (24.70 -> 24.16, 1 GPU).
-Against gaps of 5.83 and 8.19 ms that is **under 10%** of the difference.
+`max_coarsening_level` sweep put 6-vs-5 levels at 0.54 ms (24.70 -> 24.16, 1 GPU)
+— **but that is a local single-GPU number and is invalid**. run-002 measured the
+same quantity on Perlmutter at **1.95 ms (1 GPU) and ~8 ms (2-4 GPUs)**, which is
+comparable to the gaps of 5.83 and 8.19 ms rather than under 10% of them. The
+conclusion drawn here was therefore wrong; see the SUPERSEDED note at the top.
 
 So the bulk of the gap is the redistribution mechanism itself, which matches the
 code: agglomeration *rebuilds* the BoxArray into a single box, making its

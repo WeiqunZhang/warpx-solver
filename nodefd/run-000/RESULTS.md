@@ -157,7 +157,8 @@ of that win comes from reusing **MLMG**, not the linop.
   which removes the degenerate level so the stock `bicgstab` works. The
   `smoother` workaround applies to run-000 only.
 
-- **Did the `smoother` workaround distort the headline result?** Only slightly.
+- **Did the `smoother` workaround distort the headline result?** (Local-machine
+  check, indicative only — not valid performance data.)
   At `max_coarsening_level=4` on a local GPU, the nosync gain is 1.27× with
   `smoother` (30.93 → 24.26 ms) versus 1.23× with `bicgstab` (29.81 → 24.15 ms),
   both at 9 iterations. This was worth checking because BiCGStab's dot products
@@ -170,6 +171,15 @@ of that win comes from reusing **MLMG**, not the linop.
   comparing CPU and GPU profiles.
 
 ## Follow-up experiment: truncating the MG hierarchy
+
+> **⚠️ ALL TIMINGS IN THIS SECTION ARE FROM THE LOCAL DEV MACHINE (single RTX
+> 5070) AND ARE NOT VALID PERFORMANCE DATA.** This machine has one GPU, so it
+> cannot measure multi-GPU behaviour at all, and its single-GPU ratios do not
+> transfer to A100. The numbers below were used to justify the
+> `mg_domain_min_width = 4` AMReX change and to bound the MG level cost; the
+> level-cost bound (~0.54 ms) was later measured on Perlmutter at **1.95 ms at
+> 1 GPU and ~8 ms at 2-4 GPUs** — wrong by 4-15x. See `../run-002/RESULTS.md`
+> for authoritative numbers. Retained only as a record of what was done.
 
 At 128³ every MG level costs a roughly fixed number of kernel launches no matter
 how small its grid is, so the deepest levels may be pure overhead. Swept
@@ -255,9 +265,11 @@ follow-up experiment above; briefly:
   level is what breaks `bicgstab` — on CPU as well as GPU.
 - With it, the stock AMReX/WarpX default `bicgstab` bottom solver works, so the
   `bottom_solver=smoother` workaround used in run-000 is no longer needed.
-- On GPU it is worth ~1.7% with `nosync=1` and ~7.8% with `nosync=0`. On CPU it
-  is a wash (<0.5%, within noise), which is why a GPU-scoped default was the
-  original proposal — though the robustness argument applies to both.
+- Local-machine measurement (single GPU, **not valid performance data**)
+  suggested ~1.7%/~7.8%. The real effect, measured on Perlmutter in run-002, is
+  **13% at 1 GPU and 28-33% at 2-4 GPUs** — much larger. The robustness
+  argument (removing a near-degenerate coarsest grid) was the sound part of the
+  justification; the local timings were not.
 
 **Provenance warning when comparing runs.** run-000 was taken with **stock**
 AMReX `26.08-22-g189d80c7d704`: `mg_domain_min_width = 2`, **7 MG levels** at
