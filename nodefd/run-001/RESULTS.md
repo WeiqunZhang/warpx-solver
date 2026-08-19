@@ -192,18 +192,42 @@ halo exchange dominates compute, so serializing early wins — and extrapolated 
 level 0, that argues for not using four GPUs at this problem size at all, which
 is what the scaling numbers already say.
 
-### Still confounded
+### Rank-matched comparison: agglomeration vs consolidation
 
-`agg` default and `noagg-cr4` both collapse to one rank at level 2 yet differ by
-5.8 ms. Two candidate causes remain entangled:
+`agg default` and `noagg + consolidation` have **identical ranks per level** on
+every shared level, at both rank counts:
 
-- **1 box vs 4 boxes** on the owning rank. Agglomeration rebuilds the BoxArray,
-  so its `ParallelCopy` needs box intersection; consolidation preserves box
-  shape and moves only ownership, which should be the cheaper pattern.
-- **6 vs 5 total levels** (agglomeration keeps the extra 4³ level).
+| lev | 4 ranks: agg default | 4 ranks: noagg `con_ratio=4` |
+|---|---|---|
+| 0 | 4 boxes / **4 ranks** | 4 boxes / **4 ranks** |
+| 1 | 4 boxes / **4 ranks** | 4 boxes / **4 ranks** |
+| 2 | 1 box / **1 rank** | 4 boxes / **1 rank** |
+| 3 | 1 box / **1 rank** | 4 boxes / **1 rank** |
+| 4 | 1 box / **1 rank** | 4 boxes / **1 rank** |
+| 5 | 1 box / 1 rank | — |
+| **total** | **28.37 ms** | **22.54 ms** (−20.6%) |
 
-Separating them needs `agglomeration=1 max_coarsening_level=4` versus
-`agglomeration=0 con_ratio=4`, both at 5 levels. Add to run-002.
+At 2 ranks the progression is 2,2,1,1,1 for both, and the gap is
+26.26 vs 18.07 ms (**−31.2%**). (`con_strategy=3` and `con_ratio=4` produce
+identical hierarchies at 2 ranks, which is why their timings match.)
+
+`agg_grid_size=64` is *not* rank-matched to these — it reaches 1 rank at level 1.
+
+Only two things differ within the matched pair: **boxes on the owning rank**
+(1 vs N) and agg's **one extra level**. The extra level can be bounded: the
+`max_coarsening_level` sweep put 6-vs-5 levels at 0.54 ms (24.70 -> 24.16, 1 GPU).
+Against gaps of 5.83 and 8.19 ms that is **under 10%** of the difference.
+
+So the bulk of the gap is the redistribution mechanism itself, which matches the
+code: agglomeration *rebuilds* the BoxArray into a single box, making its
+`ParallelCopy` a general box-intersection gather, while consolidation preserves
+box shapes and changes only ownership — a straight point-to-point move. Same
+ranks, same data volume, much cheaper transfer.
+
+Caveat: the 0.54 ms bound comes from the local RTX 5070 at 1 GPU, not an A100 at
+2/4 GPUs, so it is an order-of-magnitude estimate. Clean confirmation still
+wants `agglomeration=1 max_coarsening_level=4` vs `agglomeration=0 con_ratio=4`,
+both at 5 levels — carried to run-002.
 
 ## Recommendations
 
