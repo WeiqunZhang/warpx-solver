@@ -106,6 +106,105 @@ clean. Needs a controlled A/B with the patch reverted.
 The *tuned* configs did not regress: run-001's best beats run-000 at 2 GPUs and
 matches it at 4.
 
+## The MG hierarchy — why the results look the way they do
+
+Reported by `FDLap::reportHierarchy()` (added to the driver for this analysis;
+`m_grids`/`m_dmap` are protected, so it derives from `MLEBNodeFDLaplacian`).
+4 ranks, 128³, CUDA build — structure depends only on rank count and BoxArray,
+so this reproduces the Perlmutter g4 runs exactly.
+
+**agglomeration=1, `agg_grid_size` default (32)** — the run-g4-base config:
+
+| lev | domain | boxes | box size | ranks |
+|---|---|---|---|---|
+| 0 | 128³ | 4 | (128,64,64) | 4 |
+| 1 | 64³ | 4 | (64,32,32) | 4 |
+| 2 | 32³ | **1** | (32,32,32) | **1** |
+| 3 | 16³ | 1 | (16,16,16) | 1 |
+| 4 | 8³ | 1 | (8,8,8) | 1 |
+| 5 | 4³ | 1 | (4,4,4) | 1 |
+
+**agglomeration=1, `agg_grid_size=64`** — collapse moves up to level 1; levels
+1-5 are 1 box on 1 rank.
+
+**agglomeration=0, `con_ratio=4`** — the best 4-GPU config. Consolidation keeps
+the 4 coarsened boxes and only changes *ownership*:
+
+| lev | domain | boxes | box size | ranks |
+|---|---|---|---|---|
+| 0 | 128³ | 4 | (128,64,64) | 4 |
+| 1 | 64³ | 4 | (64,32,32) | 4 |
+| 2 | 32³ | 4 | (32,16,16) | **1** |
+| 3 | 16³ | 4 | (16,8,8) | 1 |
+| 4 | 8³ | 4 | (8,4,4) | 1 |
+
+`con_strategy=3` (ratio 2) reaches 1 rank one level later (lev2 on 2 ranks);
+`consolidation=0` never gets below 4 ranks.
+
+### The agglomerated levels all land on rank 0
+
+`owner(s)` above is not a guess — the driver prints the actual `ProcessorMap`.
+Rank 0 owns the single box at **every** agglomerated level, and this is
+guaranteed, not incidental:
+
+- `makeAgglomeratedDMap` (`AMReX_MLLinOp.H:1627`) calls
+  `DistributionMapping::makeSFC(ba[i])` independently per level.
+- `makeSFC` -> `Distribute` (`AMReX_DistributionMapping.cpp:1197`) fills bins
+  from `i = 0` upward while `vol < volpercpu`. A single box always lands in
+  bin 0, and the rebalancing pop-back requires `cnt > 1`, so it never fires.
+- Consolidation reaches the same place differently: `makeConsolidatedDMap`
+  applies `x /= ratio` repeatedly, collapsing ranks toward 0 by integer division.
+
+**Consequence — there is only ONE communicating transition, not one per
+agglomerated level.** Levels 2-5 in the default config all sit on rank 0 with
+the same box, so 2->3, 3->4, 4->5 are entirely local. Only 1->2 crosses ranks
+(plus its prolongation counterpart).
+
+This sharpens the Arm A trade-off: `agg_grid_size=64` does **not** reduce the
+number of redistributions — it is one either way. It moves that single
+redistribution one level *earlier*, where it carries 8x more data (64³ vs 32³),
+in exchange for removing level 1's distributed halo exchange. Removing the
+distributed level still wins by 4.1 ms. That is a strong statement about how
+completely halo latency dominates at these sizes.
+
+It also explains run-000's imbalance signature: `ParallelCopy_finish` at
+min 2.9 ms / max 73.1 ms is rank 0 executing every coarse level while ranks 1-3
+block. The idle GPUs still burn wall time.
+
+### The single variable that explains the ordering
+
+| config | reaches 1 rank at | time (ms) |
+|---|---|---|
+| no agg, no con | never | 29.60 |
+| agg default | lev 2 (1 box) | 28.37 |
+| no agg, `con_strategy=3` | lev 3 | 26.28 |
+| `agg_grid_size=64` | lev 1 (1 box) | 24.30 |
+| no agg, `con_ratio=4` | lev 2 (4 boxes) | **22.54** |
+
+**Get to one rank as early as possible.** The cleanest evidence is inside Arm A:
+`agg_grid_size=64` and the default both end as 1 box on 1 rank, and differ *only*
+in whether level 1 (64³) runs distributed over 4 GPUs or serially on one.
+Serial is **4.1 ms faster**.
+
+This is the headline scaling result one level down. At 128³ four GPUs lose to
+one; at 64³ they lose by more. The entire hierarchy sits in the regime where
+halo exchange dominates compute, so serializing early wins — and extrapolated to
+level 0, that argues for not using four GPUs at this problem size at all, which
+is what the scaling numbers already say.
+
+### Still confounded
+
+`agg` default and `noagg-cr4` both collapse to one rank at level 2 yet differ by
+5.8 ms. Two candidate causes remain entangled:
+
+- **1 box vs 4 boxes** on the owning rank. Agglomeration rebuilds the BoxArray,
+  so its `ParallelCopy` needs box intersection; consolidation preserves box
+  shape and moves only ownership, which should be the cheaper pattern.
+- **6 vs 5 total levels** (agglomeration keeps the extra 4³ level).
+
+Separating them needs `agglomeration=1 max_coarsening_level=4` versus
+`agglomeration=0 con_ratio=4`, both at 5 levels. Add to run-002.
+
 ## Recommendations
 
 1. **Use `agglomeration=0` with `con_ratio=4`** at 4 GPUs, `con_ratio=2` at 2.

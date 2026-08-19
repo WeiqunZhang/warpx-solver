@@ -26,7 +26,10 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <iomanip>
 #include <memory>
+#include <set>
+#include <string>
 #include <numeric>
 #include <string>
 
@@ -113,6 +116,50 @@ struct TestParams
         pp.query("sigma", sigma);
 
         if (nboxes <= 0) { nboxes = ParallelDescriptor::NProcs(); }
+    }
+};
+
+// MLLinOp::m_grids/m_dmap/m_geom are protected and there is no public accessor,
+// so derive in order to report the MG hierarchy that MLMG actually built.
+struct FDLap : public MLEBNodeFDLaplacian
+{
+    void reportHierarchy () const
+    {
+        const int nmglev = m_num_mg_levels[0];
+        amrex::Print() << "  MG hierarchy (amrlev 0):\n"
+                       << "    lev  domain            boxes  min box      max box      ranks  owner(s)\n";
+        for (int m = 0; m < nmglev; ++m) {
+            BoxArray const& ba = m_grids[0][m];
+            IntVect mn(std::numeric_limits<int>::max());
+            IntVect mx(std::numeric_limits<int>::lowest());
+            for (int i = 0, n = static_cast<int>(ba.size()); i < n; ++i) {
+                IntVect const len = ba[i].length();
+                mn.min(len);
+                mx.max(len);
+            }
+            auto const& pmap = m_dmap[0][m].ProcessorMap();
+            std::set<int> uniq(pmap.begin(), pmap.end());
+            std::string owners;
+            for (int r : uniq) {
+                if (!owners.empty()) { owners += ","; }
+                owners += std::to_string(r);
+            }
+            IntVect const dlen = m_geom[0][m].Domain().length();
+            amrex::Print() << "    " << std::setw(3) << m << "  "
+                           << std::setw(16) << ("(" + std::to_string(dlen[0]) + ","
+                                                    + std::to_string(dlen[1]) + ","
+                                                    + std::to_string(dlen[2]) + ")")
+                           << std::setw(7) << ba.size() << "  "
+                           << std::setw(12) << ("(" + std::to_string(mn[0]) + ","
+                                                    + std::to_string(mn[1]) + ","
+                                                    + std::to_string(mn[2]) + ")")
+                           << " " << std::setw(12) << ("(" + std::to_string(mx[0]) + ","
+                                                    + std::to_string(mx[1]) + ","
+                                                    + std::to_string(mx[2]) + ")")
+                           << std::setw(7) << uniq.size()
+                           << "  " << owners << "\n";
+        }
+        amrex::Print() << "\n";
     }
 };
 
@@ -222,7 +269,7 @@ main_main ()
         {AMREX_D_DECL(LinOpBCType::Periodic,LinOpBCType::Periodic,LinOpBCType::Periodic)};
     Array<LinOpBCType,AMREX_SPACEDIM> const hibc = lobc;
 
-    std::unique_ptr<MLEBNodeFDLaplacian> linop;
+    std::unique_ptr<FDLap> linop;
     std::unique_ptr<MLMG> mlmg;
 
     auto build_solver = [&] ()
@@ -240,7 +287,7 @@ main_main ()
         info.setConsolidationStrategy(p.con_strategy);
 
         mlmg.reset();  // MLMG holds a reference to the linop; destroy it first
-        linop = std::make_unique<MLEBNodeFDLaplacian>();
+        linop = std::make_unique<FDLap>();
         linop->setVerbose(p.linop_verbose);  // must precede define() to see the
                                              // agglomeration report (MLLinOp.H:1438)
         linop->define({geom}, {ba}, {dm}, info);
@@ -288,7 +335,8 @@ main_main ()
         if (!reported) {
             reported = true;
             const int nmglev = linop->NMGLevels(0);
-            amrex::Print() << "  MG levels     : " << nmglev << "\n";
+            amrex::Print() << "  MG levels     : " << nmglev << "\n\n";
+            if (p.linop_verbose > 0) { linop->reportHierarchy(); }
             if (nmglev <= 2) {
                 amrex::Print()
                     << "\n  *** WARNING: only " << nmglev << " MG level(s). ***\n"
