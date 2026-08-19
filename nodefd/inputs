@@ -1,7 +1,13 @@
 # Defaults are spelled out so this file documents every knob.
 
 # ---- problem size / decomposition -------------------------------------
-n_cell          = 128       # domain is n_cell^3, fully periodic, no EB
+n_cell          = 128       # domain is n_cell^3, no EB
+# 0 = non-periodic (homogeneous Dirichlet), 1 = periodic.
+# Dirichlet in x removes the constant nullspace.  A fully periodic domain is
+# singular, and because MLEBNodeFDLaplacian hard-codes isSingular()==false the
+# constant mode is never projected out -- which made the bottom solve
+# pathological on coarse grids and made bicgstab diverge outright at 7 levels.
+is_periodic     = 0 1 1
 nboxes          = -1        # <=0 -> ParallelDescriptor::NProcs(); 2nd arg to amrex::decompose
 
 # ---- benchmark loop ---------------------------------------------------
@@ -25,14 +31,10 @@ max_iter        = 200       # WarpX self_fields_max_iters
 fixed_iter      = 0
 reltol          = 1.e-11    # WarpX self_fields_required_precision
 abstol          = 0.0       # WarpX self_fields_absolute_tolerance
-# The all-periodic operator is singular but MLEBNodeFDLaplacian reports
-# isSingular()==false, so MLMG never projects out the constant mode.  A Krylov
-# bottom solve diverges IF the hierarchy reaches the degenerate 2-cell level.
-# The local AMReX patch (mg_domain_min_width/mg_box_min_width = 4, GPU only)
-# removes that level, so on GPU the stock bicgstab works and is used here.
-# WARNING: that patch is #ifdef AMREX_USE_GPU.  A *CPU* build at 128^3 still
-# coarsens to 2 cells and WILL diverge with bicgstab -- use bottom_solver=smoother
-# for CPU runs.
+# With Dirichlet in x the operator is non-singular, so the stock bicgstab
+# bottom solver is stable at every coarsening depth (verified mcl=30..2, 1 and
+# 4 ranks).  The 'smoother' workaround needed for the all-periodic problem in
+# run-000 is no longer required.
 bottom_solver   = bicgstab  # default(bicgstab) / bicgstab / cg / bicgcg / cgbicg / smoother
 pre_smooth      = 2
 post_smooth     = 2

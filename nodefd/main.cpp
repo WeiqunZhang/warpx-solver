@@ -40,6 +40,12 @@ namespace {
 struct TestParams
 {
     int n_cell = 128;
+    // Non-periodic in x (Dirichlet), periodic in y,z.  A fully periodic domain
+    // makes this operator singular, and because MLEBNodeFDLaplacian hard-codes
+    // isSingular()==false the constant mode is never projected out -- which made
+    // the bottom solve pathological on coarse grids (run-002: 1340 Dot() calls
+    // vs 100).  Dirichlet in one direction removes the nullspace entirely.
+    Array<int,AMREX_SPACEDIM> is_periodic{AMREX_D_DECL(0,1,1)};
     int nboxes = -1;          // -1 -> ParallelDescriptor::NProcs()
     int nsolves = 5;
     int nwarmup = 1;
@@ -84,6 +90,13 @@ struct TestParams
     {
         ParmParse pp;
         pp.query("n_cell", n_cell);
+        {
+            Vector<int> per(AMREX_SPACEDIM);
+            for (int i = 0; i < AMREX_SPACEDIM; ++i) { per[i] = is_periodic[i]; }
+            if (pp.queryarr("is_periodic", per, 0, AMREX_SPACEDIM)) {
+                for (int i = 0; i < AMREX_SPACEDIM; ++i) { is_periodic[i] = per[i]; }
+            }
+        }
         pp.query("nboxes", nboxes);
         pp.query("nsolves", nsolves);
         pp.query("nwarmup", nwarmup);
@@ -185,11 +198,13 @@ initRhs (MultiFab& rhs, Geometry const& geom)
 
     const auto problo = geom.ProbLoArray();
     const auto dx     = geom.CellSizeArray();
-    constexpr Real two_pi = Real(2.0*3.1415926535897932);
-    const GpuArray<Real,AMREX_SPACEDIM> k
-        {AMREX_D_DECL(two_pi/geom.ProbLength(0),
-                      two_pi/geom.ProbLength(1),
-                      two_pi/geom.ProbLength(2))};
+    // Eigenfunction of the Laplacian in each direction: wavenumber 2*pi/L where
+    // periodic, pi/L where Dirichlet (so the RHS vanishes on those boundaries).
+    constexpr Real pi = Real(3.1415926535897932);
+    GpuArray<Real,AMREX_SPACEDIM> k{};
+    for (int idim = 0; idim < AMREX_SPACEDIM; ++idim) {
+        k[idim] = (geom.isPeriodic(idim) ? Real(2.0)*pi : pi) / geom.ProbLength(idim);
+    }
 
 #ifdef AMREX_USE_OMP
 #pragma omp parallel if (Gpu::notInLaunchRegion())
@@ -207,11 +222,14 @@ initRhs (MultiFab& rhs, Geometry const& geom)
         });
     }
 
-    // Remove any round-off level mean so the singular periodic system stays
-    // consistent.  sum_unique counts nodes shared by several boxes only once.
-    const Real sum = rhs.sum_unique(0, false, geom.periodicity());
-    const auto nnodes = static_cast<Real>(geom.Domain().d_numPts());
-    rhs.plus(-sum/nnodes, 0, 1);
+    // Only a FULLY periodic domain is singular and needs a consistent (zero-mean)
+    // RHS.  With a Dirichlet direction the operator is non-singular and this
+    // correction would just perturb the problem for no reason.
+    if (geom.isAllPeriodic()) {
+        const Real sum = rhs.sum_unique(0, false, geom.periodicity());
+        const auto nnodes = static_cast<Real>(geom.Domain().d_numPts());
+        rhs.plus(-sum/nnodes, 0, 1);
+    }
 }
 
 void
@@ -239,8 +257,7 @@ main_main ()
     Box domain(IntVect(0), IntVect(p.n_cell-1));
     RealBox rb({AMREX_D_DECL(Real(0.),Real(0.),Real(0.))},
                {AMREX_D_DECL(Real(1.),Real(1.),Real(1.))});
-    Array<int,AMREX_SPACEDIM> const is_periodic{AMREX_D_DECL(1,1,1)};
-    Geometry geom(domain, rb, CoordSys::cartesian, is_periodic);
+    Geometry geom(domain, rb, CoordSys::cartesian, p.is_periodic);
 
     BoxArray ba;
     DistributionMapping dm;
@@ -251,7 +268,10 @@ main_main ()
     }
 
     amrex::Print() << "\nMLEBNodeFDLaplacian benchmark\n"
-                   << "  domain        : " << domain << " (fully periodic, no EB)\n"
+                   << "  domain        : " << domain << "  no EB\n"
+                   << "  periodicity   : " << p.is_periodic[0] << " "
+                   << p.is_periodic[1] << " " << p.is_periodic[2]
+                   << "   (0 = Dirichlet)\n"
                    << "  MPI ranks     : " << ParallelDescriptor::NProcs() << "\n"
                    << "  nboxes        : " << p.nboxes << "\n";
     printBoxInfo(ba);
@@ -265,9 +285,15 @@ main_main ()
 
     initRhs(rhs, geom);
 
-    Array<LinOpBCType,AMREX_SPACEDIM> const lobc
-        {AMREX_D_DECL(LinOpBCType::Periodic,LinOpBCType::Periodic,LinOpBCType::Periodic)};
-    Array<LinOpBCType,AMREX_SPACEDIM> const hibc = lobc;
+    // MLLinOp asserts BCType::Periodic exactly where the Geometry is periodic.
+    // Homogeneous Dirichlet elsewhere: phi is reset to 0 before every solve, so
+    // the boundary nodes already hold the correct value (setLevelBC is a no-op
+    // for nodal operators).
+    Array<LinOpBCType,AMREX_SPACEDIM> lobc, hibc;
+    for (int idim = 0; idim < AMREX_SPACEDIM; ++idim) {
+        lobc[idim] = hibc[idim] = geom.isPeriodic(idim) ? LinOpBCType::Periodic
+                                                        : LinOpBCType::Dirichlet;
+    }
 
     std::unique_ptr<FDLap> linop;
     std::unique_ptr<MLMG> mlmg;
