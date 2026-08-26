@@ -1,5 +1,22 @@
 # run-002 — level-count-matched: agglomeration vs consolidation
 
+> **PARTIALLY SUPERSEDED by run-003.** Two of the conclusions below do not
+> survive re-measurement on a well-posed (Dirichlet) problem:
+>
+> - **The level-count magnitudes are an artefact.** "5 levels beat 6 by 13–33%"
+>   was almost entirely the singular-operator bottom solve on the 4³ grid. At an
+>   *identical* MG hierarchy with only the boundary condition changed, run-003
+>   measures 18.58 ms against the 28.35 ms below, with `amrex::Dot()` down 17×.
+>   On a well-posed problem the level-count effect is ~5–7% per level, not
+>   28–33%. The *ordering* (fewer levels is faster) does survive.
+> - **The recommended `max_coarsening_level` moves from 4 to 3.** With the
+>   pathology gone the optimum is 4 MG levels (16³ coarsest), not 5. On the
+>   run-003 problem `mcl=3` beats `mcl=4` by 16.7% at 4 GPUs.
+>
+> What **does** survive: agglomeration beats consolidation at matched level
+> count; `agg_grid_size=64` is best, now confirmed 10/10 on stock AMReX; and the
+> `FillBoundary` structural item. See `../run-003/RESULTS.md`.
+
 20 runs (2 repeats × 10 configs), Perlmutter, 1 node, 128³.
 Fixed: `nosync=1`, `recreate_linop=0`, `bottom_solver=bicgstab`, `nsolves=20`.
 
