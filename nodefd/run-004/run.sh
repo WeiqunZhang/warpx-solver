@@ -6,7 +6,7 @@
 #SBATCH --gpus-per-node=4
 #SBATCH --gpu-bind=none
 #SBATCH --time=00:30:00
-#SBATCH --constraint=gpu&hbm40g
+#SBATCH --constraint=gpu&hbm80g
 #SBATCH --qos=debug
 #SBATCH --reservation=hackathon_day2
 

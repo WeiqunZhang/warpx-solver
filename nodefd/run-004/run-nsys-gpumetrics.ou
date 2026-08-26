@@ -1,0 +1,17 @@
+--- gpu-metrics availability probe ---
+GPU Metrics: None of the installed GPUs are supported:
+	Ampere GA100 | NVIDIA A100-SXM4-80GB PCI[0000:c1:00.0] - Already under profiling
+	Ampere GA100 | NVIDIA A100-SXM4-80GB PCI[0000:82:00.0] - Already under profiling
+	Ampere GA100 | NVIDIA A100-SXM4-80GB PCI[0000:41:00.0] - Already under profiling
+	Ampere GA100 | NVIDIA A100-SXM4-80GB PCI[0000:03:00.0] - Already under profiling
+See the user guide: https://docs.nvidia.com/nsight-systems/UserGuide/index.html#gpu-metrics
+--- gpu-metrics profile attempt ---
+Illegal --gpu-metrics-devices argument: cuda-visible.
+Already under profiling.
+Use the '--gpu-metrics-devices=help' switch to see the full list of values.
+
+usage: nsys profile [<args>] [application] [<application args>]
+Try 'nsys profile --help' for more information.
+srun: error: nid008196: task 0: Exited with exit code 1
+srun: Terminating StepId=57630060.6
+WARNING: gpu-metrics run failed; see the probe output above. Phases 1-2b are unaffected.
