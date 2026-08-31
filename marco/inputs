@@ -1,0 +1,43 @@
+# Standalone reproduction of the WarpX MLEBNodeFDLaplacian bottom-solve issue.
+# The phi and rhs MultiFabs passed to MLMG are zero everywhere.  The nonzero
+# initial residual is produced solely by the inhomogeneous EB Dirichlet value.
+#
+# One-box baseline:
+#   mpirun -np 1 ./marco3d.gnu.TEST.MPI.ex inputs
+# Reproduce the 18-box bottom-solve failure from the WarpX run:
+#   mpirun -np 4 ./marco3d.gnu.TEST.MPI.ex inputs amr.max_grid_size=64
+
+# ---- mesh and physical geometry ---------------------------------------
+amr.n_cell            = 528 80 8
+amr.max_grid_size     = 528
+amr.blocking_factor   = 8
+amr.refine_grid_layout = 1
+
+geometry.prob_lo      = -0.0528 -0.008 -0.0008
+geometry.prob_hi      =  0.0528  0.008  0.0008
+geometry.is_periodic  = 0 1 1
+
+# ---- embedded boundary ------------------------------------------------
+# ParserIF convention: >0 is body, 0 is boundary, <0 is fluid.
+problem.eb_implicit_function = "0 + 2*(x<=-0.052) + 2*(x>=0.052) - (x>-0.052)*(x<0.052)"
+problem.eb_potential          = "-100000.0*(x<(-0.052+5.0e-3))"
+
+eb2.cover_multiple_cuts = 1
+eb2.extend_domain_face  = 1
+eb2.max_grid_size       = 64
+eb2.num_coarsen_opt     = 0
+
+# ---- MLMG -------------------------------------------------------------
+mlmg.verbose              = 2
+mlmg.linop_verbose        = 0
+mlmg.bottom_verbose       = 1
+mlmg.max_iter             = 200
+mlmg.reltol               = 1.e-11
+# WarpX changes a zero absolute tolerance to 1.e-6 when rho is identically zero.
+mlmg.abstol               = 1.e-6
+mlmg.max_coarsening_level = 30
+mlmg.final_smooth         = 8
+mlmg.bottom_solver        = default
+mlmg.bottom_max_iter      = 200
+mlmg.bottom_reltol        = 1.e-4
+mlmg.no_gpu_sync          = 1
