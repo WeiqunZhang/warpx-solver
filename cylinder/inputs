@@ -1,0 +1,37 @@
+# Standalone MLMG test for the rlehe_cylinder WarpX case (inputs_D).
+# Solver-relevant subset of inputs_D.  rho = 0 and phi = 0 initially, so the
+# EB Dirichlet potential drives the solve (the step-0 solve of the WarpX run).
+#
+#   mpirun -np 1 ./cylinder3d.gnu.TPROF.MPI.ex inputs
+
+# ---- mesh ----------------------------------------------------------------
+amr.n_cell        = 1024 1024 256    # nx nx nz
+warpx.numprocs    = 4 4 4            # 64 boxes of 256x256x64, as in WarpX
+# amr.max_grid_size = 256            # used only if warpx.numprocs is absent
+
+# device_width = 0.51*2
+geometry.prob_lo  = -0.51 -0.51 -2e-3
+geometry.prob_hi  =  0.51  0.51 50e-3
+
+# ---- EB ------------------------------------------------------------------
+eb2.geom_type           = stl
+eb2.stl_file            = cylinder_4x.stl
+eb2.cover_multiple_cuts = 1
+warpx.eb_potential(x,y,z,t) = " -40e3*(z>16.5e-3) - 41e3*(z>5.50e-3)*(z<16.5e-3)"
+problem.time            = 0.0        # t passed to eb_potential
+
+# Domain BCs (hard-wired in main.cpp):
+#   boundary.field_lo = neumann neumann pec, boundary.potential_lo_z = 0
+#   boundary.field_hi = neumann neumann neumann
+
+# ---- MLMG (WarpX defaults + inputs_D tolerances) -------------------------
+mlmg.verbose        = 2       # warpx.self_fields_verbosity
+mlmg.bottom_verbose = 1
+mlmg.max_iter       = 200     # warpx.self_fields_max_iters
+mlmg.reltol         = 1e-4    # warpx.self_fields_required_precision
+mlmg.abstol         = 0.0     # warpx.self_fields_absolute_tolerance
+mlmg.final_smooth   = 8       # warpx.self_fields_num_final_sweeps
+
+# ---- driver --------------------------------------------------------------
+nsolves   = 1   # each solve rebuilds linop + MLMG, as WarpX does every step
+reset_phi = 1   # 1: phi = 0 before every solve so all solves do the same work
