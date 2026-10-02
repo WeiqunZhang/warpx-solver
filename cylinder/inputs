@@ -26,12 +26,13 @@ problem.time            = 0.0        # t passed to eb_potential
 
 # ---- MLMG (WarpX defaults + inputs_D tolerances) -------------------------
 mlmg.verbose        = 2       # warpx.self_fields_verbosity
-mlmg.bottom_verbose = 1
+mlmg.bottom_verbose = 2
 mlmg.max_iter       = 200     # warpx.self_fields_max_iters
 mlmg.reltol         = 1e-4    # warpx.self_fields_required_precision
 mlmg.abstol         = 0.0     # warpx.self_fields_absolute_tolerance
 mlmg.final_smooth   = 8       # warpx.self_fields_num_final_sweeps
 
 # ---- driver --------------------------------------------------------------
-nsolves   = 1   # each solve rebuilds linop + MLMG, as WarpX does every step
+nsolves   = 1   # each solve rebuilds linop + MLMG, as WarpX does every step;
+                # every solve runs twice: geometric MG, then AlgMG
 reset_phi = 1   # 1: phi = 0 before every solve so all solves do the same work

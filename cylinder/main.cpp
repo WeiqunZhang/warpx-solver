@@ -137,6 +137,8 @@ makeGrids (Box const& domain, Params const& p)
 void
 main_main ()
 {
+    BL_PROFILE("main");
+
     static_assert(AMREX_SPACEDIM == 3, "This test is 3D only");
 
     Params p;
@@ -196,14 +198,20 @@ main_main ()
             << "  EB build     : " << t_eb << " s\n"
             << "  reltol/abstol: " << p.reltol << " / " << p.abstol << "\n\n";
 
-    for (int isolve = 0; isolve < p.nsolves; ++isolve) {
+    // Even solves use geometric multigrid, odd solves AlgMG.
+    for (int isolve = 0; isolve < 2*p.nsolves; ++isolve) {
+        bool const algebraic = (isolve % 2 == 1);
         if (p.reset_phi) { phi.setVal(0.0_rt); }
+
+        BL_PROFILE_VAR(algebraic ? "solve-algebraic" : "solve-geometric", psolve);
 
         // ablastr::fields::computePhi builds a new linop and MLMG every call.
         ParallelDescriptor::Barrier();
         t0 = ParallelDescriptor::second();
 
-        LPInfo const info;
+        LPInfo info;
+        // AlgMG solves the whole level; skip building the geometric levels.
+        if (algebraic) { info.setMaxCoarseningLevel(0); }
         MLEBNodeFDLaplacian linop;
         linop.define(Vector<Geometry>{geom}, Vector<BoxArray>{grids},
                      Vector<DistributionMapping>{dmap}, info,
@@ -223,14 +231,17 @@ main_main ()
         mlmg.setFinalSmooth(p.final_smooth);
         mlmg.setConvergenceNormType(MLMGNormType::greater);
         mlmg.setNoGpuSync(true);
+        mlmg.setMultigridType(algebraic ? MultigridType::algebraic
+                                        : MultigridType::geometric);
 
         mlmg.solve({&phi}, {&rhs}, p.reltol, p.abstol);
         Gpu::streamSynchronize();
 
         Real t_solve = ParallelDescriptor::second() - t0;
         ParallelDescriptor::ReduceRealMax(t_solve);
+        BL_PROFILE_VAR_STOP(psolve);
 
-        Print() << "\nSolve " << isolve << "\n"
+        Print() << "\nSolve " << isolve/2 << " (" << (algebraic ? "algebraic" : "geometric") << ")\n"
                 << "  MG levels          : " << linop.NMGLevels(0) << "\n"
                 << "  initial rhs norm   : " << mlmg.getInitRHS() << "\n"
                 << "  initial residual   : " << mlmg.getInitResidual() << "\n"
