@@ -6,7 +6,7 @@
 
 # ---- mesh ----------------------------------------------------------------
 amr.n_cell        = 1024 1024 256    # nx nx nz
-amr.max_grid_size = 256 256 64      # one value or one per direction
+amr.max_grid_size = 128              # one value or one per direction
 
 # device_width = 0.51*2
 geometry.prob_lo  = -0.51 -0.51 -2e-3
@@ -25,10 +25,11 @@ problem.time            = 0.0        # t passed to eb_potential
 
 # ---- MLMG (WarpX defaults + inputs_D tolerances) -------------------------
 mlmg.verbose        = 2       # warpx.self_fields_verbosity
-mlmg.bottom_verbose = 2
+mlmg.bottom_verbose = 1
 mlmg.max_iter       = 200     # warpx.self_fields_max_iters
-mlmg.reltol         = 1e-4    # warpx.self_fields_required_precision
+mlmg.reltol         = 1e-6    # warpx.self_fields_required_precision (1e-4 in inputs_D)
 mlmg.abstol         = 0.0     # warpx.self_fields_absolute_tolerance
+mlmg.bottom_reltol  = 3e-4    # bottom solver, and AlgMG in the algebraic solves
 mlmg.final_smooth   = 8       # warpx.self_fields_num_final_sweeps
 
 # ---- driver --------------------------------------------------------------

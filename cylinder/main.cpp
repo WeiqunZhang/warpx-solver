@@ -45,8 +45,9 @@ struct Params
     int verbose = 2;
     int bottom_verbose = 0;
     int max_iter = 200;
-    Real reltol = 1.e-1_rt;
-    Real abstol = 1.e-1_rt;
+    Real reltol = 1.e-6_rt;
+    Real abstol = 0.0_rt;
+    Real bottom_reltol = 3.e-4_rt;
     int final_smooth = 8;
 
     int nsolves = 1;
@@ -87,6 +88,7 @@ struct Params
             pp.query("max_iter", max_iter);
             pp.query("reltol", reltol);
             pp.query("abstol", abstol);
+            pp.query("bottom_reltol", bottom_reltol);
             pp.query("final_smooth", final_smooth);
         }
         {
@@ -160,14 +162,15 @@ main_main ()
             << "  MPI ranks    : " << ParallelDescriptor::NProcs() << "\n"
             << "  EB potential : " << p.eb_potential << " at t = " << time << "\n"
             << "  EB build     : " << t_eb << " s\n"
-            << "  reltol/abstol: " << p.reltol << " / " << p.abstol << "\n\n";
+            << "  reltol/abstol: " << p.reltol << " / " << p.abstol << "\n"
+            << "  bottom_reltol: " << p.bottom_reltol << "\n\n";
 
     // Even solves use geometric multigrid, odd solves AlgMG.
     for (int isolve = 0; isolve < 2*p.nsolves; ++isolve) {
         bool const algebraic = (isolve % 2 == 1);
         if (p.reset_phi) { phi.setVal(0.0_rt); }
 
-        BL_PROFILE_VAR(algebraic ? "solve-algebraic" : "solve-geometric", psolve);
+        BL_PROFILE_REGION(algebraic ? "algebraic" : "geometric");
 
         // ablastr::fields::computePhi builds a new linop and MLMG every call.
         ParallelDescriptor::Barrier();
@@ -192,24 +195,34 @@ main_main ()
         mlmg.setVerbose(p.verbose);
         mlmg.setBottomVerbose(p.bottom_verbose);
         mlmg.setMaxIter(p.max_iter);
+        mlmg.setBottomTolerance(p.bottom_reltol);  // also AlgMG's tolerance
         mlmg.setFinalSmooth(p.final_smooth);
         mlmg.setConvergenceNormType(MLMGNormType::greater);
         mlmg.setNoGpuSync(true);
+        mlmg.setThrowException(true);  // report a failed solve and keep going
         mlmg.setMultigridType(algebraic ? MultigridType::algebraic
                                         : MultigridType::geometric);
 
-        mlmg.solve({&phi}, {&rhs}, p.reltol, p.abstol);
+        std::string status = "converged";
+        try {
+            mlmg.solve({&phi}, {&rhs}, p.reltol, p.abstol);
+        } catch (MLMG::error const& e) {
+            status = std::string("FAILED: ") + e.what();
+        }
         Gpu::streamSynchronize();
+        auto const& hist = mlmg.getResidualHistory();
+        Real const final_resid = (status == "converged" || hist.empty())
+            ? mlmg.getFinalResidual() : hist.back();
 
         Real t_solve = ParallelDescriptor::second() - t0;
         ParallelDescriptor::ReduceRealMax(t_solve);
-        BL_PROFILE_VAR_STOP(psolve);
 
         Print() << "\nSolve " << isolve/2 << " (" << (algebraic ? "algebraic" : "geometric") << ")\n"
                 << "  MG levels          : " << linop.NMGLevels(0) << "\n"
                 << "  initial rhs norm   : " << mlmg.getInitRHS() << "\n"
                 << "  initial residual   : " << mlmg.getInitResidual() << "\n"
-                << "  final residual     : " << mlmg.getFinalResidual() << "\n"
+                << "  status             : " << status << "\n"
+                << "  final residual     : " << final_resid << "\n"
                 << "  MLMG iterations    : " << mlmg.getNumIters() << "\n"
                 << "  bottom iterations  :";
         for (int n : mlmg.getNumCGIters()) { Print() << " " << n; }
