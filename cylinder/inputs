@@ -6,8 +6,7 @@
 
 # ---- mesh ----------------------------------------------------------------
 amr.n_cell        = 1024 1024 256    # nx nx nz
-warpx.numprocs    = 4 4 4            # 64 boxes of 256x256x64, as in WarpX
-# amr.max_grid_size = 256            # used only if warpx.numprocs is absent
+amr.max_grid_size = 256 256 64      # one value or one per direction
 
 # device_width = 0.51*2
 geometry.prob_lo  = -0.51 -0.51 -2e-3

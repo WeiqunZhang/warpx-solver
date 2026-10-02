@@ -7,7 +7,6 @@
 #include <AMReX.H>
 #include <AMReX_Array.H>
 #include <AMReX_BoxArray.H>
-#include <AMReX_BoxList.H>
 #include <AMReX_DistributionMapping.H>
 #include <AMReX_EB2.H>
 #include <AMReX_EBFabFactory.H>
@@ -35,8 +34,7 @@ namespace {
 struct Params
 {
     Array<int,3> n_cell{1024, 1024, 256};
-    Array<int,3> numprocs{4, 4, 4};  // warpx.numprocs; all zero -> max_grid_size
-    int max_grid_size = 256;
+    IntVect max_grid_size{256, 256, 64};
 
     Array<Real,3> prob_lo{-0.51_rt, -0.51_rt, -2.e-3_rt};
     Array<Real,3> prob_hi{ 0.51_rt,  0.51_rt, 50.e-3_rt};
@@ -60,7 +58,12 @@ struct Params
             ParmParse pp("amr");
             Vector<int> v(n_cell.begin(), n_cell.end());
             if (pp.queryarr("n_cell", v, 0, 3)) { std::copy(v.begin(), v.end(), n_cell.begin()); }
-            pp.query("max_grid_size", max_grid_size);
+            // One value for all directions, or one per direction.
+            Vector<int> m;
+            if (pp.queryarr("max_grid_size", m)) {
+                AMREX_ALWAYS_ASSERT(m.size() == 1 || m.size() == 3);
+                max_grid_size = (m.size() == 1) ? IntVect(m[0]) : IntVect(m[0], m[1], m[2]);
+            }
         }
         {
             ParmParse pp("geometry");
@@ -71,12 +74,6 @@ struct Params
         }
         {
             ParmParse pp("warpx");
-            Vector<int> v;
-            if (pp.queryarr("numprocs", v, 0, 3)) {
-                std::copy(v.begin(), v.end(), numprocs.begin());
-            } else {
-                numprocs = {0, 0, 0};
-            }
             pp.query("eb_potential(x,y,z,t)", eb_potential);
         }
         {
@@ -100,40 +97,6 @@ struct Params
     }
 };
 
-// Same decomposition as WarpX::PostProcessBaseGrids with warpx.numprocs.
-BoxArray
-makeGrids (Box const& domain, Params const& p)
-{
-    if (p.numprocs[0] <= 0) {
-        BoxArray ba(domain);
-        ba.maxSize(p.max_grid_size);
-        return ba;
-    }
-
-    IntVect const np(p.numprocs[0], p.numprocs[1], p.numprocs[2]);
-    IntVect const domlo = domain.smallEnd();
-    IntVect const domlen = domain.size();
-    IntVect const sz = domlen / np;
-    IntVect const extra = domlen - sz*np;
-    auto range = [&] (int idim, int i) {
-        int lo = (i < extra[idim]) ? i*(sz[idim]+1) : (i*sz[idim]+extra[idim]);
-        int hi = (i < extra[idim]) ? lo+(sz[idim]+1)-1 : lo+sz[idim]-1;
-        return std::make_pair(lo+domlo[idim], hi+domlo[idim]);
-    };
-    BoxList bl;
-    for (int k = 0; k < np[2]; ++k) {
-        auto [klo, khi] = range(2, k);
-        for (int j = 0; j < np[1]; ++j) {
-            auto [jlo, jhi] = range(1, j);
-            for (int i = 0; i < np[0]; ++i) {
-                auto [ilo, ihi] = range(0, i);
-                bl.push_back(Box(IntVect(ilo,jlo,klo), IntVect(ihi,jhi,khi)));
-            }
-        }
-    }
-    return BoxArray(std::move(bl));
-}
-
 void
 main_main ()
 {
@@ -149,7 +112,8 @@ main_main ()
     Array<int,3> const is_periodic{0, 0, 0};
     Geometry const geom(domain, &real_box, CoordSys::cartesian, is_periodic.data());
 
-    BoxArray const grids = makeGrids(domain, p);
+    BoxArray grids(domain);
+    grids.maxSize(p.max_grid_size);
     DistributionMapping const dmap(grids);
 
     // WarpX::InitEB: eb2.geom_type = stl etc. are read by AMReX.
