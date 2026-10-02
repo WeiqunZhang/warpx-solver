@@ -1,0 +1,2391 @@
+Initializing AMReX (26.10-20-ge2bc9eab6854)...
+MPI initialized with 1 MPI processes
+MPI initialized with thread support level 0
+Initializing CUDA...
+Multiple GPUs are visible to each MPI rank. Fixing GPU assignment for Perlmutter according to heuristics.
+CUDA initialized with 1 device.
+AMReX (26.10-20-ge2bc9eab6854) initialized
+Reading binary STL file cylinder_4x.stl
+    Number of triangles: 2772144
+    Min: (-0.5,-0.4998445809,-0.001000000047) Max: (0.5,0.4998445809,0.02280000038)
+AMReX EB: Iter. 1 fixed 26528 multicuts
+
+rlehe_cylinder MLEBNodeFDLaplacian test
+  domain       : (256,256,128) cells
+  prob_lo      : (-0.51,-0.51,-0.002)
+  prob_hi      : (0.51,0.51,0.05)
+  dx           : (0.003984375,0.003984375,0.00040625)
+  grids        : 4 (min (128,128,128), max (128,128,128))
+  MPI ranks    : 1
+  EB potential :  -40e3*(z>16.5e-3) - 41e3*(z>5.50e-3)*(z<16.5e-3) at t = 0
+  EB build     : 7.546814424 s
+  reltol/abstol: 1e-06 / 0
+  bottom_reltol: 0.0003
+
+MLMG: # of AMR levels: 1
+      # of MG levels on the coarsest AMR level: 6
+MLMG: Initial rhs               = 0
+MLMG: Initial residual (resid0) = 3.799459198e+11
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        128733515.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002828957028
+MLMG: Iteration   1 Fine resid/resid0 = 0.2890665511
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        86132454.79
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002604505694
+MLMG: Iteration   2 Fine resid/resid0 = 0.1426068966
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        83295031.51
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002537481885
+MLMG: Iteration   3 Fine resid/resid0 = 0.1471893203
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        84163381.31
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000276919715
+MLMG: Iteration   4 Fine resid/resid0 = 0.1455974784
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        81717944.5
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000293344846
+MLMG: Iteration   5 Fine resid/resid0 = 0.1462731635
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        81180104.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002530378458
+MLMG: Iteration   6 Fine resid/resid0 = 0.142419324
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        79331497.63
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002561150409
+MLMG: Iteration   7 Fine resid/resid0 = 0.1419763264
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        78404188.41
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002376676266
+MLMG: Iteration   8 Fine resid/resid0 = 0.1383376982
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        76837188.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002397730755
+MLMG: Iteration   9 Fine resid/resid0 = 0.1373109507
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        75766758.84
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002321727533
+MLMG: Iteration  10 Fine resid/resid0 = 0.134075542
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        74357088.29
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002338292217
+MLMG: Iteration  11 Fine resid/resid0 = 0.1327005398
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        73237514.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002304428076
+MLMG: Iteration  12 Fine resid/resid0 = 0.129818174
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        71930236.53
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002316240651
+MLMG: Iteration  13 Fine resid/resid0 = 0.1282382958
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        70803021.98
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299711704
+MLMG: Iteration  14 Fine resid/resid0 = 0.1256337607
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        69570358.33
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002307634613
+MLMG: Iteration  15 Fine resid/resid0 = 0.123939995
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        68455363.46
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002298872481
+MLMG: Iteration  16 Fine resid/resid0 = 0.1215503199
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        67281856.84
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230404487
+MLMG: Iteration  17 Fine resid/resid0 = 0.1198010137
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        66189028.47
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299068536
+MLMG: Iteration  18 Fine resid/resid0 = 0.1175795797
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        65065433.94
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002302422535
+MLMG: Iteration  19 Fine resid/resid0 = 0.1158124465
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        63999808.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299438198
+MLMG: Iteration  20 Fine resid/resid0 = 0.1137260248
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        62920232.21
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002301622392
+MLMG: Iteration  21 Fine resid/resid0 = 0.111965541
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        61884262.32
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299756754
+MLMG: Iteration  22 Fine resid/resid0 = 0.109990622
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        60844707.95
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002301193068
+MLMG: Iteration  23 Fine resid/resid0 = 0.1082526464
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        59839427.53
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299989646
+MLMG: Iteration  24 Fine resid/resid0 = 0.1063724848
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        58837012.33
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300945496
+MLMG: Iteration  25 Fine resid/resid0 = 0.1046671968
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        57862648.85
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300150516
+MLMG: Iteration  26 Fine resid/resid0 = 0.1028696921
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        56895169.16
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300794496
+MLMG: Iteration  27 Fine resid/resid0 = 0.1012034917
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        55951483.32
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300259533
+MLMG: Iteration  28 Fine resid/resid0 = 0.09947972906
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        55017162.82
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300698526
+MLMG: Iteration  29 Fine resid/resid0 = 0.09785648206
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        54103642.73
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300333187
+MLMG: Iteration  30 Fine resid/resid0 = 0.09619974162
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        53200983.66
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300635693
+MLMG: Iteration  31 Fine resid/resid0 = 0.0946216066
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        52316959.32
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300383159
+MLMG: Iteration  32 Fine resid/resid0 = 0.09302669271
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        51444652.21
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300593655
+MLMG: Iteration  33 Fine resid/resid0 = 0.09149467421
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        50589364.6
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300417309
+MLMG: Iteration  34 Fine resid/resid0 = 0.08995745987
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        49746232.2
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230056507
+MLMG: Iteration  35 Fine resid/resid0 = 0.08847178241
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        48918875.63
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300440841
+MLMG: Iteration  36 Fine resid/resid0 = 0.0869888981
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        48103837.4
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300545381
+MLMG: Iteration  37 Fine resid/resid0 = 0.08554926059
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        47303585.96
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300457191
+MLMG: Iteration  38 Fine resid/resid0 = 0.08411788037
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        46515635.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300531678
+MLMG: Iteration  39 Fine resid/resid0 = 0.08272363027
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        45741659.12
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300468643
+MLMG: Iteration  40 Fine resid/resid0 = 0.08134132375
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        44979847.25
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300522056
+MLMG: Iteration  41 Fine resid/resid0 = 0.07999157691
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        44231323.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300476723
+MLMG: Iteration  42 Fine resid/resid0 = 0.07865620617
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        43494750.98
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300515247
+MLMG: Iteration  43 Fine resid/resid0 = 0.07734992955
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        42770870.51
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300482462
+MLMG: Iteration  44 Fine resid/resid0 = 0.0760595768
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        42058677.71
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300510396
+MLMG: Iteration  45 Fine resid/resid0 = 0.07479564576
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        41358647.76
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300486566
+MLMG: Iteration  46 Fine resid/resid0 = 0.07354856227
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        40670012.35
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300506919
+MLMG: Iteration  47 Fine resid/resid0 = 0.07232580032
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        39993060.22
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300489516
+MLMG: Iteration  48 Fine resid/resid0 = 0.07112037005
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        39327192.02
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300504412
+MLMG: Iteration  49 Fine resid/resid0 = 0.06993757634
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        38672566.09
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300491648
+MLMG: Iteration  50 Fine resid/resid0 = 0.06877228992
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        38028704.69
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300502596
+MLMG: Iteration  51 Fine resid/resid0 = 0.06762825828
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        37395675.08
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300493197
+MLMG: Iteration  52 Fine resid/resid0 = 0.06650169415
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        36773087.75
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300501273
+MLMG: Iteration  53 Fine resid/resid0 = 0.06539522614
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        36160946.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300494327
+MLMG: Iteration  54 Fine resid/resid0 = 0.06430603679
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        35558926.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300500306
+MLMG: Iteration  55 Fine resid/resid0 = 0.06323595062
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        34966987.67
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300495155
+MLMG: Iteration  56 Fine resid/resid0 = 0.06218285243
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        34384852.85
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300499597
+MLMG: Iteration  57 Fine resid/resid0 = 0.06114798892
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        33812451.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300495765
+MLMG: Iteration  58 Fine resid/resid0 = 0.06012975456
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        33249543.48
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300499073
+MLMG: Iteration  59 Fine resid/resid0 = 0.05912898101
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        32696037.16
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496214
+MLMG: Iteration  60 Fine resid/resid0 = 0.05814443363
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        32151718.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498687
+MLMG: Iteration  61 Fine resid/resid0 = 0.05717664632
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        31616484.6
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496547
+MLMG: Iteration  62 Fine resid/resid0 = 0.0562246551
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        31090141.36
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498399
+MLMG: Iteration  63 Fine resid/resid0 = 0.05528878065
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        30572576.91
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496795
+MLMG: Iteration  64 Fine resid/resid0 = 0.05436825726
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        30063614.49
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498186
+MLMG: Iteration  65 Fine resid/resid0 = 0.05346325337
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        29563137.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496979
+MLMG: Iteration  66 Fine resid/resid0 = 0.05257314914
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        29070981.01
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498026
+MLMG: Iteration  67 Fine resid/resid0 = 0.05169800476
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        28587026.93
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497117
+MLMG: Iteration  68 Fine resid/resid0 = 0.0508373083
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        28111121.9
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497907
+MLMG: Iteration  69 Fine resid/resid0 = 0.0499910435
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        27643145.95
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497221
+MLMG: Iteration  70 Fine resid/resid0 = 0.04915877877
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        27182955.08
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497818
+MLMG: Iteration  71 Fine resid/resid0 = 0.04834044431
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        26730429.96
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497298
+MLMG: Iteration  72 Fine resid/resid0 = 0.04753566889
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        26285434.17
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049775
+MLMG: Iteration  73 Fine resid/resid0 = 0.04674434571
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        25847849.93
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497357
+MLMG: Iteration  74 Fine resid/resid0 = 0.04596614929
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        25417547.36
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.00023004977
+MLMG: Iteration  75 Fine resid/resid0 = 0.0452009478
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        24994410.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497401
+MLMG: Iteration  76 Fine resid/resid0 = 0.04444845087
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        24578316.19
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497661
+MLMG: Iteration  77 Fine resid/resid0 = 0.04370851024
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        24169150.4
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497434
+MLMG: Iteration  78 Fine resid/resid0 = 0.04298086286
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        23766794.55
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497632
+MLMG: Iteration  79 Fine resid/resid0 = 0.04226535023
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        23371138.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497459
+MLMG: Iteration  80 Fine resid/resid0 = 0.04156173089
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        22982067.53
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049761
+MLMG: Iteration  81 Fine resid/resid0 = 0.04086984057
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        22599474.83
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497478
+MLMG: Iteration  82 Fine resid/resid0 = 0.04018945519
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        22223250.44
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497594
+MLMG: Iteration  83 Fine resid/resid0 = 0.03952040786
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        21853290
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497493
+MLMG: Iteration  84 Fine resid/resid0 = 0.03886248876
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        21489487.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497581
+MLMG: Iteration  85 Fine resid/resid0 = 0.03821553065
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        21131742.56
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497504
+MLMG: Iteration  86 Fine resid/resid0 = 0.03757933564
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        20779952.38
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497571
+MLMG: Iteration  87 Fine resid/resid0 = 0.03695373776
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        20434019.04
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497512
+MLMG: Iteration  88 Fine resid/resid0 = 0.03633854928
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        20093844.25
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497564
+MLMG: Iteration  89 Fine resid/resid0 = 0.03573360659
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        19759332.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497519
+MLMG: Iteration  90 Fine resid/resid0 = 0.03513873085
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        19430389.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497558
+MLMG: Iteration  91 Fine resid/resid0 = 0.03455376155
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        19106923.24
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497524
+MLMG: Iteration  92 Fine resid/resid0 = 0.03397852771
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        18788841.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497554
+MLMG: Iteration  93 Fine resid/resid0 = 0.03341287245
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        18476054.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497527
+MLMG: Iteration  94 Fine resid/resid0 = 0.03285663186
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        18168475.24
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497551
+MLMG: Iteration  95 Fine resid/resid0 = 0.03230965303
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        17866016.24
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049753
+MLMG: Iteration  96 Fine resid/resid0 = 0.0317717785
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        17568592.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497548
+MLMG: Iteration  97 Fine resid/resid0 = 0.03124285951
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        17276119.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497532
+MLMG: Iteration  98 Fine resid/resid0 = 0.03072274457
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16988516.16
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497546
+MLMG: Iteration  99 Fine resid/resid0 = 0.03021128918
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16705700.46
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497534
+MLMG: Iteration 100 Fine resid/resid0 = 0.02970834741
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16427592.86
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497545
+MLMG: Iteration 101 Fine resid/resid0 = 0.02921377905
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16154115.1
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497535
+MLMG: Iteration 102 Fine resid/resid0 = 0.02872744339
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15885190
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497544
+MLMG: Iteration 103 Fine resid/resid0 = 0.02824920451
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15620741.87
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497536
+MLMG: Iteration 104 Fine resid/resid0 = 0.02777892665
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15360696.09
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497543
+MLMG: Iteration 105 Fine resid/resid0 = 0.0273164781
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15104979.45
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497537
+MLMG: Iteration 106 Fine resid/resid0 = 0.02686172783
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14853519.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497542
+MLMG: Iteration 107 Fine resid/resid0 = 0.02641454827
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14606246.37
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497538
+MLMG: Iteration 108 Fine resid/resid0 = 0.02597481288
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14363089.38
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497542
+MLMG: Iteration 109 Fine resid/resid0 = 0.02554239817
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14123980.35
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497538
+MLMG: Iteration 110 Fine resid/resid0 = 0.0251171819
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13888851.87
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497541
+MLMG: Iteration 111 Fine resid/resid0 = 0.02469904455
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13657637.69
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 112 Fine resid/resid0 = 0.024287868
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13430272.63
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497541
+MLMG: Iteration 113 Fine resid/resid0 = 0.02388353661
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13206692.64
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 114 Fine resid/resid0 = 0.02348593621
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12986834.68
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497541
+MLMG: Iteration 115 Fine resid/resid0 = 0.02309495494
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12770636.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 116 Fine resid/resid0 = 0.02271048244
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12558038.06
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 117 Fine resid/resid0 = 0.0223324105
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12348978.56
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 118 Fine resid/resid0 = 0.02196063244
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12143399.36
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 119 Fine resid/resid0 = 0.02159504359
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11941242.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 120 Fine resid/resid0 = 0.02123554083
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11742451.12
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 121 Fine resid/resid0 = 0.02088202291
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11546969.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 122 Fine resid/resid0 = 0.02053439014
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11354741.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 123 Fine resid/resid0 = 0.0201925446
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11165713.64
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 124 Fine resid/resid0 = 0.01985638991
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10979832.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 125 Fine resid/resid0 = 0.01952583135
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10797046.42
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 126 Fine resid/resid0 = 0.01920077574
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10617302.96
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 127 Fine resid/resid0 = 0.01888113149
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10440551.77
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 128 Fine resid/resid0 = 0.0185668085
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10266743.05
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 129 Fine resid/resid0 = 0.01825771821
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10095827.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 130 Fine resid/resid0 = 0.01795377347
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9927757.854
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 131 Fine resid/resid0 = 0.01765488865
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9762485.848
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 132 Fine resid/resid0 = 0.0173609795
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9599965.202
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 133 Fine resid/resid0 = 0.01707196319
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9440150.113
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 134 Fine resid/resid0 = 0.01678775827
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9282995.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 135 Fine resid/resid0 = 0.01650828465
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9128457.192
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 136 Fine resid/resid0 = 0.01623346355
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8976491.516
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 137 Fine resid/resid0 = 0.01596321753
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8827055.684
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 138 Fine resid/resid0 = 0.01569747041
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8680107.579
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 139 Fine resid/resid0 = 0.01543614732
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8535605.788
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 140 Fine resid/resid0 = 0.01517917459
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8393509.585
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 141 Fine resid/resid0 = 0.0149264798
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8253778.924
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 142 Fine resid/resid0 = 0.01467799174
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8116374.425
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 143 Fine resid/resid0 = 0.01443364038
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7981257.362
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 144 Fine resid/resid0 = 0.01419335685
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7848389.655
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 145 Fine resid/resid0 = 0.01395707344
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7717733.86
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 146 Fine resid/resid0 = 0.01372472354
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7589253.152
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 147 Fine resid/resid0 = 0.01349624168
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7462911.322
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 148 Fine resid/resid0 = 0.01327156346
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7338672.763
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 149 Fine resid/resid0 = 0.01305062556
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7216502.462
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 150 Fine resid/resid0 = 0.01283336573
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7096365.987
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 151 Fine resid/resid0 = 0.01261972271
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6978229.479
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 152 Fine resid/resid0 = 0.01240963632
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6862059.645
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 153 Fine resid/resid0 = 0.01220304732
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6747823.744
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 154 Fine resid/resid0 = 0.01199989751
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6635489.581
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 155 Fine resid/resid0 = 0.01180012964
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6525025.497
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 156 Fine resid/resid0 = 0.01160368738
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6416400.361
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 157 Fine resid/resid0 = 0.0114105154
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6309583.557
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 158 Fine resid/resid0 = 0.01122055924
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6204544.983
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 159 Fine resid/resid0 = 0.01103376537
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6101255.034
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 160 Fine resid/resid0 = 0.01085008114
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5999684.602
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 161 Fine resid/resid0 = 0.01066945479
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5899805.06
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 162 Fine resid/resid0 = 0.01049183541
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5801588.259
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 163 Fine resid/resid0 = 0.01031717294
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5705006.519
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 164 Fine resid/resid0 = 0.01014541816
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5610032.62
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 165 Fine resid/resid0 = 0.009976522661
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5516639.795
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 166 Fine resid/resid0 = 0.009810438844
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5424801.725
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 167 Fine resid/resid0 = 0.009647119902
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5334492.525
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 168 Fine resid/resid0 = 0.009486519807
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5245686.745
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 169 Fine resid/resid0 = 0.009328593296
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5158359.356
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 170 Fine resid/resid0 = 0.009173295861
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5072485.747
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 171 Fine resid/resid0 = 0.009020583735
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4988041.716
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 172 Fine resid/resid0 = 0.008870413879
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4905003.464
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 173 Fine resid/resid0 = 0.00872274397
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4823347.588
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 174 Fine resid/resid0 = 0.008577532391
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4743051.075
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 175 Fine resid/resid0 = 0.008434738217
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4664091.296
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 176 Fine resid/resid0 = 0.008294321204
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4586445.998
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 177 Fine resid/resid0 = 0.008156241778
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4510093.296
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 178 Fine resid/resid0 = 0.008020461025
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4435011.674
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 179 Fine resid/resid0 = 0.007886940677
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4361179.97
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 180 Fine resid/resid0 = 0.007755643104
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4288577.377
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 181 Fine resid/resid0 = 0.007626531304
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4217183.434
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 182 Fine resid/resid0 = 0.007499568887
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4146978.018
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 183 Fine resid/resid0 = 0.007374720073
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4077941.345
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 184 Fine resid/resid0 = 0.007251949675
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4010053.957
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 185 Fine resid/resid0 = 0.007131223093
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3943296.722
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 186 Fine resid/resid0 = 0.007012506303
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3877650.826
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 187 Fine resid/resid0 = 0.006895765847
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3813097.768
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 188 Fine resid/resid0 = 0.006780968823
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3749619.355
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 189 Fine resid/resid0 = 0.006668082879
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3687197.696
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 190 Fine resid/resid0 = 0.006557076199
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3625815.199
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 191 Fine resid/resid0 = 0.0064479175
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3565454.566
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 192 Fine resid/resid0 = 0.006340576016
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3506098.784
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 193 Fine resid/resid0 = 0.006235021495
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3447731.126
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 194 Fine resid/resid0 = 0.00613122419
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3390335.141
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 195 Fine resid/resid0 = 0.006029154847
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3333894.654
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 196 Fine resid/resid0 = 0.0059287847
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3278393.758
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 197 Fine resid/resid0 = 0.005830085462
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3223816.811
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 198 Fine resid/resid0 = 0.005733029315
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3170148.432
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 199 Fine resid/resid0 = 0.005637588908
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3117373.495
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 200 Fine resid/resid0 = 0.005543737341
+MLMG: Failed to converge after 200 iterations. resid, resid/resid0 = 2106320383, 0.005543737341
+
+Solve 0 (geometric)
+  MG levels          : 6
+  initial rhs norm   : 0
+  initial residual   : 3.799459198e+11
+  status             : FAILED: MLMG failed to converge.
+  final residual     : 2106320383
+  MLMG iterations    : 200
+  bottom iterations  : 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10
+  phi min/max        : -40991.34156 / 48.29704232
+  wall time          : 2.252269256 s (linop setup + solve)
+
+MLMG: # of AMR levels: 1
+      # of MG levels on the coarsest AMR level: 1
+MLMG: Initial rhs               = 0
+MLMG: Initial residual (resid0) = 3.799459198e+11
+    AlgMG: level 0: 8261317 rows, 57420149 nonzeros
+    AlgMG: level 1: 3606676 rows, 48495740 nonzeros
+    AlgMG: level 2: 1566683 rows, 25184483 nonzeros
+    AlgMG: level 3: 665220 rows, 17912674 nonzeros
+    AlgMG: level 4: 191240 rows, 11456682 nonzeros
+    AlgMG: level 5: 68280 rows, 4328004 nonzeros
+    AlgMG: level 6: 38303 rows, 2516199 nonzeros
+    AlgMG: level 7: 15627 rows, 1028457 nonzeros
+    AlgMG: level 8: 5157 rows, 336307 nonzeros
+    AlgMG: level 9: 872 rows, 29302 nonzeros
+    AlgMG: level 10: 37 rows, 237 nonzeros
+    AlgMG: operator complexity = 2.938136472
+    AlgMG: setup peak arena use = 7287.395752 MB (924.9600624 B per row)
+    AlgMG: Initial rhs      2-norm = 2.974043885e+13
+    AlgMG: Initial residual 2-norm = 2.974043885e+13
+    AlgMG(BiCGStab): Final Iter. 3: rnorm, rnorm/bnorm = 8823230472, 0.0002966745217
+MLMG: Iteration   1 Fine resid/resid0 = 0.007808109921
+    AlgMG: Initial rhs      2-norm = 8823230472
+    AlgMG: Initial residual 2-norm = 8823230472
+    AlgMG(BiCGStab): Final Iter. 3: rnorm, rnorm/bnorm = 2459082.728, 0.000278705485
+MLMG: Iteration   2 Fine resid/resid0 = 3.364832868e-06
+    AlgMG: Initial rhs      2-norm = 2459082.728
+    AlgMG: Initial residual 2-norm = 2459082.728
+    AlgMG(BiCGStab): Final Iter. 3: rnorm, rnorm/bnorm = 526.363166, 0.00021404858
+MLMG: Iteration   3 Fine resid/resid0 = 6.27890249e-10
+MLMG: Final Iter. 3 resid, resid/resid0 = 238.5643382, 6.27890249e-10
+MLMG: Timers: Solve = 0.610523054 Iter = 0.607394101 Bottom = 0.603334772
+
+Solve 0 (algebraic)
+  MG levels          : 1
+  initial rhs norm   : 0
+  initial residual   : 3.799459198e+11
+  status             : converged
+  final residual     : 238.5643382
+  MLMG iterations    : 3
+  bottom iterations  :
+  phi min/max        : -41000 / 2.145089797e-24
+  wall time          : 0.612010326 s (linop setup + solve)
+
+MLMG: # of AMR levels: 1
+      # of MG levels on the coarsest AMR level: 6
+MLMG: Initial rhs               = 0
+MLMG: Initial residual (resid0) = 3.799459198e+11
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        128733515.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002828957028
+MLMG: Iteration   1 Fine resid/resid0 = 0.2890665511
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        86132454.79
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002604505694
+MLMG: Iteration   2 Fine resid/resid0 = 0.1426068966
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        83295031.51
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002537481885
+MLMG: Iteration   3 Fine resid/resid0 = 0.1471893203
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        84163381.31
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000276919715
+MLMG: Iteration   4 Fine resid/resid0 = 0.1455974784
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        81717944.5
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000293344846
+MLMG: Iteration   5 Fine resid/resid0 = 0.1462731635
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        81180104.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002530378458
+MLMG: Iteration   6 Fine resid/resid0 = 0.142419324
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        79331497.63
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002561150409
+MLMG: Iteration   7 Fine resid/resid0 = 0.1419763264
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        78404188.41
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002376676266
+MLMG: Iteration   8 Fine resid/resid0 = 0.1383376982
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        76837188.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002397730755
+MLMG: Iteration   9 Fine resid/resid0 = 0.1373109507
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        75766758.84
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002321727533
+MLMG: Iteration  10 Fine resid/resid0 = 0.134075542
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        74357088.29
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002338292217
+MLMG: Iteration  11 Fine resid/resid0 = 0.1327005398
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        73237514.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002304428076
+MLMG: Iteration  12 Fine resid/resid0 = 0.129818174
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        71930236.53
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002316240651
+MLMG: Iteration  13 Fine resid/resid0 = 0.1282382958
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        70803021.98
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299711704
+MLMG: Iteration  14 Fine resid/resid0 = 0.1256337607
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        69570358.33
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002307634613
+MLMG: Iteration  15 Fine resid/resid0 = 0.123939995
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        68455363.46
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002298872481
+MLMG: Iteration  16 Fine resid/resid0 = 0.1215503199
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        67281856.84
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230404487
+MLMG: Iteration  17 Fine resid/resid0 = 0.1198010137
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        66189028.47
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299068536
+MLMG: Iteration  18 Fine resid/resid0 = 0.1175795797
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        65065433.94
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002302422535
+MLMG: Iteration  19 Fine resid/resid0 = 0.1158124465
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        63999808.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299438198
+MLMG: Iteration  20 Fine resid/resid0 = 0.1137260248
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        62920232.21
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002301622392
+MLMG: Iteration  21 Fine resid/resid0 = 0.111965541
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        61884262.32
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299756754
+MLMG: Iteration  22 Fine resid/resid0 = 0.109990622
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        60844707.95
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002301193068
+MLMG: Iteration  23 Fine resid/resid0 = 0.1082526464
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        59839427.53
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299989646
+MLMG: Iteration  24 Fine resid/resid0 = 0.1063724848
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        58837012.33
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300945496
+MLMG: Iteration  25 Fine resid/resid0 = 0.1046671968
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        57862648.85
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300150516
+MLMG: Iteration  26 Fine resid/resid0 = 0.1028696921
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        56895169.16
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300794496
+MLMG: Iteration  27 Fine resid/resid0 = 0.1012034917
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        55951483.32
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300259533
+MLMG: Iteration  28 Fine resid/resid0 = 0.09947972906
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        55017162.82
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300698526
+MLMG: Iteration  29 Fine resid/resid0 = 0.09785648206
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        54103642.73
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300333187
+MLMG: Iteration  30 Fine resid/resid0 = 0.09619974162
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        53200983.66
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300635693
+MLMG: Iteration  31 Fine resid/resid0 = 0.0946216066
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        52316959.32
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300383159
+MLMG: Iteration  32 Fine resid/resid0 = 0.09302669271
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        51444652.21
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300593655
+MLMG: Iteration  33 Fine resid/resid0 = 0.09149467421
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        50589364.6
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300417309
+MLMG: Iteration  34 Fine resid/resid0 = 0.08995745987
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        49746232.2
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230056507
+MLMG: Iteration  35 Fine resid/resid0 = 0.08847178241
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        48918875.63
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300440841
+MLMG: Iteration  36 Fine resid/resid0 = 0.0869888981
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        48103837.4
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300545381
+MLMG: Iteration  37 Fine resid/resid0 = 0.08554926059
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        47303585.96
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300457191
+MLMG: Iteration  38 Fine resid/resid0 = 0.08411788037
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        46515635.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300531678
+MLMG: Iteration  39 Fine resid/resid0 = 0.08272363027
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        45741659.12
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300468643
+MLMG: Iteration  40 Fine resid/resid0 = 0.08134132375
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        44979847.25
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300522056
+MLMG: Iteration  41 Fine resid/resid0 = 0.07999157691
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        44231323.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300476723
+MLMG: Iteration  42 Fine resid/resid0 = 0.07865620617
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        43494750.98
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300515247
+MLMG: Iteration  43 Fine resid/resid0 = 0.07734992955
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        42770870.51
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300482462
+MLMG: Iteration  44 Fine resid/resid0 = 0.0760595768
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        42058677.71
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300510396
+MLMG: Iteration  45 Fine resid/resid0 = 0.07479564576
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        41358647.76
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300486566
+MLMG: Iteration  46 Fine resid/resid0 = 0.07354856227
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        40670012.35
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300506919
+MLMG: Iteration  47 Fine resid/resid0 = 0.07232580032
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        39993060.22
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300489516
+MLMG: Iteration  48 Fine resid/resid0 = 0.07112037005
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        39327192.02
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300504412
+MLMG: Iteration  49 Fine resid/resid0 = 0.06993757634
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        38672566.09
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300491648
+MLMG: Iteration  50 Fine resid/resid0 = 0.06877228992
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        38028704.69
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300502596
+MLMG: Iteration  51 Fine resid/resid0 = 0.06762825828
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        37395675.08
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300493197
+MLMG: Iteration  52 Fine resid/resid0 = 0.06650169415
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        36773087.75
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300501273
+MLMG: Iteration  53 Fine resid/resid0 = 0.06539522614
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        36160946.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300494327
+MLMG: Iteration  54 Fine resid/resid0 = 0.06430603679
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        35558926.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300500306
+MLMG: Iteration  55 Fine resid/resid0 = 0.06323595062
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        34966987.67
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300495155
+MLMG: Iteration  56 Fine resid/resid0 = 0.06218285243
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        34384852.85
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300499597
+MLMG: Iteration  57 Fine resid/resid0 = 0.06114798892
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        33812451.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300495765
+MLMG: Iteration  58 Fine resid/resid0 = 0.06012975456
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        33249543.48
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300499073
+MLMG: Iteration  59 Fine resid/resid0 = 0.05912898101
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        32696037.16
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496214
+MLMG: Iteration  60 Fine resid/resid0 = 0.05814443363
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        32151718.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498687
+MLMG: Iteration  61 Fine resid/resid0 = 0.05717664632
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        31616484.6
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496547
+MLMG: Iteration  62 Fine resid/resid0 = 0.0562246551
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        31090141.36
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498399
+MLMG: Iteration  63 Fine resid/resid0 = 0.05528878065
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        30572576.91
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496795
+MLMG: Iteration  64 Fine resid/resid0 = 0.05436825726
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        30063614.49
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498186
+MLMG: Iteration  65 Fine resid/resid0 = 0.05346325337
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        29563137.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496979
+MLMG: Iteration  66 Fine resid/resid0 = 0.05257314914
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        29070981.01
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498026
+MLMG: Iteration  67 Fine resid/resid0 = 0.05169800476
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        28587026.93
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497117
+MLMG: Iteration  68 Fine resid/resid0 = 0.0508373083
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        28111121.9
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497907
+MLMG: Iteration  69 Fine resid/resid0 = 0.0499910435
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        27643145.95
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497221
+MLMG: Iteration  70 Fine resid/resid0 = 0.04915877877
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        27182955.08
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497818
+MLMG: Iteration  71 Fine resid/resid0 = 0.04834044431
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        26730429.96
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497298
+MLMG: Iteration  72 Fine resid/resid0 = 0.04753566889
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        26285434.17
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049775
+MLMG: Iteration  73 Fine resid/resid0 = 0.04674434571
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        25847849.93
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497357
+MLMG: Iteration  74 Fine resid/resid0 = 0.04596614929
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        25417547.36
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.00023004977
+MLMG: Iteration  75 Fine resid/resid0 = 0.0452009478
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        24994410.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497401
+MLMG: Iteration  76 Fine resid/resid0 = 0.04444845087
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        24578316.19
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497661
+MLMG: Iteration  77 Fine resid/resid0 = 0.04370851024
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        24169150.4
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497434
+MLMG: Iteration  78 Fine resid/resid0 = 0.04298086286
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        23766794.55
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497632
+MLMG: Iteration  79 Fine resid/resid0 = 0.04226535023
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        23371138.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497459
+MLMG: Iteration  80 Fine resid/resid0 = 0.04156173089
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        22982067.53
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049761
+MLMG: Iteration  81 Fine resid/resid0 = 0.04086984057
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        22599474.83
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497478
+MLMG: Iteration  82 Fine resid/resid0 = 0.04018945519
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        22223250.44
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497594
+MLMG: Iteration  83 Fine resid/resid0 = 0.03952040786
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        21853290
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497493
+MLMG: Iteration  84 Fine resid/resid0 = 0.03886248876
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        21489487.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497581
+MLMG: Iteration  85 Fine resid/resid0 = 0.03821553065
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        21131742.56
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497504
+MLMG: Iteration  86 Fine resid/resid0 = 0.03757933564
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        20779952.38
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497571
+MLMG: Iteration  87 Fine resid/resid0 = 0.03695373776
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        20434019.04
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497512
+MLMG: Iteration  88 Fine resid/resid0 = 0.03633854928
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        20093844.25
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497564
+MLMG: Iteration  89 Fine resid/resid0 = 0.03573360659
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        19759332.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497519
+MLMG: Iteration  90 Fine resid/resid0 = 0.03513873085
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        19430389.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497558
+MLMG: Iteration  91 Fine resid/resid0 = 0.03455376155
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        19106923.24
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497524
+MLMG: Iteration  92 Fine resid/resid0 = 0.03397852771
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        18788841.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497554
+MLMG: Iteration  93 Fine resid/resid0 = 0.03341287245
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        18476054.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497527
+MLMG: Iteration  94 Fine resid/resid0 = 0.03285663186
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        18168475.24
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497551
+MLMG: Iteration  95 Fine resid/resid0 = 0.03230965303
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        17866016.24
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049753
+MLMG: Iteration  96 Fine resid/resid0 = 0.0317717785
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        17568592.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497548
+MLMG: Iteration  97 Fine resid/resid0 = 0.03124285951
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        17276119.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497532
+MLMG: Iteration  98 Fine resid/resid0 = 0.03072274457
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16988516.16
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497546
+MLMG: Iteration  99 Fine resid/resid0 = 0.03021128918
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16705700.46
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497534
+MLMG: Iteration 100 Fine resid/resid0 = 0.02970834741
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16427592.86
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497545
+MLMG: Iteration 101 Fine resid/resid0 = 0.02921377905
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16154115.1
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497535
+MLMG: Iteration 102 Fine resid/resid0 = 0.02872744339
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15885190
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497544
+MLMG: Iteration 103 Fine resid/resid0 = 0.02824920451
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15620741.87
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497536
+MLMG: Iteration 104 Fine resid/resid0 = 0.02777892665
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15360696.09
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497543
+MLMG: Iteration 105 Fine resid/resid0 = 0.0273164781
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15104979.45
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497537
+MLMG: Iteration 106 Fine resid/resid0 = 0.02686172783
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14853519.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497542
+MLMG: Iteration 107 Fine resid/resid0 = 0.02641454827
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14606246.37
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497538
+MLMG: Iteration 108 Fine resid/resid0 = 0.02597481288
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14363089.38
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497542
+MLMG: Iteration 109 Fine resid/resid0 = 0.02554239817
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14123980.35
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497538
+MLMG: Iteration 110 Fine resid/resid0 = 0.0251171819
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13888851.87
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497541
+MLMG: Iteration 111 Fine resid/resid0 = 0.02469904455
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13657637.69
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 112 Fine resid/resid0 = 0.024287868
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13430272.63
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497541
+MLMG: Iteration 113 Fine resid/resid0 = 0.02388353661
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13206692.64
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 114 Fine resid/resid0 = 0.02348593621
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12986834.68
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497541
+MLMG: Iteration 115 Fine resid/resid0 = 0.02309495494
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12770636.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 116 Fine resid/resid0 = 0.02271048244
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12558038.06
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 117 Fine resid/resid0 = 0.0223324105
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12348978.56
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 118 Fine resid/resid0 = 0.02196063244
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12143399.36
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 119 Fine resid/resid0 = 0.02159504359
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11941242.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 120 Fine resid/resid0 = 0.02123554083
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11742451.12
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 121 Fine resid/resid0 = 0.02088202291
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11546969.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 122 Fine resid/resid0 = 0.02053439014
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11354741.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 123 Fine resid/resid0 = 0.0201925446
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11165713.64
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 124 Fine resid/resid0 = 0.01985638991
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10979832.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 125 Fine resid/resid0 = 0.01952583135
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10797046.42
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 126 Fine resid/resid0 = 0.01920077574
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10617302.96
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 127 Fine resid/resid0 = 0.01888113149
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10440551.77
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 128 Fine resid/resid0 = 0.0185668085
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10266743.05
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 129 Fine resid/resid0 = 0.01825771821
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10095827.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 130 Fine resid/resid0 = 0.01795377347
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9927757.854
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 131 Fine resid/resid0 = 0.01765488865
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9762485.848
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 132 Fine resid/resid0 = 0.0173609795
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9599965.202
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 133 Fine resid/resid0 = 0.01707196319
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9440150.113
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 134 Fine resid/resid0 = 0.01678775827
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9282995.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 135 Fine resid/resid0 = 0.01650828465
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9128457.192
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 136 Fine resid/resid0 = 0.01623346355
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8976491.516
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 137 Fine resid/resid0 = 0.01596321753
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8827055.684
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 138 Fine resid/resid0 = 0.01569747041
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8680107.579
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 139 Fine resid/resid0 = 0.01543614732
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8535605.788
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 140 Fine resid/resid0 = 0.01517917459
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8393509.585
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 141 Fine resid/resid0 = 0.0149264798
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8253778.924
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 142 Fine resid/resid0 = 0.01467799174
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8116374.425
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 143 Fine resid/resid0 = 0.01443364038
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7981257.362
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 144 Fine resid/resid0 = 0.01419335685
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7848389.655
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 145 Fine resid/resid0 = 0.01395707344
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7717733.86
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 146 Fine resid/resid0 = 0.01372472354
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7589253.152
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 147 Fine resid/resid0 = 0.01349624168
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7462911.322
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 148 Fine resid/resid0 = 0.01327156346
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7338672.763
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 149 Fine resid/resid0 = 0.01305062556
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7216502.462
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 150 Fine resid/resid0 = 0.01283336573
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7096365.987
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 151 Fine resid/resid0 = 0.01261972271
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6978229.479
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 152 Fine resid/resid0 = 0.01240963632
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6862059.645
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 153 Fine resid/resid0 = 0.01220304732
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6747823.744
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 154 Fine resid/resid0 = 0.01199989751
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6635489.581
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 155 Fine resid/resid0 = 0.01180012964
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6525025.497
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 156 Fine resid/resid0 = 0.01160368738
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6416400.361
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 157 Fine resid/resid0 = 0.0114105154
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6309583.557
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 158 Fine resid/resid0 = 0.01122055924
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6204544.983
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 159 Fine resid/resid0 = 0.01103376537
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6101255.034
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 160 Fine resid/resid0 = 0.01085008114
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5999684.602
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 161 Fine resid/resid0 = 0.01066945479
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5899805.06
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 162 Fine resid/resid0 = 0.01049183541
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5801588.259
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 163 Fine resid/resid0 = 0.01031717294
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5705006.519
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 164 Fine resid/resid0 = 0.01014541816
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5610032.62
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 165 Fine resid/resid0 = 0.009976522661
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5516639.795
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 166 Fine resid/resid0 = 0.009810438844
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5424801.725
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 167 Fine resid/resid0 = 0.009647119902
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5334492.525
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 168 Fine resid/resid0 = 0.009486519807
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5245686.745
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 169 Fine resid/resid0 = 0.009328593296
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5158359.356
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 170 Fine resid/resid0 = 0.009173295861
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5072485.747
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 171 Fine resid/resid0 = 0.009020583735
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4988041.716
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 172 Fine resid/resid0 = 0.008870413879
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4905003.464
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 173 Fine resid/resid0 = 0.00872274397
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4823347.588
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 174 Fine resid/resid0 = 0.008577532391
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4743051.075
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 175 Fine resid/resid0 = 0.008434738217
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4664091.296
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 176 Fine resid/resid0 = 0.008294321204
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4586445.998
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 177 Fine resid/resid0 = 0.008156241778
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4510093.296
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 178 Fine resid/resid0 = 0.008020461025
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4435011.674
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 179 Fine resid/resid0 = 0.007886940677
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4361179.97
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 180 Fine resid/resid0 = 0.007755643104
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4288577.377
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 181 Fine resid/resid0 = 0.007626531304
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4217183.434
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 182 Fine resid/resid0 = 0.007499568887
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4146978.018
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 183 Fine resid/resid0 = 0.007374720073
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4077941.345
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 184 Fine resid/resid0 = 0.007251949675
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4010053.957
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 185 Fine resid/resid0 = 0.007131223093
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3943296.722
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 186 Fine resid/resid0 = 0.007012506303
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3877650.826
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 187 Fine resid/resid0 = 0.006895765847
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3813097.768
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 188 Fine resid/resid0 = 0.006780968823
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3749619.355
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 189 Fine resid/resid0 = 0.006668082879
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3687197.696
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 190 Fine resid/resid0 = 0.006557076199
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3625815.199
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 191 Fine resid/resid0 = 0.0064479175
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3565454.566
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 192 Fine resid/resid0 = 0.006340576016
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3506098.784
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 193 Fine resid/resid0 = 0.006235021495
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3447731.126
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 194 Fine resid/resid0 = 0.00613122419
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3390335.141
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 195 Fine resid/resid0 = 0.006029154847
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3333894.654
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 196 Fine resid/resid0 = 0.0059287847
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3278393.758
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 197 Fine resid/resid0 = 0.005830085462
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3223816.811
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 198 Fine resid/resid0 = 0.005733029315
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3170148.432
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 199 Fine resid/resid0 = 0.005637588908
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3117373.495
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 200 Fine resid/resid0 = 0.005543737341
+MLMG: Failed to converge after 200 iterations. resid, resid/resid0 = 2106320383, 0.005543737341
+
+Solve 1 (geometric)
+  MG levels          : 6
+  initial rhs norm   : 0
+  initial residual   : 3.799459198e+11
+  status             : FAILED: MLMG failed to converge.
+  final residual     : 2106320383
+  MLMG iterations    : 200
+  bottom iterations  : 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10
+  phi min/max        : -40991.34156 / 48.29704232
+  wall time          : 2.248021643 s (linop setup + solve)
+
+MLMG: # of AMR levels: 1
+      # of MG levels on the coarsest AMR level: 1
+MLMG: Initial rhs               = 0
+MLMG: Initial residual (resid0) = 3.799459198e+11
+    AlgMG: level 0: 8261317 rows, 57420149 nonzeros
+    AlgMG: level 1: 3607060 rows, 48501314 nonzeros
+    AlgMG: level 2: 1566898 rows, 25188074 nonzeros
+    AlgMG: level 3: 665081 rows, 17926257 nonzeros
+    AlgMG: level 4: 191457 rows, 11480955 nonzeros
+    AlgMG: level 5: 68562 rows, 4341382 nonzeros
+    AlgMG: level 6: 38791 rows, 2583777 nonzeros
+    AlgMG: level 7: 15670 rows, 1043246 nonzeros
+    AlgMG: level 8: 4809 rows, 293947 nonzeros
+    AlgMG: level 9: 865 rows, 26687 nonzeros
+    AlgMG: level 10: 29 rows, 101 nonzeros
+    AlgMG: operator complexity = 2.939837182
+    AlgMG: setup peak arena use = 7289.029297 MB (925.1674018 B per row)
+    AlgMG: Initial rhs      2-norm = 2.974043885e+13
+    AlgMG: Initial residual 2-norm = 2.974043885e+13
+    AlgMG(BiCGStab): Final Iter. 3: rnorm, rnorm/bnorm = 6765428041, 0.0002274824549
+MLMG: Iteration   1 Fine resid/resid0 = 0.009890803568
+    AlgMG: Initial rhs      2-norm = 6765428041
+    AlgMG: Initial residual 2-norm = 6765428041
+    AlgMG(BiCGStab): Final Iter. 3: rnorm, rnorm/bnorm = 445144.02, 6.579687454e-05
+MLMG: Iteration   2 Fine resid/resid0 = 7.35799233e-07
+MLMG: Final Iter. 2 resid, resid/resid0 = 279563.9164, 7.35799233e-07
+MLMG: Timers: Solve = 0.378197496 Iter = 0.375159038 Bottom = 0.372448965
+
+Solve 1 (algebraic)
+  MG levels          : 1
+  initial rhs norm   : 0
+  initial residual   : 3.799459198e+11
+  status             : converged
+  final residual     : 279563.9164
+  MLMG iterations    : 2
+  bottom iterations  :
+  phi min/max        : -41000 / 7.711213485e-16
+  wall time          : 0.37964493 s (linop setup + solve)
+
+MLMG: # of AMR levels: 1
+      # of MG levels on the coarsest AMR level: 6
+MLMG: Initial rhs               = 0
+MLMG: Initial residual (resid0) = 3.799459198e+11
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        128733515.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002828957028
+MLMG: Iteration   1 Fine resid/resid0 = 0.2890665511
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        86132454.79
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002604505694
+MLMG: Iteration   2 Fine resid/resid0 = 0.1426068966
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        83295031.51
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002537481885
+MLMG: Iteration   3 Fine resid/resid0 = 0.1471893203
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        84163381.31
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000276919715
+MLMG: Iteration   4 Fine resid/resid0 = 0.1455974784
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        81717944.5
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000293344846
+MLMG: Iteration   5 Fine resid/resid0 = 0.1462731635
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        81180104.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002530378458
+MLMG: Iteration   6 Fine resid/resid0 = 0.142419324
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        79331497.63
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002561150409
+MLMG: Iteration   7 Fine resid/resid0 = 0.1419763264
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        78404188.41
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002376676266
+MLMG: Iteration   8 Fine resid/resid0 = 0.1383376982
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        76837188.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002397730755
+MLMG: Iteration   9 Fine resid/resid0 = 0.1373109507
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        75766758.84
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002321727533
+MLMG: Iteration  10 Fine resid/resid0 = 0.134075542
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        74357088.29
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002338292217
+MLMG: Iteration  11 Fine resid/resid0 = 0.1327005398
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        73237514.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002304428076
+MLMG: Iteration  12 Fine resid/resid0 = 0.129818174
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        71930236.53
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002316240651
+MLMG: Iteration  13 Fine resid/resid0 = 0.1282382958
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        70803021.98
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299711704
+MLMG: Iteration  14 Fine resid/resid0 = 0.1256337607
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        69570358.33
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002307634613
+MLMG: Iteration  15 Fine resid/resid0 = 0.123939995
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        68455363.46
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002298872481
+MLMG: Iteration  16 Fine resid/resid0 = 0.1215503199
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        67281856.84
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230404487
+MLMG: Iteration  17 Fine resid/resid0 = 0.1198010137
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        66189028.47
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299068536
+MLMG: Iteration  18 Fine resid/resid0 = 0.1175795797
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        65065433.94
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002302422535
+MLMG: Iteration  19 Fine resid/resid0 = 0.1158124465
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        63999808.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299438198
+MLMG: Iteration  20 Fine resid/resid0 = 0.1137260248
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        62920232.21
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002301622392
+MLMG: Iteration  21 Fine resid/resid0 = 0.111965541
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        61884262.32
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299756754
+MLMG: Iteration  22 Fine resid/resid0 = 0.109990622
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        60844707.95
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002301193068
+MLMG: Iteration  23 Fine resid/resid0 = 0.1082526464
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        59839427.53
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002299989646
+MLMG: Iteration  24 Fine resid/resid0 = 0.1063724848
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        58837012.33
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300945496
+MLMG: Iteration  25 Fine resid/resid0 = 0.1046671968
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        57862648.85
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300150516
+MLMG: Iteration  26 Fine resid/resid0 = 0.1028696921
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        56895169.16
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300794496
+MLMG: Iteration  27 Fine resid/resid0 = 0.1012034917
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        55951483.32
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300259533
+MLMG: Iteration  28 Fine resid/resid0 = 0.09947972906
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        55017162.82
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300698526
+MLMG: Iteration  29 Fine resid/resid0 = 0.09785648206
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        54103642.73
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300333187
+MLMG: Iteration  30 Fine resid/resid0 = 0.09619974162
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        53200983.66
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300635693
+MLMG: Iteration  31 Fine resid/resid0 = 0.0946216066
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        52316959.32
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300383159
+MLMG: Iteration  32 Fine resid/resid0 = 0.09302669271
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        51444652.21
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300593655
+MLMG: Iteration  33 Fine resid/resid0 = 0.09149467421
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        50589364.6
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300417309
+MLMG: Iteration  34 Fine resid/resid0 = 0.08995745987
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        49746232.2
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230056507
+MLMG: Iteration  35 Fine resid/resid0 = 0.08847178241
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        48918875.63
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300440841
+MLMG: Iteration  36 Fine resid/resid0 = 0.0869888981
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        48103837.4
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300545381
+MLMG: Iteration  37 Fine resid/resid0 = 0.08554926059
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        47303585.96
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300457191
+MLMG: Iteration  38 Fine resid/resid0 = 0.08411788037
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        46515635.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300531678
+MLMG: Iteration  39 Fine resid/resid0 = 0.08272363027
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        45741659.12
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300468643
+MLMG: Iteration  40 Fine resid/resid0 = 0.08134132375
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        44979847.25
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300522056
+MLMG: Iteration  41 Fine resid/resid0 = 0.07999157691
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        44231323.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300476723
+MLMG: Iteration  42 Fine resid/resid0 = 0.07865620617
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        43494750.98
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300515247
+MLMG: Iteration  43 Fine resid/resid0 = 0.07734992955
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        42770870.51
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300482462
+MLMG: Iteration  44 Fine resid/resid0 = 0.0760595768
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        42058677.71
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300510396
+MLMG: Iteration  45 Fine resid/resid0 = 0.07479564576
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        41358647.76
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300486566
+MLMG: Iteration  46 Fine resid/resid0 = 0.07354856227
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        40670012.35
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300506919
+MLMG: Iteration  47 Fine resid/resid0 = 0.07232580032
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        39993060.22
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300489516
+MLMG: Iteration  48 Fine resid/resid0 = 0.07112037005
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        39327192.02
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300504412
+MLMG: Iteration  49 Fine resid/resid0 = 0.06993757634
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        38672566.09
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300491648
+MLMG: Iteration  50 Fine resid/resid0 = 0.06877228992
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        38028704.69
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300502596
+MLMG: Iteration  51 Fine resid/resid0 = 0.06762825828
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        37395675.08
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300493197
+MLMG: Iteration  52 Fine resid/resid0 = 0.06650169415
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        36773087.75
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300501273
+MLMG: Iteration  53 Fine resid/resid0 = 0.06539522614
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        36160946.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300494327
+MLMG: Iteration  54 Fine resid/resid0 = 0.06430603679
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        35558926.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300500306
+MLMG: Iteration  55 Fine resid/resid0 = 0.06323595062
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        34966987.67
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300495155
+MLMG: Iteration  56 Fine resid/resid0 = 0.06218285243
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        34384852.85
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300499597
+MLMG: Iteration  57 Fine resid/resid0 = 0.06114798892
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        33812451.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300495765
+MLMG: Iteration  58 Fine resid/resid0 = 0.06012975456
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        33249543.48
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300499073
+MLMG: Iteration  59 Fine resid/resid0 = 0.05912898101
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        32696037.16
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496214
+MLMG: Iteration  60 Fine resid/resid0 = 0.05814443363
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        32151718.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498687
+MLMG: Iteration  61 Fine resid/resid0 = 0.05717664632
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        31616484.6
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496547
+MLMG: Iteration  62 Fine resid/resid0 = 0.0562246551
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        31090141.36
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498399
+MLMG: Iteration  63 Fine resid/resid0 = 0.05528878065
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        30572576.91
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496795
+MLMG: Iteration  64 Fine resid/resid0 = 0.05436825726
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        30063614.49
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498186
+MLMG: Iteration  65 Fine resid/resid0 = 0.05346325337
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        29563137.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300496979
+MLMG: Iteration  66 Fine resid/resid0 = 0.05257314914
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        29070981.01
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300498026
+MLMG: Iteration  67 Fine resid/resid0 = 0.05169800476
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        28587026.93
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497117
+MLMG: Iteration  68 Fine resid/resid0 = 0.0508373083
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        28111121.9
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497907
+MLMG: Iteration  69 Fine resid/resid0 = 0.0499910435
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        27643145.95
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497221
+MLMG: Iteration  70 Fine resid/resid0 = 0.04915877877
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        27182955.08
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497818
+MLMG: Iteration  71 Fine resid/resid0 = 0.04834044431
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        26730429.96
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497298
+MLMG: Iteration  72 Fine resid/resid0 = 0.04753566889
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        26285434.17
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049775
+MLMG: Iteration  73 Fine resid/resid0 = 0.04674434571
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        25847849.93
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497357
+MLMG: Iteration  74 Fine resid/resid0 = 0.04596614929
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        25417547.36
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.00023004977
+MLMG: Iteration  75 Fine resid/resid0 = 0.0452009478
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        24994410.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497401
+MLMG: Iteration  76 Fine resid/resid0 = 0.04444845087
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        24578316.19
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497661
+MLMG: Iteration  77 Fine resid/resid0 = 0.04370851024
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        24169150.4
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497434
+MLMG: Iteration  78 Fine resid/resid0 = 0.04298086286
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        23766794.55
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497632
+MLMG: Iteration  79 Fine resid/resid0 = 0.04226535023
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        23371138.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497459
+MLMG: Iteration  80 Fine resid/resid0 = 0.04156173089
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        22982067.53
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049761
+MLMG: Iteration  81 Fine resid/resid0 = 0.04086984057
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        22599474.83
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497478
+MLMG: Iteration  82 Fine resid/resid0 = 0.04018945519
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        22223250.44
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497594
+MLMG: Iteration  83 Fine resid/resid0 = 0.03952040786
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        21853290
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497493
+MLMG: Iteration  84 Fine resid/resid0 = 0.03886248876
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        21489487.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497581
+MLMG: Iteration  85 Fine resid/resid0 = 0.03821553065
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        21131742.56
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497504
+MLMG: Iteration  86 Fine resid/resid0 = 0.03757933564
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        20779952.38
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497571
+MLMG: Iteration  87 Fine resid/resid0 = 0.03695373776
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        20434019.04
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497512
+MLMG: Iteration  88 Fine resid/resid0 = 0.03633854928
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        20093844.25
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497564
+MLMG: Iteration  89 Fine resid/resid0 = 0.03573360659
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        19759332.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497519
+MLMG: Iteration  90 Fine resid/resid0 = 0.03513873085
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        19430389.88
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497558
+MLMG: Iteration  91 Fine resid/resid0 = 0.03455376155
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        19106923.24
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497524
+MLMG: Iteration  92 Fine resid/resid0 = 0.03397852771
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        18788841.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497554
+MLMG: Iteration  93 Fine resid/resid0 = 0.03341287245
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        18476054.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497527
+MLMG: Iteration  94 Fine resid/resid0 = 0.03285663186
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        18168475.24
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497551
+MLMG: Iteration  95 Fine resid/resid0 = 0.03230965303
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        17866016.24
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049753
+MLMG: Iteration  96 Fine resid/resid0 = 0.0317717785
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        17568592.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497548
+MLMG: Iteration  97 Fine resid/resid0 = 0.03124285951
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        17276119.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497532
+MLMG: Iteration  98 Fine resid/resid0 = 0.03072274457
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16988516.16
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497546
+MLMG: Iteration  99 Fine resid/resid0 = 0.03021128918
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16705700.46
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497534
+MLMG: Iteration 100 Fine resid/resid0 = 0.02970834741
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16427592.86
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497545
+MLMG: Iteration 101 Fine resid/resid0 = 0.02921377905
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        16154115.1
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497535
+MLMG: Iteration 102 Fine resid/resid0 = 0.02872744339
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15885190
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497544
+MLMG: Iteration 103 Fine resid/resid0 = 0.02824920451
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15620741.87
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497536
+MLMG: Iteration 104 Fine resid/resid0 = 0.02777892665
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15360696.09
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497543
+MLMG: Iteration 105 Fine resid/resid0 = 0.0273164781
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        15104979.45
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497537
+MLMG: Iteration 106 Fine resid/resid0 = 0.02686172783
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14853519.81
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497542
+MLMG: Iteration 107 Fine resid/resid0 = 0.02641454827
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14606246.37
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497538
+MLMG: Iteration 108 Fine resid/resid0 = 0.02597481288
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14363089.38
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497542
+MLMG: Iteration 109 Fine resid/resid0 = 0.02554239817
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        14123980.35
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497538
+MLMG: Iteration 110 Fine resid/resid0 = 0.0251171819
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13888851.87
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497541
+MLMG: Iteration 111 Fine resid/resid0 = 0.02469904455
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13657637.69
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 112 Fine resid/resid0 = 0.024287868
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13430272.63
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497541
+MLMG: Iteration 113 Fine resid/resid0 = 0.02388353661
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        13206692.64
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 114 Fine resid/resid0 = 0.02348593621
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12986834.68
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497541
+MLMG: Iteration 115 Fine resid/resid0 = 0.02309495494
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12770636.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 116 Fine resid/resid0 = 0.02271048244
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12558038.06
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 117 Fine resid/resid0 = 0.0223324105
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12348978.56
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 118 Fine resid/resid0 = 0.02196063244
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        12143399.36
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 119 Fine resid/resid0 = 0.02159504359
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11941242.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.0002300497539
+MLMG: Iteration 120 Fine resid/resid0 = 0.02123554083
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11742451.12
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 121 Fine resid/resid0 = 0.02088202291
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11546969.07
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 122 Fine resid/resid0 = 0.02053439014
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11354741.3
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 123 Fine resid/resid0 = 0.0201925446
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        11165713.64
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 124 Fine resid/resid0 = 0.01985638991
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10979832.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 125 Fine resid/resid0 = 0.01952583135
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10797046.42
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 126 Fine resid/resid0 = 0.01920077574
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10617302.96
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 127 Fine resid/resid0 = 0.01888113149
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10440551.77
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 128 Fine resid/resid0 = 0.0185668085
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10266743.05
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 129 Fine resid/resid0 = 0.01825771821
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        10095827.8
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 130 Fine resid/resid0 = 0.01795377347
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9927757.854
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 131 Fine resid/resid0 = 0.01765488865
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9762485.848
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 132 Fine resid/resid0 = 0.0173609795
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9599965.202
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 133 Fine resid/resid0 = 0.01707196319
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9440150.113
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 134 Fine resid/resid0 = 0.01678775827
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9282995.54
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 135 Fine resid/resid0 = 0.01650828465
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        9128457.192
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 136 Fine resid/resid0 = 0.01623346355
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8976491.516
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 137 Fine resid/resid0 = 0.01596321753
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8827055.684
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 138 Fine resid/resid0 = 0.01569747041
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8680107.579
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 139 Fine resid/resid0 = 0.01543614732
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8535605.788
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 140 Fine resid/resid0 = 0.01517917459
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8393509.585
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 141 Fine resid/resid0 = 0.0149264798
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8253778.924
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 142 Fine resid/resid0 = 0.01467799174
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        8116374.425
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 143 Fine resid/resid0 = 0.01443364038
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7981257.362
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 144 Fine resid/resid0 = 0.01419335685
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7848389.655
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 145 Fine resid/resid0 = 0.01395707344
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7717733.86
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 146 Fine resid/resid0 = 0.01372472354
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7589253.152
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 147 Fine resid/resid0 = 0.01349624168
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7462911.322
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 148 Fine resid/resid0 = 0.01327156346
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7338672.763
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 149 Fine resid/resid0 = 0.01305062556
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7216502.462
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 150 Fine resid/resid0 = 0.01283336573
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        7096365.987
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 151 Fine resid/resid0 = 0.01261972271
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6978229.479
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 152 Fine resid/resid0 = 0.01240963632
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6862059.645
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 153 Fine resid/resid0 = 0.01220304732
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6747823.744
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 154 Fine resid/resid0 = 0.01199989751
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6635489.581
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 155 Fine resid/resid0 = 0.01180012964
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6525025.497
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 156 Fine resid/resid0 = 0.01160368738
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6416400.361
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 157 Fine resid/resid0 = 0.0114105154
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6309583.557
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 158 Fine resid/resid0 = 0.01122055924
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6204544.983
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 159 Fine resid/resid0 = 0.01103376537
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        6101255.034
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 160 Fine resid/resid0 = 0.01085008114
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5999684.602
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 161 Fine resid/resid0 = 0.01066945479
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5899805.06
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 162 Fine resid/resid0 = 0.01049183541
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5801588.259
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 163 Fine resid/resid0 = 0.01031717294
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5705006.519
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 164 Fine resid/resid0 = 0.01014541816
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5610032.62
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 165 Fine resid/resid0 = 0.009976522661
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5516639.795
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 166 Fine resid/resid0 = 0.009810438844
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5424801.725
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 167 Fine resid/resid0 = 0.009647119902
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5334492.525
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 168 Fine resid/resid0 = 0.009486519807
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5245686.745
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 169 Fine resid/resid0 = 0.009328593296
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5158359.356
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 170 Fine resid/resid0 = 0.009173295861
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        5072485.747
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 171 Fine resid/resid0 = 0.009020583735
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4988041.716
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 172 Fine resid/resid0 = 0.008870413879
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4905003.464
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 173 Fine resid/resid0 = 0.00872274397
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4823347.588
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 174 Fine resid/resid0 = 0.008577532391
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4743051.075
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 175 Fine resid/resid0 = 0.008434738217
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4664091.296
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 176 Fine resid/resid0 = 0.008294321204
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4586445.998
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 177 Fine resid/resid0 = 0.008156241778
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4510093.296
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 178 Fine resid/resid0 = 0.008020461025
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4435011.674
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 179 Fine resid/resid0 = 0.007886940677
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4361179.97
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 180 Fine resid/resid0 = 0.007755643104
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4288577.377
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 181 Fine resid/resid0 = 0.007626531304
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4217183.434
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 182 Fine resid/resid0 = 0.007499568887
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4146978.018
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 183 Fine resid/resid0 = 0.007374720073
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4077941.345
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 184 Fine resid/resid0 = 0.007251949675
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        4010053.957
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 185 Fine resid/resid0 = 0.007131223093
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3943296.722
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 186 Fine resid/resid0 = 0.007012506303
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3877650.826
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 187 Fine resid/resid0 = 0.006895765847
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3813097.768
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 188 Fine resid/resid0 = 0.006780968823
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3749619.355
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 189 Fine resid/resid0 = 0.006668082879
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3687197.696
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 190 Fine resid/resid0 = 0.006557076199
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3625815.199
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 191 Fine resid/resid0 = 0.0064479175
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3565454.566
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 192 Fine resid/resid0 = 0.006340576016
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3506098.784
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 193 Fine resid/resid0 = 0.006235021495
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3447731.126
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 194 Fine resid/resid0 = 0.00613122419
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3390335.141
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 195 Fine resid/resid0 = 0.006029154847
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3333894.654
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 196 Fine resid/resid0 = 0.0059287847
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3278393.758
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 197 Fine resid/resid0 = 0.005830085462
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3223816.811
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 198 Fine resid/resid0 = 0.005733029315
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3170148.432
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 199 Fine resid/resid0 = 0.005637588908
+SingleBoxCGSolver_BiCGStab: Initial error (error0) =        3117373.495
+SingleBoxCGSolver_BiCGStab: Final: Iteration   10 rel. err. 0.000230049754
+MLMG: Iteration 200 Fine resid/resid0 = 0.005543737341
+MLMG: Failed to converge after 200 iterations. resid, resid/resid0 = 2106320383, 0.005543737341
+
+Solve 2 (geometric)
+  MG levels          : 6
+  initial rhs norm   : 0
+  initial residual   : 3.799459198e+11
+  status             : FAILED: MLMG failed to converge.
+  final residual     : 2106320383
+  MLMG iterations    : 200
+  bottom iterations  : 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10
+  phi min/max        : -40991.34156 / 48.29704232
+  wall time          : 2.248368572 s (linop setup + solve)
+
+MLMG: # of AMR levels: 1
+      # of MG levels on the coarsest AMR level: 1
+MLMG: Initial rhs               = 0
+MLMG: Initial residual (resid0) = 3.799459198e+11
+    AlgMG: level 0: 8261317 rows, 57420149 nonzeros
+    AlgMG: level 1: 3606200 rows, 48491712 nonzeros
+    AlgMG: level 2: 1566138 rows, 25177748 nonzeros
+    AlgMG: level 3: 664840 rows, 17938942 nonzeros
+    AlgMG: level 4: 191486 rows, 11498272 nonzeros
+    AlgMG: level 5: 68471 rows, 4347511 nonzeros
+    AlgMG: level 6: 38769 rows, 2573401 nonzeros
+    AlgMG: level 7: 15829 rows, 1048571 nonzeros
+    AlgMG: level 8: 5161 rows, 339423 nonzeros
+    AlgMG: level 9: 978 rows, 41408 nonzeros
+    AlgMG: level 10: 34 rows, 208 nonzeros
+    AlgMG: operator complexity = 2.941081623
+    AlgMG: setup peak arena use = 7289.311523 MB (925.2032237 B per row)
+    AlgMG: Initial rhs      2-norm = 2.974043885e+13
+    AlgMG: Initial residual 2-norm = 2.974043885e+13
+    AlgMG(BiCGStab): Final Iter. 3: rnorm, rnorm/bnorm = 6900883366, 0.0002320370389
+MLMG: Iteration   1 Fine resid/resid0 = 0.005765951855
+    AlgMG: Initial rhs      2-norm = 6900883366
+    AlgMG: Initial residual 2-norm = 6900883366
+    AlgMG(BiCGStab): Final Iter. 3: rnorm, rnorm/bnorm = 1072321.837, 0.0001553890684
+MLMG: Iteration   2 Fine resid/resid0 = 1.620424248e-06
+    AlgMG: Initial rhs      2-norm = 1072321.837
+    AlgMG: Initial residual 2-norm = 1072321.837
+    AlgMG(BiCGStab): Final Iter. 3: rnorm, rnorm/bnorm = 254.4569273, 0.0002372952955
+MLMG: Iteration   3 Fine resid/resid0 = 1.514683356e-10
+MLMG: Final Iter. 3 resid, resid/resid0 = 57.54977608, 1.514683356e-10
+MLMG: Timers: Solve = 0.503434082 Iter = 0.500363272 Bottom = 0.496316297
+
+Solve 2 (algebraic)
+  MG levels          : 1
+  initial rhs norm   : 0
+  initial residual   : 3.799459198e+11
+  status             : converged
+  final residual     : 57.54977608
+  MLMG iterations    : 3
+  bottom iterations  :
+  phi min/max        : -41000 / 3.240765937e-24
+  wall time          : 0.504953537 s (linop setup + solve)
+
+
+
+TinyProfiler total time across processes [min...avg...max]: 15.81 ... 15.81 ... 15.81
+
+--------------------------------------------------------------------------------------------
+Name                                         NCalls  Excl. Min  Excl. Avg  Excl. Max   Max %
+--------------------------------------------------------------------------------------------
+main                                              1      4.259      4.259      4.259  26.94%
+MLMG::ResNormInf()                              614      3.064      3.064      3.064  19.38%
+FabArray::ParallelCopy_nowait()                3663       2.87       2.87       2.87  18.16%
+STLtools::build_bvh                               1      2.427      2.427      2.427  15.36%
+ChebyshevSmoother                               920     0.5993     0.5993     0.5993   3.79%
+EB2::GShopLevel()-fine                            1      0.433      0.433      0.433   2.74%
+STLtools::getBoxType                             32      0.403      0.403      0.403   2.55%
+SpGEMM                                           90     0.4007     0.4007     0.4007   2.54%
+MLNodeLinOp::applyBC()                        27614     0.2078     0.2078     0.2078   1.31%
+MLEBNodeFDLaplacian::Fsmooth()                12000     0.1952     0.1952     0.1952   1.24%
+MLMG::actualBottomSolve()                       600     0.1385     0.1385     0.1385   0.88%
+SpMatrix::transpose                              63     0.1087     0.1087     0.1087   0.69%
+BiCGStab::solve()                                 8    0.07414    0.07414    0.07414   0.47%
+FillBoundary_nowait()                         40287    0.07218    0.07218    0.07218   0.46%
+MLAlgMG::assembleNodal()                          3     0.0587     0.0587     0.0587   0.37%
+AlgMG::build_interp_mm                           30     0.0523     0.0523     0.0523   0.33%
+AlgMG::create_soc                                33    0.04091    0.04091    0.04091   0.26%
+SpMV                                           2830     0.0409     0.0409     0.0409   0.26%
+MLEBNodeFDLaplacian::Fapply()                  3614    0.03441    0.03441    0.03441   0.22%
+AlgMG::truncate_interp                           30    0.03234    0.03234    0.03234   0.20%
+MLEBNodeFDLaplacian::restriction()             3000    0.02818    0.02818    0.02818   0.18%
+STLtools::prepare                                 1    0.02738    0.02738    0.02738   0.17%
+MLEBNodeFDLaplacian::interpolation()           3000    0.02406    0.02406    0.02406   0.15%
+FabArray::setVal()                             3747     0.0206     0.0206     0.0206   0.13%
+AlgMG::pmis                                      33    0.02023    0.02023    0.02023   0.13%
+AlgMG::setup                                      3   0.009814   0.009814   0.009814   0.06%
+AlgMG::solve                                      8   0.009062   0.009062   0.009062   0.06%
+FabArray::FillBoundaryAndSync()               27614   0.008464   0.008464   0.008464   0.05%
+AlgMG::solve_krylov                               8   0.008375   0.008375   0.008375   0.05%
+FillBoundaryAndSync_nowait()                  27614   0.006783   0.006783   0.006783   0.04%
+MLMG::computeResidual()                         608    0.00665    0.00665    0.00665   0.04%
+MLMG::addInterpCorrection()                    3000   0.005956   0.005956   0.005956   0.04%
+MLMG::solve()                                     6   0.004249   0.004249   0.004249   0.03%
+FAbArray::OverrideSync()                      12609   0.004146   0.004146   0.004146   0.03%
+OverrideSync_nowait()                         12612   0.003503   0.003503   0.003503   0.02%
+AlgMG::vcycle                                    46   0.002605   0.002605   0.002605   0.02%
+REG::geometric                                    3   0.002461   0.002461   0.002461   0.02%
+FabArray::ParallelCopy()                       3660   0.001734   0.001734   0.001734   0.01%
+MLAlgMG::defineNodal()                            3   0.001628   0.001628   0.001628   0.01%
+MLMG:computeResOfCorrection()                  3000   0.001512   0.001512   0.001512   0.01%
+REG::algebraic                                    3  0.0009942  0.0009942  0.0009942   0.01%
+MLMG::mgVcycle()                                600  0.0008434  0.0008434  0.0008434   0.01%
+MLMG::mgVcycle_down::0                          600  0.0006295  0.0006295  0.0006295   0.00%
+MLMG::mgVcycle_up::4                            600  0.0006142  0.0006142  0.0006142   0.00%
+MLMG::mgVcycle_down::3                          600  0.0005914  0.0005914  0.0005914   0.00%
+MLMG::oneIter()                                 608  0.0005615  0.0005615  0.0005615   0.00%
+MLMG::mgVcycle_down::1                          600   0.000528   0.000528   0.000528   0.00%
+MLMG::mgVcycle_up::2                            600   0.000523   0.000523   0.000523   0.00%
+MLMG::mgVcycle_down::2                          600  0.0004895  0.0004895  0.0004895   0.00%
+MLMG::mgVcycle_down::4                          600  0.0004763  0.0004763  0.0004763   0.00%
+MLMG::mgVcycle_up::1                            600  0.0004683  0.0004683  0.0004683   0.00%
+MLAlgMG::solve()                                  8  0.0004472  0.0004472  0.0004472   0.00%
+MLMG::mgVcycle_up::3                            600   0.000445   0.000445   0.000445   0.00%
+MLMG::mgVcycle_up::0                            600  0.0004154  0.0004154  0.0004154   0.00%
+MLMG::mgVcycle_bottom                           600  0.0002572  0.0002572  0.0002572   0.00%
+EB2::GShopLevel()-prepare_grids                   1  0.0001359  0.0001359  0.0001359   0.00%
+MLMG::algmgLevel0Solve()                          8  2.807e-05  2.807e-05  2.807e-05   0.00%
+EB2::STLLevel()-fine                              1  7.745e-06  7.745e-06  7.745e-06   0.00%
+Other                                        139695    0.08777    0.08777    0.08777   0.56%
+--------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------
+Name                                         NCalls  Incl. Min  Incl. Avg  Incl. Max   Max %
+--------------------------------------------------------------------------------------------
+main                                              1      15.81      15.81      15.81 100.00%
+MLMG::solve()                                     6      8.228      8.228      8.228  52.06%
+REG::geometric                                    3      6.753      6.753      6.753  42.73%
+MLMG::oneIter()                                 608      5.124      5.124      5.124  32.42%
+MLMG::mgVcycle()                                600      3.642      3.642      3.642  23.04%
+MLMG::ResNormInf()                              614      3.064      3.064      3.064  19.38%
+MLMG::mgVcycle_down::2                          600      2.918      2.918      2.918  18.46%
+MLEBNodeFDLaplacian::restriction()             3000      2.888      2.888      2.888  18.27%
+FabArray::ParallelCopy()                       3660      2.873      2.873      2.873  18.17%
+FabArray::ParallelCopy_nowait()                3663      2.871      2.871      2.871  18.16%
+STLtools::prepare                                 1      2.455      2.455      2.455  15.53%
+STLtools::build_bvh                               1      2.427      2.427      2.427  15.36%
+REG::algebraic                                    3      1.498      1.498      1.498   9.48%
+MLMG::algmgLevel0Solve()                          8      1.472      1.472      1.472   9.31%
+MLAlgMG::solve()                                  8       1.41       1.41       1.41   8.92%
+AlgMG::solve                                      8      1.405      1.405      1.405   8.89%
+EB2::STLLevel()-fine                              1     0.8364     0.8364     0.8364   5.29%
+EB2::GShopLevel()-fine                            1     0.8364     0.8364     0.8364   5.29%
+AlgMG::solve_krylov                               8     0.7153     0.7153     0.7153   4.53%
+BiCGStab::solve()                                 8     0.7068     0.7068     0.7068   4.47%
+AlgMG::setup                                      3     0.6673     0.6673     0.6673   4.22%
+AlgMG::vcycle                                    46      0.632      0.632      0.632   4.00%
+ChebyshevSmoother                               920     0.6136     0.6136     0.6136   3.88%
+EB2::GShopLevel()-prepare_grids                   1     0.4032     0.4032     0.4032   2.55%
+STLtools::getBoxType                             32      0.403      0.403      0.403   2.55%
+SpGEMM                                           90     0.4008     0.4008     0.4008   2.54%
+MLEBNodeFDLaplacian::Fsmooth()                12000     0.3574     0.3574     0.3574   2.26%
+MLNodeLinOp::applyBC()                        27614     0.2921     0.2921     0.2921   1.85%
+MLMG::mgVcycle_bottom                           600     0.1405     0.1405     0.1405   0.89%
+MLMG::actualBottomSolve()                       600     0.1402     0.1402     0.1402   0.89%
+MLMG::mgVcycle_up::2                            600     0.1118     0.1118     0.1118   0.71%
+SpMatrix::transpose                              63     0.1088     0.1088     0.1088   0.69%
+MLMG::mgVcycle_down::0                          600     0.1072     0.1072     0.1072   0.68%
+AlgMG::build_interp_mm                           30    0.09949    0.09949    0.09949   0.63%
+MLMG::mgVcycle_down::1                          600    0.09285    0.09285    0.09285   0.59%
+FillBoundary_nowait()                         40287    0.08508    0.08508    0.08508   0.54%
+FabArray::FillBoundaryAndSync()               27614    0.08425    0.08425    0.08425   0.53%
+MLMG::mgVcycle_up::1                            600    0.07436    0.07436    0.07436   0.47%
+MLMG::mgVcycle_up::0                            600    0.07353    0.07353    0.07353   0.47%
+MLMG:computeResOfCorrection()                  3000    0.07296    0.07296    0.07296   0.46%
+MLMG::addInterpCorrection()                    3000    0.06792    0.06792    0.06792   0.43%
+FillBoundaryAndSync_nowait()                  27614    0.06476    0.06476    0.06476   0.41%
+MLAlgMG::defineNodal()                            3    0.06193    0.06193    0.06193   0.39%
+MLAlgMG::assembleNodal()                          3     0.0587     0.0587     0.0587   0.37%
+SpMV                                           2830    0.04256    0.04256    0.04256   0.27%
+AlgMG::create_soc                                33    0.04094    0.04094    0.04094   0.26%
+FAbArray::OverrideSync()                      12609    0.03902    0.03902    0.03902   0.25%
+MLMG::mgVcycle_down::3                          600    0.03549    0.03549    0.03549   0.22%
+MLEBNodeFDLaplacian::Fapply()                  3614    0.03441    0.03441    0.03441   0.22%
+MLMG::mgVcycle_down::4                          600    0.03349    0.03349    0.03349   0.21%
+AlgMG::truncate_interp                           30    0.03237    0.03237    0.03237   0.20%
+OverrideSync_nowait()                         12612    0.03097    0.03097    0.03097   0.20%
+MLMG::mgVcycle_up::4                            600    0.02787    0.02787    0.02787   0.18%
+MLMG::mgVcycle_up::3                            600    0.02581    0.02581    0.02581   0.16%
+MLEBNodeFDLaplacian::interpolation()           3000    0.02406    0.02406    0.02406   0.15%
+MLMG::computeResidual()                         608    0.02291    0.02291    0.02291   0.14%
+FabArray::setVal()                             3747     0.0206     0.0206     0.0206   0.13%
+AlgMG::pmis                                      33    0.02036    0.02036    0.02036   0.13%
+Other                                        139695     0.1383     0.1383     0.1383   0.87%
+--------------------------------------------------------------------------------------------
+
+
+
+BEGIN REGION algebraic
+
+--------------------------------------------------------------------------------------------
+Name                                         NCalls  Excl. Min  Excl. Avg  Excl. Max   Max %
+--------------------------------------------------------------------------------------------
+ChebyshevSmoother                               920     0.5993     0.5993     0.5993   3.79%
+SpGEMM                                           90     0.4007     0.4007     0.4007   2.54%
+SpMatrix::transpose                              63     0.1087     0.1087     0.1087   0.69%
+BiCGStab::solve()                                 8    0.07414    0.07414    0.07414   0.47%
+MLAlgMG::assembleNodal()                          3     0.0587     0.0587     0.0587   0.37%
+AlgMG::build_interp_mm                           30     0.0523     0.0523     0.0523   0.33%
+SpMV                                           2830     0.0409     0.0409     0.0409   0.26%
+AlgMG::setup                                      3   0.009814   0.009814   0.009814   0.06%
+AlgMG::solve                                      8   0.009062   0.009062   0.009062   0.06%
+AlgMG::solve_krylov                               8   0.008375   0.008375   0.008375   0.05%
+AlgMG::vcycle                                    46   0.002605   0.002605   0.002605   0.02%
+MLAlgMG::defineNodal()                            3   0.001628   0.001628   0.001628   0.01%
+REG::algebraic                                    3  0.0009942  0.0009942  0.0009942   0.01%
+MLMG::solve()                                     3  0.0005138  0.0005138  0.0005138   0.00%
+MLAlgMG::solve()                                  8  0.0004472  0.0004472  0.0004472   0.00%
+MLMG::algmgLevel0Solve()                          8  2.807e-05  2.807e-05  2.807e-05   0.00%
+MLMG::oneIter()                                   8  1.006e-05  1.006e-05  1.006e-05   0.00%
+Other                                         10430     0.1297     0.1297     0.1297   0.82%
+--------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------
+Name                                         NCalls  Incl. Min  Incl. Avg  Incl. Max   Max %
+--------------------------------------------------------------------------------------------
+REG::algebraic                                    3      1.498      1.498      1.498   9.48%
+MLMG::solve()                                     3      1.492      1.492      1.492   9.44%
+MLMG::oneIter()                                   8      1.472      1.472      1.472   9.32%
+MLMG::algmgLevel0Solve()                          8      1.472      1.472      1.472   9.31%
+MLAlgMG::solve()                                  8       1.41       1.41       1.41   8.92%
+AlgMG::solve                                      8      1.405      1.405      1.405   8.89%
+AlgMG::solve_krylov                               8     0.7153     0.7153     0.7153   4.53%
+BiCGStab::solve()                                 8     0.7068     0.7068     0.7068   4.47%
+AlgMG::setup                                      3     0.6673     0.6673     0.6673   4.22%
+AlgMG::vcycle                                    46      0.632      0.632      0.632   4.00%
+ChebyshevSmoother                               920     0.6136     0.6136     0.6136   3.88%
+SpGEMM                                           90     0.4008     0.4008     0.4008   2.54%
+SpMatrix::transpose                              63     0.1088     0.1088     0.1088   0.69%
+AlgMG::build_interp_mm                           30    0.09949    0.09949    0.09949   0.63%
+MLAlgMG::defineNodal()                            3    0.06193    0.06193    0.06193   0.39%
+MLAlgMG::assembleNodal()                          3     0.0587     0.0587     0.0587   0.37%
+SpMV                                           2830    0.04256    0.04256    0.04256   0.27%
+Other                                         10430     0.1511     0.1511     0.1511   0.96%
+--------------------------------------------------------------------------------------------
+
+END REGION algebraic
+
+
+BEGIN REGION geometric
+
+--------------------------------------------------------------------------------------------
+Name                                         NCalls  Excl. Min  Excl. Avg  Excl. Max   Max %
+--------------------------------------------------------------------------------------------
+MLMG::ResNormInf()                              603       3.05       3.05       3.05  19.30%
+FabArray::ParallelCopy_nowait()                3636      2.863      2.863      2.863  18.12%
+MLNodeLinOp::applyBC()                        27603     0.2077     0.2077     0.2077   1.31%
+MLEBNodeFDLaplacian::Fsmooth()                12000     0.1952     0.1952     0.1952   1.24%
+MLMG::actualBottomSolve()                       600     0.1385     0.1385     0.1385   0.88%
+FillBoundary_nowait()                         40263    0.07181    0.07181    0.07181   0.45%
+MLEBNodeFDLaplacian::Fapply()                  3603    0.03427    0.03427    0.03427   0.22%
+MLEBNodeFDLaplacian::restriction()             3000    0.02818    0.02818    0.02818   0.18%
+MLEBNodeFDLaplacian::interpolation()           3000    0.02406    0.02406    0.02406   0.15%
+FabArray::FillBoundaryAndSync()               27603   0.008459   0.008459   0.008459   0.05%
+FillBoundaryAndSync_nowait()                  27603   0.006779   0.006779   0.006779   0.04%
+MLMG::addInterpCorrection()                    3000   0.005956   0.005956   0.005956   0.04%
+FAbArray::OverrideSync()                      12600   0.004141   0.004141   0.004141   0.03%
+MLMG::solve()                                     3   0.003736   0.003736   0.003736   0.02%
+OverrideSync_nowait()                         12600   0.003341   0.003341   0.003341   0.02%
+REG::geometric                                    3   0.002461   0.002461   0.002461   0.02%
+FabArray::ParallelCopy()                       3636   0.001712   0.001712   0.001712   0.01%
+MLMG:computeResOfCorrection()                  3000   0.001512   0.001512   0.001512   0.01%
+MLMG::mgVcycle()                                600  0.0008434  0.0008434  0.0008434   0.01%
+MLMG::mgVcycle_down::0                          600  0.0006295  0.0006295  0.0006295   0.00%
+MLMG::mgVcycle_up::4                            600  0.0006142  0.0006142  0.0006142   0.00%
+MLMG::mgVcycle_down::3                          600  0.0005914  0.0005914  0.0005914   0.00%
+MLMG::oneIter()                                 600  0.0005515  0.0005515  0.0005515   0.00%
+MLMG::mgVcycle_down::1                          600   0.000528   0.000528   0.000528   0.00%
+MLMG::mgVcycle_up::2                            600   0.000523   0.000523   0.000523   0.00%
+MLMG::mgVcycle_down::2                          600  0.0004895  0.0004895  0.0004895   0.00%
+MLMG::mgVcycle_down::4                          600  0.0004763  0.0004763  0.0004763   0.00%
+MLMG::mgVcycle_up::1                            600  0.0004683  0.0004683  0.0004683   0.00%
+MLMG::mgVcycle_up::3                            600   0.000445   0.000445   0.000445   0.00%
+MLMG::mgVcycle_up::0                            600  0.0004154  0.0004154  0.0004154   0.00%
+MLMG::mgVcycle_bottom                           600  0.0002572  0.0002572  0.0002572   0.00%
+Other                                        133753    0.09518    0.09518    0.09518   0.60%
+--------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------
+Name                                         NCalls  Incl. Min  Incl. Avg  Incl. Max   Max %
+--------------------------------------------------------------------------------------------
+REG::geometric                                    3      6.753      6.753      6.753  42.73%
+MLMG::solve()                                     3      6.735      6.735      6.735  42.62%
+MLMG::oneIter()                                 600      3.652      3.652      3.652  23.10%
+MLMG::mgVcycle()                                600      3.642      3.642      3.642  23.04%
+MLMG::ResNormInf()                              603       3.05       3.05       3.05  19.30%
+MLMG::mgVcycle_down::2                          600      2.918      2.918      2.918  18.46%
+MLEBNodeFDLaplacian::restriction()             3000      2.888      2.888      2.888  18.27%
+FabArray::ParallelCopy()                       3636      2.867      2.867      2.867  18.14%
+FabArray::ParallelCopy_nowait()                3636      2.864      2.864      2.864  18.12%
+MLEBNodeFDLaplacian::Fsmooth()                12000     0.3574     0.3574     0.3574   2.26%
+MLNodeLinOp::applyBC()                        27603     0.2919     0.2919     0.2919   1.85%
+MLMG::mgVcycle_bottom                           600     0.1405     0.1405     0.1405   0.89%
+MLMG::actualBottomSolve()                       600     0.1402     0.1402     0.1402   0.89%
+MLMG::mgVcycle_up::2                            600     0.1118     0.1118     0.1118   0.71%
+MLMG::mgVcycle_down::0                          600     0.1072     0.1072     0.1072   0.68%
+MLMG::mgVcycle_down::1                          600    0.09285    0.09285    0.09285   0.59%
+FillBoundary_nowait()                         40263    0.08463    0.08463    0.08463   0.54%
+FabArray::FillBoundaryAndSync()               27603    0.08417    0.08417    0.08417   0.53%
+MLMG::mgVcycle_up::1                            600    0.07436    0.07436    0.07436   0.47%
+MLMG::mgVcycle_up::0                            600    0.07353    0.07353    0.07353   0.47%
+MLMG:computeResOfCorrection()                  3000    0.07296    0.07296    0.07296   0.46%
+MLMG::addInterpCorrection()                    3000    0.06792    0.06792    0.06792   0.43%
+FillBoundaryAndSync_nowait()                  27603     0.0647     0.0647     0.0647   0.41%
+FAbArray::OverrideSync()                      12600    0.03893    0.03893    0.03893   0.25%
+MLMG::mgVcycle_down::3                          600    0.03549    0.03549    0.03549   0.22%
+MLEBNodeFDLaplacian::Fapply()                  3603    0.03427    0.03427    0.03427   0.22%
+MLMG::mgVcycle_down::4                          600    0.03349    0.03349    0.03349   0.21%
+OverrideSync_nowait()                         12600    0.02954    0.02954    0.02954   0.19%
+MLMG::mgVcycle_up::4                            600    0.02787    0.02787    0.02787   0.18%
+MLMG::mgVcycle_up::3                            600    0.02581    0.02581    0.02581   0.16%
+MLEBNodeFDLaplacian::interpolation()           3000    0.02406    0.02406    0.02406   0.15%
+Other                                        133753     0.1452     0.1452     0.1452   0.92%
+--------------------------------------------------------------------------------------------
+
+END REGION geometric
+Device Memory Usage:
+-----------------------------------------------------------------------
+Name                                         Nalloc    AvgMem    MaxMem
+-----------------------------------------------------------------------
+The_Arena::Initialize()                           1  2309   B    29 GiB
+MLAlgMG::assembleNodal()                         57    56 MiB  5327 MiB
+SpGEMM                                         1629   113 MiB  4885 MiB
+main                                            139   921 MiB  1856 MiB
+EB2::GShopLevel()-fine                          454   895 MiB  1689 MiB
+AlgMG::build_interp_mm                          390  1873 KiB   525 MiB
+STLtools::build_bvh                               1    26 MiB   495 MiB
+SpMatrix::transpose                             306    27 MiB   468 MiB
+BiCGStab::solve()                               202    19 MiB   441 MiB
+AlgMG::setup                                    228    24 MiB   440 MiB
+ChebyshevSmoother                               120    20 MiB   440 MiB
+MLMG::prepareForSolve()                         303   186 MiB   382 MiB
+AlgMG::truncate_interp                          240    24 MiB   367 MiB
+MLEBNodeFDLaplacian::build_eb_data()            436   158 MiB   315 MiB
+MLAlgMG::defineNodal()                           54    26 MiB   293 MiB
+AlgMG::create_soc                               192  1796 KiB   281 MiB
+STLtools::prepare                                 4    13 MiB   255 MiB
+SpMatrix::split_csr                               6    22 MiB   250 MiB
+AlgMG::pmis                                     329   229 KiB   189 MiB
+MLNodeLinOp::buildMasks()                        72  6269 KiB    99 MiB
+REG::algebraic                                   12  6561 KiB    68 MiB
+REG::geometric                                   12    28 MiB    68 MiB
+OverrideSync_nowait()                            12    35 KiB    65 MiB
+ResizeRandomSeed                                  1    40 MiB    40 MiB
+MLEBNodeFDLaplacian::define()                    57    18 MiB    37 MiB
+OwnerMask()                                      42    16 MiB    32 MiB
+EB2::GShopLevel()-coarse                         17   125   B  7126 KiB
+MultiFab::min()                                   7   232   B   216 KiB
+MLMG::ResNormInf()                              620    41 KiB   216 KiB
+MLMG::MLRhsNormInf()                             12   281   B   216 KiB
+AlgMG::solve_krylov                               8   114   B   216 KiB
+AlgMG::solve                                     16   122   B   216 KiB
+MultiFab::max()                                   6    13   B   216 KiB
+MLMG::addInterpCorrection()                    3600    32 KiB   177 KiB
+MLEBNodeFDLaplacian::restriction()             3600    29 KiB   177 KiB
+MLEBNodeFDLaplacian::limit_coarsening()          18     1   B   108 KiB
+STLtools::getBoxType                             16  2785   B   108 KiB
+SpMV                                           2830  2697   B    98 KiB
+FillBoundary_nowait()                            68    19 KiB    45 KiB
+MLMG::actualBottomSolve()                      1200   142   B    16 KiB
+FabArray::ParallelCopy_nowait()                1239   184   B  6656   B
+FabArray::setVal()                               33  2947   B  6656   B
+MLLinOp::defineGrids()                            6  2244   B  4352   B
+MLEBNodeFDLaplacian::prepareForSolve()           31  1485   B  3072   B
+MLMG::solve()                                     8   344   B  2048   B
+FabArray::BuildMask()                             8   527   B  2048   B
+FabArray::setVal(val, thecmd, scomp, ncomp)      12     0   B  1536   B
+-----------------------------------------------------------------------
+
+Async Memory Usage:
+---------------------------------------------------------------
+Name                                  Nalloc    AvgMem   MaxMem
+---------------------------------------------------------------
+SpMatrix::transpose                       60  1127 KiB  249 MiB
+OverrideSync_nowait()                     12  5667   B   65 MiB
+MLNodeLinOp::buildMasks()                 57  2193   B   33 MiB
+MLEBNodeFDLaplacian::build_eb_data()      72    35   B  587 KiB
+MLEBNodeFDLaplacian::restriction()      3600    27 KiB  153 KiB
+MLMG::addInterpCorrection()             3600   409   B  153 KiB
+SpMV                                    2830    49   B   43 KiB
+---------------------------------------------------------------
+
+Managed Memory Usage:
+---------------------------------------------------------
+Name                             Nalloc  AvgMem    MaxMem
+---------------------------------------------------------
+The_Managed_Arena::Initialize()       1   0   B  8192 KiB
+---------------------------------------------------------
+
+Pinned Memory Usage:
+-----------------------------------------------------------------------
+Name                                         Nalloc    AvgMem    MaxMem
+-----------------------------------------------------------------------
+STLtools::build_bvh                               2    92 MiB   686 MiB
+main                                             12    78 MiB   190 MiB
+The_Pinned_Arena::Initialize()                    1     0   B  8192 KiB
+FillBoundary_nowait()                            68    19 KiB    45 KiB
+MLEBNodeFDLaplacian::build_eb_data()            136  3214   B  8192   B
+FabArray::setVal()                               33  2947   B  6656   B
+FabArray::ParallelCopy_nowait()                1239   184   B  6656   B
+MLEBNodeFDLaplacian::prepareForSolve()           31  1485   B  3072   B
+FabArray::BuildMask()                             8   527   B  2048   B
+MLMG::solve()                                     8   344   B  2048   B
+FabArray::setVal(val, thecmd, scomp, ncomp)      12     0   B  1536   B
+OwnerMask()                                       6     0   B  1024   B
+MultiFab::min()                                   7   191   B   768   B
+MLMG::ResNormInf()                              620   312   B   768   B
+MLMG::MLRhsNormInf()                             12   262   B   768   B
+MLEBNodeFDLaplacian::limit_coarsening()          18     0   B   512   B
+STLtools::prepare                                 2     0   B   512   B
+MLAlgMG::defineNodal()                           12     0   B   256   B
+MultiFab::max()                                   6     0   B   256   B
+MLMG::actualBottomSolve()                       600     2   B   256   B
+STLtools::getBoxType                             16     6   B   256   B
+AlgMG::build_interp_mm                           90     0   B   256   B
+MLAlgMG::assembleNodal()                         27     0   B   256   B
+EB2::GShopLevel()-fine                           64     6   B   256   B
+EB2::GShopLevel()-coarse                          1     0   B   256   B
+BiCGStab::solve()                               146     1   B   256   B
+AlgMG::truncate_interp                           60     0   B   256   B
+AlgMG::solve_krylov                               8     0   B   256   B
+AlgMG::solve                                     16     0   B   256   B
+AlgMG::setup                                     66     0   B   256   B
+AlgMG::pmis                                     197     0   B   256   B
+AlgMG::create_soc                                33     0   B   256   B
+-----------------------------------------------------------------------
+
+Comms Memory Usage:
+-------------------------------------------------------
+Name                           Nalloc  AvgMem    MaxMem
+-------------------------------------------------------
+The_Comms_Arena::Initialize()       1   0   B  8192 KiB
+-------------------------------------------------------
+
+Total GPU global memory (MB) spread across MPI: [40440 ... 40440]
+Free  GPU global memory (MB) spread across MPI: [9668 ... 9668]
+[The         Arena] max space (MB) allocated spread across MPI: [30330 ... 30330]
+[The         Arena] max space (MB) used      spread across MPI: [10513 ... 10513]
+[The Managed Arena] max space (MB) allocated spread across MPI: [8 ... 8]
+[The Managed Arena] max space (MB) used      spread across MPI: [0 ... 0]
+[The  Pinned Arena] max space (MB) allocated spread across MPI: [884 ... 884]
+[The  Pinned Arena] max space (MB) used      spread across MPI: [876 ... 876]
+[The   Comms Arena] max space (MB) allocated spread across MPI: [8 ... 8]
+[The   Comms Arena] max space (MB) used      spread across MPI: [0 ... 0]
+AMReX (26.10-20-ge2bc9eab6854) finalized
