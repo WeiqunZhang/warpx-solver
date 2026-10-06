@@ -21,14 +21,15 @@ namespace wpc {
 
 void petsc_initialize ()
 {
-    PETSC_COMM_WORLD = ParallelDescriptor::Communicator();
-    PetscCallAbort(PETSC_COMM_WORLD, PetscInitialize(nullptr, nullptr, nullptr, nullptr));
-    // Raw PETSc options, e.g. petsc.options = "-ksp_monitor -log_view"
+    // Raw PETSc options, e.g. petsc.options = "-ksp_monitor -log_view". Inserted
+    // before PetscInitialize so that initialization options also work.
     ParmParse pp("petsc");
     std::string opts;
     if (pp.query("options", opts) && !opts.empty()) {
-        PetscCallAbort(PETSC_COMM_WORLD, PetscOptionsInsertString(nullptr, opts.c_str()));
+        PetscCallAbort(MPI_COMM_WORLD, PetscOptionsInsertString(nullptr, opts.c_str()));
     }
+    PETSC_COMM_WORLD = ParallelDescriptor::Communicator();
+    PetscCallAbort(PETSC_COMM_WORLD, PetscInitialize(nullptr, nullptr, nullptr, nullptr));
 }
 
 void petsc_finalize ()
