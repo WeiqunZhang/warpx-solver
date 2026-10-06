@@ -1,0 +1,46 @@
+# 2D XZ, planar-pinch-like: n0 = 1e23, dt = 1e-12, theta = 0.5 -> alpha/dx^2 ~ 4.8
+geometry.n_cell = 512 512
+geometry.prob_lo = 0 0
+geometry.prob_hi = 3.52e-2 3.52e-2
+geometry.max_grid_size = 64
+
+# pec | pmc | periodic
+bc.lo = pec periodic
+bc.hi = pec periodic
+
+implicit.dt = 1.e-12
+implicit.theta = 0.5
+
+# Mass matrices: stencil half-width in the PC (mass_matrices_pc_width) and in the
+# operator standing in for the Jacobian; plasma slab with a vacuum gap.
+mm.width_pc = 1
+mm.width_op = 2
+mm.density(x,y,z) = "1.e23*(x<2.816e-2)"
+mm.species = electrons deuterium
+mm.B0 = 0 0 0
+mm.noise = 0.1
+mm.seed = 1
+mm.newton_density_step = 0.05
+
+solver = both          # algmg | petsc | both
+nnewton = 3
+check = 1
+
+gmres.rtol = 1.e-4
+gmres.atol = 0
+gmres.max_iter = 1000
+gmres.restart = 30
+gmres.verbose = 0
+
+# WarpX pc_petsc inputs (WarpX default: asm + ilu(2), overlap 0)
+pc_petsc.type = asm
+pc_petsc.sub_type = lu
+pc_petsc.asm_overlap = 0
+pc_petsc.ilu_factor_levels = 2
+petsc.coo_assembly = 0
+petsc.options = "-use_gpu_aware_mpi 0"
+
+algmg.verbose = 0
+
+# Leave device memory for PETSc.
+amrex.the_arena_init_size = 0
