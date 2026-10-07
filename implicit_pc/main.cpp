@@ -186,8 +186,10 @@ double timer ()
     return amrex::second();
 }
 
-//! MatrixPC's padded arrays -> SpMatrix (padding dropped as invalid entries).
-void toSpMatrix (MatrixPC const& m, AlgPartition const& part, SpMatrix<Real>& A)
+//! MatrixPC's padded arrays -> SpMatrix (padding dropped as invalid entries),
+//! with diag_shift added to the diagonal.
+void toSpMatrix (MatrixPC const& m, AlgPartition const& part, SpMatrix<Real>& A,
+                 Real diag_shift = 0)
 {
     BL_PROFILE("toSpMatrix");
     Long const n = m.m_ndofs_l;
@@ -201,6 +203,7 @@ void toSpMatrix (MatrixPC const& m, AlgPartition const& part, SpMatrix<Real>& A)
     auto const* nz = m.m_num_nz.data();
     auto const* ci = m.m_c_indices_g.data();
     auto const* a = m.m_a_ij.data();
+    auto const* ri = m.m_r_indices_g.data();
     ParallelFor(n+1, [=] AMREX_GPU_DEVICE (Long i)
     {
         po[i] = i*nc;
@@ -209,6 +212,7 @@ void toSpMatrix (MatrixPC const& m, AlgPartition const& part, SpMatrix<Real>& A)
                 bool const valid = k < nz[i];
                 pc[i*nc+k] = valid ? Long(ci[i*nc+k]) : Long(-1);
                 pv[i*nc+k] = valid ? a[i*nc+k] : Real(0);
+                if (valid && ci[i*nc+k] == ri[i]) { pv[i*nc+k] += diag_shift; }
             }
         }
     });
@@ -501,6 +505,16 @@ int main (int argc, char* argv[])
 
             Real const thetaDt = p.theta*p.dt;
             Real const alpha = (thetaDt*PhysConst::c)*(thetaDt*PhysConst::c);
+            // algmg.shift: extra PC diagonal in units of alpha/dx_min^2
+            Real algmg_shift = 0;
+            {
+                Real s = 0;
+                ParmParse("algmg").query("shift", s);
+                auto const dxi = geom.InvCellSizeArray();
+                Real dxi2 = 0;
+                for (int sd = 0; sd < AMREX_SPACEDIM; ++sd) { dxi2 = std::max(dxi2, Real(dxi[sd]*dxi[sd])); }
+                algmg_shift = s*alpha*dxi2;
+            }
             auto const nc_pc = MassMatricesNComp(p.width_pc, p.shape);
             auto const nc_op = MassMatricesNComp(p.width_op, p.shape);
 
@@ -573,7 +587,7 @@ int main (int argc, char* argv[])
                     Record rec{"AlgMG", k};
                     double ta = timer();
                     SpMatrix<Real> Psp;
-                    toSpMatrix(Ppc, part, Psp);
+                    toSpMatrix(Ppc, part, Psp, algmg_shift);
                     double tb = timer();
                     AlgMG<Real> amg(Psp);
                     applyAlgMGOptions(amg);
