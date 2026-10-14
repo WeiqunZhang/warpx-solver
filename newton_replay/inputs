@@ -1,0 +1,30 @@
+# Directory written by WarpX with newton.dump_linear_systems = 1
+dump_dir = linsys
+# systems = step0000_iter00 step0000_iter01   # default: all stepNNNN_iterNN in dump_dir
+
+# algmg (on the dumped PC matrix P) | algmg_on_jacobian (AlgMG on A itself) | none
+# | petsc (PETSc KSP GMRES with ASM + LU on P, as WarpX's pc_petsc in run-justin)
+pc = algmg
+pc_max_iter = 1        # V-cycles per application (WarpX pc_algmg.max_iter)
+nrepeat = 1            # repeat each solve (timing)
+
+gmres.rtol = -1        # <= 0: use the tolerance WarpX used (info.txt)
+gmres.atol = 0
+gmres.max_iter = 1000
+gmres.restart = 30
+gmres.verbose = 0
+
+# AlgMG options; WarpX pc_algmg defaults are chebyshev, degree 8, ratio 50,
+# strong_threshold 0.25, max_levels 25.
+algmg.smoother = chebyshev
+algmg.chebyshev_degree = 8
+algmg.chebyshev_ratio = 50
+algmg.strong_threshold = 0.25
+algmg.max_levels = 25
+# algmg.agg_levels = 0
+# algmg.verbose = 0
+
+# pc = petsc: ASM + LU as in run-justin (pc_petsc.type = asm, sub_type = lu).
+# Raw PETSc options: petsc.options = "-ksp_monitor"
+pc_petsc.asm_overlap = 4
+petsc.coo_assembly = 0

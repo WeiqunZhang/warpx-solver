@@ -1,0 +1,479 @@
+diff --git a/Source/NonlinearSolvers/NewtonSolver.H b/Source/NonlinearSolvers/NewtonSolver.H
+index afcac1128..48f8a0a74 100644
+--- a/Source/NonlinearSolvers/NewtonSolver.H
++++ b/Source/NonlinearSolvers/NewtonSolver.H
+@@ -10,6 +10,7 @@
+ #include "LinearSolverLibrary.H"
+ #include "NonlinearSolver.H"
+ #include "JacobianFunctionMF.H"
++#include "NewtonSolverDump.H"
+ #include "Preconditioner.H"
+ #include "Utils/TextMsg.H"
+ 
+@@ -118,6 +119,12 @@ private:
+      */
+     mutable Vec m_dU, m_F, m_R;
+ 
++    // Instrumentation: dump the linear systems for standalone replay
++    bool m_dump_linear_systems = false;
++    std::string m_dump_dir = "linsys_dump";
++    int m_dump_probe_width = 4;
++    mutable Vec m_dump_work1, m_dump_work2;
++
+     /**
+      * \brief Pointer to Ops class.
+      */
+@@ -238,6 +245,10 @@ void NewtonSolver<Vec,Ops>::Define ( const Vec&  a_U,
+     m_dU.Define(a_U);
+     m_F.Define(a_U); // residual function F(U) = U - b - R(U) = 0
+     m_R.Define(a_U); // right hand side function R(U)
++    if (m_dump_linear_systems) {
++        m_dump_work1.Define(a_U);
++        m_dump_work2.Define(a_U);
++    }
+ 
+     m_ops = a_ops;
+ 
+@@ -328,6 +339,9 @@ void NewtonSolver<Vec,Ops>::ParseParameters ()
+         m_pc_update_time_step_interval > 0,
+         "newton.pc_update_time_step_interval must be positive");
+     pp_newton.query("require_convergence", m_require_convergence);
++    pp_newton.query("dump_linear_systems", m_dump_linear_systems);
++    pp_newton.query("dump_dir", m_dump_dir);
++    pp_newton.query("dump_probe_width", m_dump_probe_width);
+     pp_newton.query("diagnostic_file",     this->m_diagnostic_file);
+     pp_newton.query("diagnostic_interval", this->m_diagnostic_interval);
+ 
+@@ -457,6 +471,13 @@ void NewtonSolver<Vec,Ops>::Solve (Vec&         a_U,
+         m_dU.zero();
+         m_linear_solver->solve( m_dU, m_F, m_linsol_rtol, m_linsol_atol );
+         linear_solver_iters += m_linear_solver->getNumIters();
++        if (m_dump_linear_systems) {
++            newton_dump::dump(m_dump_dir, a_step, iter, m_dump_probe_width,
++                              m_F, m_dU, m_dump_work1, m_dump_work2,
++                              *m_linear_function, this->m_usePC, m_ops->GetGeometry(0),
++                              m_ops->GetThetaForPC()*a_dt, norm_abs, norm_rel,
++                              m_linear_solver->getNumIters(), m_linsol_rtol);
++        }
+ 
+         // Update solution
+         a_U -= m_dU;
+diff --git a/Source/NonlinearSolvers/NewtonSolverDump.H b/Source/NonlinearSolvers/NewtonSolverDump.H
+new file mode 100644
+index 000000000..388b0c881
+--- /dev/null
++++ b/Source/NonlinearSolvers/NewtonSolverDump.H
+@@ -0,0 +1,413 @@
++/* Dump the linear systems of the Newton solver for standalone replay.
++ *
++ * Instrumentation only (newton.dump_linear_systems = 1). For each Newton
++ * iteration it writes, in <dump_dir>/stepNNNN_iterNN/:
++ *   A.bin  Jacobian as CSR, obtained by probing the linear Jacobian operator
++ *          with colored unit vectors (mass-matrix Jacobian only)
++ *   P.bin  preconditioner matrix as CSR (pc_algmg / pc_petsc)
++ *   b.bin  right-hand side of the Newton step
++ *   x.bin  solution computed by WarpX's linear solver
++ *   info.txt  sizes, theta*dt, Newton norms, linear solver iterations and
++ *          tolerance, self-checks, and the DOF partition (row_offsets)
++ * Binary layouts: vectors are int64 n, then n doubles. CSR is int64 n,
++ * int64 nnz, int64 row_ptr[n+1], int64 col[nnz], double val[nnz]. Rows and
++ * column indices are global DOF indices, in WarpX's order (rank by rank).
++ * Works with any number of MPI ranks; rank 0 writes the files.
++ */
++#ifndef WARPX_NEWTON_SOLVER_DUMP_H_
++#define WARPX_NEWTON_SOLVER_DUMP_H_
++
++#include "FieldSolver/ImplicitSolvers/WarpXSolverDOF.H"
++#include "Utils/TextMsg.H"
++
++#include <AMReX_BaseFab.H>
++#include <AMReX_Geometry.H>
++#include <AMReX_Gpu.H>
++#include <AMReX_IntVect.H>
++#include <AMReX_MultiFab.H>
++#include <AMReX_iMultiFab.H>
++#include <AMReX_ParallelDescriptor.H>
++#include <AMReX_ParallelReduce.H>
++#include <AMReX_Print.H>
++#include <AMReX_Utility.H>
++#include <AMReX_Vector.H>
++
++#include <algorithm>
++#include <cmath>
++#include <cstdint>
++#include <cstdio>
++#include <fstream>
++#include <string>
++#include <utility>
++#include <vector>
++
++namespace newton_dump
++{
++
++using Row = std::vector<std::pair<std::int64_t, amrex::Real>>;
++
++//! Gather variable-length local arrays to rank 0 (concatenated in rank order)
++template <class T>
++std::vector<T> gatherv (std::vector<T> const& local)
++{
++#ifdef AMREX_USE_MPI
++    auto const comm = amrex::ParallelDescriptor::Communicator();
++    const int nprocs = amrex::ParallelDescriptor::NProcs();
++    const int n = int(local.size());
++    std::vector<int> counts(nprocs), displs(nprocs+1, 0);
++    MPI_Gather(&n, 1, MPI_INT, counts.data(), 1, MPI_INT, 0, comm);
++    for (int r = 0; r < nprocs; ++r) { displs[r+1] = displs[r] + counts[r]; }
++    std::vector<T> all(amrex::ParallelDescriptor::IOProcessor() ? displs[nprocs] : 0);
++    MPI_Gatherv(local.data(), n, amrex::ParallelDescriptor::Mpi_typemap<T>::type(),
++                all.data(), counts.data(), displs.data(),
++                amrex::ParallelDescriptor::Mpi_typemap<T>::type(), 0, comm);
++    return all;
++#else
++    return local;
++#endif
++}
++
++//! Allgather variable-length local arrays (concatenated in rank order)
++template <class T>
++std::vector<T> allgatherv (std::vector<T> const& local)
++{
++#ifdef AMREX_USE_MPI
++    auto const comm = amrex::ParallelDescriptor::Communicator();
++    const int nprocs = amrex::ParallelDescriptor::NProcs();
++    const int n = int(local.size());
++    std::vector<int> counts(nprocs), displs(nprocs+1, 0);
++    MPI_Allgather(&n, 1, MPI_INT, counts.data(), 1, MPI_INT, comm);
++    for (int r = 0; r < nprocs; ++r) { displs[r+1] = displs[r] + counts[r]; }
++    std::vector<T> all(displs[nprocs]);
++    MPI_Allgatherv(local.data(), n, amrex::ParallelDescriptor::Mpi_typemap<T>::type(),
++                   all.data(), counts.data(), displs.data(),
++                   amrex::ParallelDescriptor::Mpi_typemap<T>::type(), comm);
++    return all;
++#else
++    return local;
++#endif
++}
++
++inline void writeVector (std::string const& fname, std::vector<amrex::Real> const& v)
++{
++    std::ofstream ofs(fname, std::ios::binary);
++    const std::int64_t n = std::int64_t(v.size());
++    ofs.write(reinterpret_cast<const char*>(&n), sizeof(n));
++    ofs.write(reinterpret_cast<const char*>(v.data()), std::streamsize(n*sizeof(amrex::Real)));
++}
++
++//! Local rows (sorted by column) -> gathered CSR written by rank 0; returns global nnz
++inline std::int64_t writeCSR (std::string const& fname, std::vector<Row>& rows)
++{
++    std::vector<std::int64_t> cnt(rows.size()), col;
++    std::vector<amrex::Real> val;
++    for (std::size_t r = 0; r < rows.size(); ++r) {
++        auto& row = rows[r];
++        std::sort(row.begin(), row.end(),
++                  [] (auto const& a, auto const& b) { return a.first < b.first; });
++        cnt[r] = std::int64_t(row.size());
++        for (auto const& e : row) { col.push_back(e.first); val.push_back(e.second); }
++    }
++    auto const gcnt = gatherv(cnt);
++    auto const gcol = gatherv(col);
++    auto const gval = gatherv(val);
++    amrex::Long nnz = amrex::Long(col.size());
++    amrex::ParallelDescriptor::ReduceLongSum(nnz);
++    if (amrex::ParallelDescriptor::IOProcessor()) {
++        const std::int64_t n = std::int64_t(gcnt.size());
++        std::vector<std::int64_t> ptr(n+1, 0);
++        for (std::int64_t r = 0; r < n; ++r) { ptr[r+1] = ptr[r] + gcnt[r]; }
++        AMREX_ALWAYS_ASSERT(ptr[n] == nnz);
++        const std::int64_t nnz64 = nnz;
++        std::ofstream ofs(fname, std::ios::binary);
++        ofs.write(reinterpret_cast<const char*>(&n), sizeof(n));
++        ofs.write(reinterpret_cast<const char*>(&nnz64), sizeof(nnz64));
++        ofs.write(reinterpret_cast<const char*>(ptr.data()), std::streamsize((n+1)*sizeof(std::int64_t)));
++        ofs.write(reinterpret_cast<const char*>(gcol.data()), std::streamsize(nnz*sizeof(std::int64_t)));
++        ofs.write(reinterpret_cast<const char*>(gval.data()), std::streamsize(nnz*sizeof(amrex::Real)));
++    }
++    return nnz;
++}
++
++//! Local part of a solver vector (DOF order) to host
++template <class Vec>
++std::vector<amrex::Real> toHost (Vec const& v, amrex::Long nlocal)
++{
++    amrex::Gpu::DeviceVector<amrex::Real> d(nlocal);
++    v.copyTo(d.data());
++    std::vector<amrex::Real> h(nlocal);
++    amrex::Gpu::copy(amrex::Gpu::deviceToHost, d.begin(), d.end(), h.begin());
++    return h;
++}
++
++//! Host copy of one FAB over box bx
++template <class T>
++amrex::BaseFab<T> hostCopy (amrex::BaseFab<T> const& src, amrex::Box const& bx, int ncomp)
++{
++    amrex::BaseFab<T> h(bx, ncomp, amrex::The_Pinned_Arena());
++    h.template copy<amrex::RunOn::Device>(src, bx, 0, bx, 0, ncomp);
++    amrex::Gpu::streamSynchronize();
++    return h;
++}
++
++//! Fill a solver vector from a host function f(dir,i,j,k); zero at non-DOFs
++template <class Vec, class F>
++void fillVec (Vec& v, WarpXSolverDOF const& dofs, F const& f)
++{
++    v.zero();
++    auto const& mfs = v.getArrayVec()[0];
++    for (int d = 0; d < 3; ++d) {
++        amrex::MultiFab& mf = *mfs[d];
++        amrex::iMultiFab const& dmf = *dofs.m_array[0][d];
++        for (amrex::MFIter mfi(mf); mfi.isValid(); ++mfi) {
++            amrex::Box const bx = mfi.validbox();
++            auto hd = hostCopy<int>(dmf[mfi], bx, 1);
++            amrex::BaseFab<amrex::Real> hv(bx, 1, amrex::The_Pinned_Arena());
++            auto const da = hd.const_array();
++            auto const va = hv.array();
++            amrex::LoopOnCpu(bx, [&] (int i, int j, int k)
++            {
++                va(i,j,k) = (da(i,j,k) >= 0) ? f(d,i,j,k) : amrex::Real(0);
++            });
++            mf[mfi].template copy<amrex::RunOn::Device>(hv, bx, 0, bx, 0, 1);
++        }
++    }
++    amrex::Gpu::streamSynchronize();
++}
++
++/** Probe the Jacobian J (linear in dU) with colored unit vectors.
++ *  Color = (component nb, shift c in [0,P)^SPACEDIM) with P >= 2W+1 per
++ *  direction (and a divisor of the domain length in periodic directions).
++ *  A row at cell iv of component na sees exactly one column cell of each
++ *  color within [-W, W]^SPACEDIM. W must cover the Jacobian stencil.
++ *  Returns the local rows (local index) with global column indices.
++ */
++template <class Vec, class LinFunc>
++std::vector<Row> probeJacobian (LinFunc& jac, Vec& probe, Vec& result,
++                                WarpXSolverDOF const& dofs, amrex::Geometry const& geom,
++                                int W, amrex::Long& n_outside)
++{
++    using namespace amrex;
++    std::vector<Row> rows(dofs.m_nDoFs_l);
++    n_outside = 0;
++    auto const& pmfs = probe.getArrayVec()[0];
++    auto const& rmfs = result.getArrayVec()[0];
++
++    IntVect const dlen = geom.Domain().length();
++    IntVect P;
++    for (int sd = 0; sd < AMREX_SPACEDIM; ++sd) {
++        P[sd] = 2*W + 1;
++        if (geom.isPeriodic(sd)) {
++            while (P[sd] < dlen[sd] && dlen[sd] % P[sd] != 0) { ++P[sd]; }
++            P[sd] = std::min(P[sd], dlen[sd]);
++        }
++    }
++
++    // Global DOF index of each node with W ghost cells: periodic images and
++    // the duplicated nodal points carry the owner's index.
++    Array<std::unique_ptr<iMultiFab>,3> gdof;
++    for (int d = 0; d < 3; ++d) {
++        iMultiFab const& dm = *dofs.m_array[0][d];
++        gdof[d] = std::make_unique<iMultiFab>(dm.boxArray(), dm.DistributionMap(), 1, W);
++        gdof[d]->setVal(-1);
++        iMultiFab::Copy(*gdof[d], dm, 1, 0, 1, 0);
++        gdof[d]->OverrideSync(geom.periodicity());
++        gdof[d]->FillBoundary(geom.periodicity());
++    }
++
++    Box const cbox(IntVect(0), P - 1);
++    for (int nb = 0; nb < 3; ++nb) {
++        for (BoxIterator cit(cbox); cit.ok(); ++cit) {
++            IntVect const c = cit();
++            probe.zero();
++            {
++                MultiFab& pm = *pmfs[nb];
++                iMultiFab const& dm = *dofs.m_array[0][nb];
++                for (MFIter mfi(pm); mfi.isValid(); ++mfi) {
++                    Box const bx = mfi.validbox();
++                    auto const a = pm.array(mfi);
++                    auto const da = dm.const_array(mfi);
++                    ParallelFor(bx, [=] AMREX_GPU_DEVICE (int i, int j, int k)
++                    {
++                        IntVect const iv(AMREX_D_DECL(i,j,k));
++                        bool sel = (da(i,j,k,0) >= 0);
++                        for (int sd = 0; sd < AMREX_SPACEDIM; ++sd) {
++                            sel = sel && ((((iv[sd] - c[sd]) % P[sd]) + P[sd]) % P[sd] == 0);
++                        }
++                        if (sel) { a(i,j,k) = Real(1.0); }
++                    });
++                }
++                Gpu::streamSynchronize();
++            }
++            jac.apply(result, probe);
++            for (int na = 0; na < 3; ++na) {
++                MultiFab const& rm = *rmfs[na];
++                iMultiFab const& dma = *dofs.m_array[0][na];
++                iMultiFab const& dmb = *gdof[nb];
++                for (MFIter mfi(rm); mfi.isValid(); ++mfi) {
++                    Box const bx = mfi.validbox();
++                    auto hr = hostCopy<Real>(rm[mfi], bx, 1);
++                    auto ha = hostCopy<int>(dma[mfi], bx, 1);
++                    Box const gbx = dmb[mfi].box();
++                    auto hb = hostCopy<int>(dmb[mfi], gbx, 1);
++                    auto const r = hr.const_array();
++                    auto const a = ha.const_array();
++                    auto const b = hb.const_array();
++                    LoopOnCpu(bx, [&] (int i, int j, int k)
++                    {
++                        const int lrow = a(i,j,k);
++                        const Real v = r(i,j,k);
++                        if (lrow < 0 || v == Real(0)) { return; }
++                        IntVect const iv(AMREX_D_DECL(i,j,k));
++                        IntVect ivc;
++                        for (int sd = 0; sd < AMREX_SPACEDIM; ++sd) {
++                            const int lo = iv[sd] - W;
++                            ivc[sd] = lo + (((c[sd] - lo) % P[sd]) + P[sd]) % P[sd];
++                        }
++                        if (!gbx.contains(ivc)) { ++n_outside; return; }
++                        const int gcol = b(ivc);
++                        if (gcol < 0) { ++n_outside; return; }
++                        rows[lrow].emplace_back(gcol, v);
++                    });
++                }
++            }
++        }
++    }
++    return rows;
++}
++
++//! Local rows of a CSR times a global host vector
++inline std::vector<amrex::Real> spmv (std::vector<Row> const& rows, std::vector<amrex::Real> const& x)
++{
++    std::vector<amrex::Real> y(rows.size(), 0.0);
++    for (std::size_t r = 0; r < rows.size(); ++r) {
++        for (auto const& e : rows[r]) { y[r] += e.second * x[std::size_t(e.first)]; }
++    }
++    return y;
++}
++
++template <class Vec, class LinFunc>
++void dump (std::string const& dump_dir, int step, int iter, int probe_width,
++           Vec const& b, Vec const& x, Vec& work1, Vec& work2,
++           LinFunc& jac, bool use_pc, amrex::Geometry const& geom,
++           amrex::Real theta_dt, amrex::Real norm_abs, amrex::Real norm_rel,
++           int linsol_iters, amrex::Real linsol_rtol)
++{
++    using namespace amrex;
++    auto const& dofs = *Vec::getDOFsObject();
++    const Long nl = dofs.m_nDoFs_l;
++    const Long n = dofs.m_nDoFs_g;
++    const int rank = ParallelDescriptor::MyProc();
++    const Long row_lo = dofs.m_row_offsets[rank];
++
++    char sub[64];
++    std::snprintf(sub, sizeof(sub), "/step%04d_iter%02d", step, iter);
++    std::string const dir = dump_dir + sub;
++    if (ParallelDescriptor::IOProcessor()) { UtilCreateDirectory(dir, 0755); }
++    ParallelDescriptor::Barrier();
++
++    {
++        auto const gb = gatherv(toHost(b, nl));
++        auto const gx = gatherv(toHost(x, nl));
++        if (ParallelDescriptor::IOProcessor()) {
++            writeVector(dir + "/b.bin", gb);
++            writeVector(dir + "/x.bin", gx);
++        }
++    }
++
++    std::int64_t nnz_P = 0;
++    if (use_pc) {
++        Gpu::DeviceVector<int> ridx, nnz, cidx;
++        Gpu::DeviceVector<Real> aij;
++        int nn = 0, ncmax = 0;
++        jac.getPCMatrix(ridx, nnz, cidx, aij, nn, ncmax);
++        AMREX_ALWAYS_ASSERT(nn == nl);
++        std::vector<int> hr(nn), hn(nn), hc(std::size_t(nn)*ncmax);
++        std::vector<Real> ha(std::size_t(nn)*ncmax);
++        Gpu::copy(Gpu::deviceToHost, ridx.begin(), ridx.end(), hr.begin());
++        Gpu::copy(Gpu::deviceToHost, nnz.begin(), nnz.end(), hn.begin());
++        Gpu::copy(Gpu::deviceToHost, cidx.begin(), cidx.end(), hc.begin());
++        Gpu::copy(Gpu::deviceToHost, aij.begin(), aij.end(), ha.begin());
++        std::vector<Row> rows(nl);
++        for (int r = 0; r < nn; ++r) {
++            AMREX_ALWAYS_ASSERT(hr[r] == row_lo + r);
++            for (int k = 0; k < hn[r]; ++k) {
++                rows[r].emplace_back(hc[std::size_t(r)*ncmax+k], ha[std::size_t(r)*ncmax+k]);
++            }
++        }
++        nnz_P = writeCSR(dir + "/P.bin", rows);
++    }
++
++    Long n_outside = 0;
++    auto rows = probeJacobian(jac, work1, work2, dofs, geom, probe_width, n_outside);
++    ParallelDescriptor::ReduceLongSum(n_outside);
++
++    // self-check: J v vs A v for a smooth non-trivial v
++    auto smooth = [] (int d, int i, int j, int k) {
++        return Real(1.0) + Real(0.5)*std::sin(Real(0.37)*i + Real(0.61)*j + Real(0.83)*k + Real(d));
++    };
++    fillVec(work1, dofs, smooth);
++    jac.apply(work2, work1);
++    auto const hv = allgatherv(toHost(work1, nl));
++    auto const hJv = toHost(work2, nl);
++    auto const hAv = spmv(rows, hv);
++    Real err = 0, ref = 0;
++    for (Long r = 0; r < nl; ++r) {
++        err = std::max(err, std::abs(hJv[r]-hAv[r]));
++        ref = std::max(ref, std::abs(hJv[r]));
++    }
++    ParallelDescriptor::ReduceRealMax(err);
++    ParallelDescriptor::ReduceRealMax(ref);
++    const Real check = err/ref;
++
++    // linearity check: J(v) vs J(v_even) + J(v_odd)
++    Real lin = 0;
++    {
++        std::vector<Real> hsum(nl, 0.0);
++        for (int parity = 0; parity < 2; ++parity) {
++            fillVec(work1, dofs, [parity, &smooth] (int d, int i, int j, int k) {
++                return ((i & 1) == parity) ? smooth(d,i,j,k) : Real(0);
++            });
++            jac.apply(work2, work1);
++            auto const h = toHost(work2, nl);
++            for (Long r = 0; r < nl; ++r) { hsum[r] += h[r]; }
++        }
++        for (Long r = 0; r < nl; ++r) { lin = std::max(lin, std::abs(hsum[r]-hJv[r])); }
++        ParallelDescriptor::ReduceRealMax(lin);
++        lin /= ref;
++    }
++
++    const std::int64_t nnz_A = writeCSR(dir + "/A.bin", rows);
++
++    if (ParallelDescriptor::IOProcessor()) {
++        std::ofstream ofs(dir + "/info.txt");
++        ofs.precision(17);
++        ofs << "step " << step << "\n"
++            << "iter " << iter << "\n"
++            << "n " << n << "\n"
++            << "nnz_A " << nnz_A << "\n"
++            << "nnz_P " << nnz_P << "\n"
++            << "theta_dt " << theta_dt << "\n"
++            << "newton_norm_abs " << norm_abs << "\n"
++            << "newton_norm_rel " << norm_rel << "\n"
++            << "linsol_iters " << linsol_iters << "\n"
++            << "linsol_rtol " << linsol_rtol << "\n"
++            << "probe_width " << probe_width << "\n"
++            << "probe_entries_outside " << n_outside << "\n"
++            << "probe_check " << check << "\n"
++            << "linearity_check " << lin << "\n"
++            << "nprocs " << ParallelDescriptor::NProcs() << "\n"
++            << "row_offsets";
++        for (auto o : dofs.m_row_offsets) { ofs << " " << o; }
++        ofs << "\n";
++    }
++    Print() << "Newton dump: " << dir << " n = " << n << " nnz_A = " << nnz_A
++            << " nnz_P = " << nnz_P << " |Jv - Av|/|Jv| = " << check
++            << " linearity = " << lin
++            << (n_outside > 0 ? " (entries outside the DOF map: " + std::to_string(n_outside) + ")" : "")
++            << "\n";
++}
++
++}
++
++#endif

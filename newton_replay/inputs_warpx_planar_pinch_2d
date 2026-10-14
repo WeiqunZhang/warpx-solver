@@ -1,0 +1,175 @@
+#################################
+########## CONSTANTS ############
+#################################
+
+###   characteristic plasma values
+my_constants.n0 = 1.e23    # plasma density [1/m^3]
+my_constants.T0 = 1.0      # plasma temperature [eV]
+my_constants.R0 = 1.5e-2   # plasma radius [m]
+my_constants.I0 = 200.e3   # pinch current [Amps]
+
+my_constants.AD = 2.01410  # atomic number deuterium
+my_constants.mD = AD*m_u - m_e   # deuterium mass [kg]
+
+###   derived characteristic pinch values
+my_constants.B0 = mu0*I0/(2*pi*R0)  # B at r=R0 [Tesla]
+my_constants.PB0 = B0^2/(2.0*mu0)   # B pressure at r=R0
+my_constants.rho0 = AD*m_u*n0       # mass density [kg/m^3]
+my_constants.u0 = sqrt(PB0/rho0)    # implosion speed [m/s]
+my_constants.t0 = R0/u0             # implosion time [m/s]
+
+###   simulation parameters
+#my_constants.wpe0 = q_e*sqrt(n0/(m_e*epsilon0))
+#my_constants.de0 = clight/wpe0
+my_constants.tsim = 220.e-9  # sim time = 1.35*t0 [s]
+my_constants.rise_time = t0/20.0  # current rise time [s]
+my_constants.dt = 2.0e-3*1.0e-9   # time step [s]
+my_constants.Nppc_x = 20      # particles per cell
+my_constants.Nppc_z = 20      # particles per cell
+
+#################################
+####### GENERAL PARAMETERS ######
+#################################
+stop_time = tsim
+max_step = 2200000
+amr.n_cell =  256 32
+#amr.max_grid_size_x = 256
+#amr.max_grid_size_y = 8
+#amr.blocking_factor = 32
+amr.max_level = 0
+# warpx.numprocs = 1 4
+geometry.dims = 2
+geometry.prob_lo = 0.0 0.0
+geometry.prob_hi = 1.60e-2 1.60e-2*32/256
+
+#amr.restart = "./diags/checkpoint024177/"
+
+#################################
+####### Boundary condition ######
+#################################
+boundary.field_lo = pmc periodic
+boundary.field_hi = pec_insulator periodic
+boundary.particle_lo = reflecting periodic
+boundary.particle_hi = absorbing periodic
+
+insulator.area_x_hi(y,z) = (-1.0 <= z and z <= 1.0)
+insulator.By_x_hi(y,z,t) = min(t/rise_time,1)*B0
+
+#################################
+############ NUMERICS ###########
+#################################
+warpx.verbose = 1
+warpx.limit_verbose_step = true
+#warpx.const_dt = dt
+warpx.max_dt = dt
+warpx.cfl = 1.2
+warpx.dt_update_interval = 10
+warpx.dt_update_write_interval = 100
+warpx.dt_update_diagnostic_file = "diags/reduced_files/dt_updates.txt"
+warpx.max_omegap_dt = 200.0
+warpx.max_omegac_dt = 4.0
+warpx.use_filter = 0
+
+algo.load_balance_intervals = 0
+warpx.serialize_initial_conditions = 1
+warpx.sort_particles_for_deposition = 1
+warpx.sort_intervals = 10
+warpx.do_device_synchronize = 0
+
+algo.maxwell_solver = Yee
+algo.evolve_scheme = "theta_implicit_em"
+#algo.evolve_scheme = "semi_implicit_em"
+
+implicit_evolve.theta = 0.5
+implicit_evolve.max_particle_iterations = 11
+implicit_evolve.particle_tolerance = 1.0e-8
+implicit_evolve.particle_suborbits = true
+
+implicit_evolve.nonlinear_solver = newton
+newton.linear_solver = amrex_gmres
+newton.verbose = true
+newton.max_iterations = 10
+newton.relative_tolerance = 1.0e-6
+newton.absolute_tolerance = 0.0
+newton.require_convergence = false
+newton.diagnostic_file = "diags/reduced_files/newton_solver.txt"
+newton.diagnostic_interval = 1
+newton.pc_update_newton_interval = 0
+newton.pc_update_time_step_interval = 5
+
+gmres.verbose_int = 2
+#gmres.restart_length = 4
+gmres.max_iterations = 1000
+gmres.relative_tolerance = 1.0e-3
+gmres.absolute_tolerance = 0.0
+
+implicit_evolve.use_mass_matrices_jacobian = true
+implicit_evolve.skip_particle_picard_init = true
+implicit_evolve.use_mass_matrices_pc = true
+implicit_evolve.mass_matrices_pc_width = 1
+jacobian.pc_type = pc_algmg
+pc_algmg.algmg_verbose = 1
+# jacobian.pc_type = pc_petsc
+pc_petsc.verbose = true
+pc_petsc.type = asm
+pc_petsc.asm_overlap = 4
+pc_petsc.sub_type = lu
+
+#algo.particle_pusher = "boris"
+algo.particle_pusher = "higuera"
+
+particles.crop_on_PEC_boundary = true
+particles.max_grid_crossings = 2
+algo.particle_shape = 2
+algo.current_deposition = "villasenor"
+
+#################################
+############ PLASMA #############
+#################################
+particles.species_names = electrons deuterium
+
+electrons.charge = -q_e
+electrons.mass = m_e
+electrons.injection_style = "NUniformPerCell"
+electrons.num_particles_per_cell_each_dim = Nppc_x Nppc_z
+electrons.profile = constant
+electrons.density = n0
+electrons.xmax = R0
+electrons.momentum_distribution_type = "gaussian"
+electrons.ux_th = sqrt(T0*q_e/m_e)/clight
+electrons.uy_th = sqrt(T0*q_e/m_e)/clight
+electrons.uz_th = sqrt(T0*q_e/m_e)/clight
+
+deuterium.charge = q_e
+deuterium.mass = mD
+deuterium.injection_style = "NUniformPerCell"
+deuterium.num_particles_per_cell_each_dim = Nppc_x Nppc_z
+deuterium.profile = constant
+deuterium.density = n0
+deuterium.xmax = R0
+deuterium.momentum_distribution_type = "gaussian"
+deuterium.ux_th = sqrt(T0*q_e/mD)/clight
+deuterium.uy_th = sqrt(T0*q_e/mD)/clight
+deuterium.uz_th = sqrt(T0*q_e/mD)/clight
+
+###   Diagnostics
+
+#################################
+############ COLLISION ##########
+#################################
+collisions.collision_names = collision1 collision2 collision3
+
+collision1.species = electrons electrons
+collision2.species = deuterium deuterium
+collision3.species = electrons deuterium
+collision1.CoulombLog = 10.0
+collision2.CoulombLog = 10.0
+collision3.CoulombLog = 10.0
+
+# standalone dump run (CPU, serial)
+max_step = 10
+warpx.sort_particles_for_deposition = 0
+pc_algmg.algmg_verbose = 0
+newton.dump_linear_systems = 1
+newton.dump_dir = linsys
+newton.dump_probe_width = 4

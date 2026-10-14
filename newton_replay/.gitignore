@@ -1,0 +1,4 @@
+linsys*/
+tmp_build_dir/
+*.ex
+Backtrace.*
