@@ -20,9 +20,15 @@ algmg.smoother = chebyshev
 algmg.chebyshev_degree = 8
 algmg.chebyshev_ratio = 50
 algmg.strong_threshold = 0.25
-algmg.max_levels = 25
 # algmg.agg_levels = 0
 # algmg.verbose = 0
+
+# Coarsening-depth sweep (pc = algmg*): with algmg.max_levels unset, every
+# system is solved at its full depth L and then with max_levels = 1 .. L-1;
+# a table per depth and a summary of the totals are printed. A list runs
+# exactly those depths; sweep_levels = 0 runs only AlgMG's default (25).
+sweep_levels = 1
+# algmg.max_levels = 2 3 4
 
 # pc = petsc: ASM + LU as in run-justin (pc_petsc.type = asm, sub_type = lu).
 # Raw PETSc options: petsc.options = "-ksp_monitor"

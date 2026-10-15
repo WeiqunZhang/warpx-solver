@@ -58,5 +58,21 @@ needed; the default PETSc is `$HOME/opt/petsc`.
 
 The output table lists, per system, WarpX's GMRES iterations and the replayed
 ones, AlgMG setup and GMRES solve time, the true relative residual of both
-solutions, the relative difference of the solutions, and the AlgMG level count
-and operator complexity.
+solutions, the relative difference of the solutions, the AlgMG level count
+and operator complexity, the rows of the coarsest level and whether that is
+within the 1024-row limit of AlgMG's LU bottom solver (`LU` column).
+
+## 3. Coarsening-depth sweep
+
+By default (`sweep_levels = 1`, `algmg.max_levels` unset) every system is
+solved at AlgMG's full depth L and then with `max_levels = 1, ..., L-1`, so
+one run compares stopping the coarsening early, with the LU bottom solve on
+the CPU taking over at the coarsest level, against the default hierarchy.
+A table is printed per depth, followed by a summary of the totals
+(iterations, setup, solve, level and coarsest-size range, LU use). A system
+whose full depth is below a table's `max_levels` contributes its full-depth
+result there, which is what that `max_levels` gives for it. With
+`max_levels = 1` the preconditioner is smoother sweeps on the fine level.
+`algmg.max_levels = 2 3 4` runs exactly those depths; `sweep_levels = 0`
+runs only the default. Timers synchronize the GPU, so the setup and solve
+columns are wall-clock on GPU builds too.
